@@ -63,52 +63,52 @@ require __DIR__ . '/auth.php';
 Route::get('/my-dashboard', function () {
 
     if (Auth::user()->type === 'manager') {
-        return view('manager-dashboard');
+        return view('Views-manager/manager-dashboard');
     } elseif (Auth::user()->type === 'teleoperateur') {
-        return response()->view('teleoperateur-dashboard');
+        return response()->view('Views-teleoperateur/teleoperateur-dashboard');
     } elseif (Auth::user()->type === 'commercial') {
-        return response()->view('commercial-dashboard');
+        return response()->view('Views-commercial/commercial-dashboard');
     } else return redirect('404');
 })->middleware(['auth'])->name('my-dashboard');
 
 Route::get('/equipe', function () {
 
     if (Auth::user()->type === 'manager') {
-        return response()->view('manager-equipe');
+        return response()->view('Views-manager/manager-equipe');
     } elseif (Auth::user()->type === 'teleoperateur') {
-        return response()->view('teleoperateur-equipe');
+        return response()->view('Views-teleoperateur/teleoperateur-equipe');
     } elseif (Auth::user()->type === 'commercial') {
-        return response()->view('commercial-equipe');
+        return response()->view('Views-commercial/commercial-equipe');
     } else return redirect('404');
 })->middleware(['auth'])->name('equipe');
 
 Route::get('/clients', function () {
 
     if (Auth::user()->type === 'manager') {
-        return response()->view('manager-clients');
+        return response()->view('Views-manager/manager-clients');
     } elseif (Auth::user()->type === 'teleoperateur') {
-        return response()->view('teleoperateur-clients');
+        return response()->view('Views-teleoperateur/teleoperateur-clients');
     } else return redirect('404');
 })->middleware(['auth'])->name('clients');
 
 
 Route::get('/historique', function () {
     if (Auth::user()->type === 'teleoperateur') {
-        return response()->view('teleoperateur-historique');
+        return response()->view('Views-teleoperateur/teleoperateur-historique');
     } elseif (Auth::user()->type === 'commercial') {
-        return response()->view('commercial-historique');
+        return response()->view('Views-commercial/commercial-historique');
     } else return redirect('404');
 })->middleware(['auth'])->name('historique');
 
 
 Route::get('/scripts', function () {
     if (Auth::user()->type === 'manager') {
-        return response()->view('manager-scripts');
+        return response()->view('Views-manager/manager-scripts');
     } else return redirect('404');
 })->middleware(['auth'])->name('scripts');
 
 Route::get('/rendezvous', function () {
     if (Auth::user()->type === 'commercial') {
-        return response()->view('commercial-rendezvous');
+        return response()->view('Views-commercial/commercial-rendezvous');
     } else return redirect('404');
 })->middleware(['auth'])->name('rendezvous');

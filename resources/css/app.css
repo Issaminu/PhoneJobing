@@ -3,3 +3,52 @@
 @import 'tailwindcss/utilities';
 @import './clients.css';
 @import url("https://fonts.googleapis.com/css?family=Nunito:600");
+/* @import './volt.css'; */
+
+/* html {
+    margin-left: 1rem;
+    margin-right: 1rem;
+} */
+#mainBody {
+    margin-left: 10rem;
+    margin-right: 10rem;
+}
+
+#navigation {
+    font-family: "Nunito", "sans-serif";
+    font-size: large;
+    /* font-weight: 200; */
+}
+
+#AccTypeTeleButton {
+    padding-top: 9px;
+    padding-bottom: 9px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .07);
+
+}
+
+#AccTypeCommButton {
+    padding-top: 9px;
+    padding-bottom: 9px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .07);
+}
+
+#accTypeSelector {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .07);
+    border-radius: .5rem;
+}
+
+#teamSearch {
+    border-color: #d1d5db;
+    border-radius: .5rem;
+    border-bottom-left-radius: 0rem;
+    border-top-left-radius: 0rem;
+    /* padding-top: 10px; */
+    height: 100%;
+}
+
+#teamSearch:focus {
+    /* border-color: #19212c; */
+
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .15), 0 1px 1px rgba(17, 24, 39, .075), 0 0 0 .18rem rgba(65, 73, 85, .5);
+}
