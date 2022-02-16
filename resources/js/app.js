@@ -5,6 +5,8 @@
  */
 
 require('./bootstrap');
+
+require('./AccountTypeSelection');
 // import ReactDOM from "react-dom";
 // import React from "react";
 // import Example from "./components/Example";
@@ -21,7 +23,6 @@ require('./bootstrap');
  */
 
 // require('./components/Example');
-
 
 
 

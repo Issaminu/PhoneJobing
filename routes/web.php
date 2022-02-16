@@ -1,10 +1,11 @@
 <?php
 
+
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ManagerController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -54,7 +55,7 @@ Route::get('/react', function () {
 });
 
 
-Route::get('/dashboard', function () {    //THIS WILL GET REMOVED
+Route::get('/dashboard', function () {    //THIS ROUTE WILL GET REMOVED
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
@@ -71,7 +72,7 @@ Route::get('/my-dashboard', function () {
     } else return redirect('404');
 })->middleware(['auth'])->name('my-dashboard');
 
-Route::get('/equipe', function () {
+/*Route::get('/equipe', function () {
 
     if (Auth::user()->type === 'manager') {
         return response()->view('Views-manager/manager-equipe');
@@ -80,7 +81,8 @@ Route::get('/equipe', function () {
     } elseif (Auth::user()->type === 'commercial') {
         return response()->view('Views-commercial/commercial-equipe');
     } else return redirect('404');
-})->middleware(['auth'])->name('equipe');
+})->middleware(['auth'])->name('equipe');*/
+Route::get('/equipe', [ManagerController::class, 'listTeamMembers'])->middleware(['auth'])->name('equipe');
 
 Route::get('/clients', function () {
 
@@ -112,3 +114,13 @@ Route::get('/rendezvous', function () {
         return response()->view('Views-commercial/commercial-rendezvous');
     } else return redirect('404');
 })->middleware(['auth'])->name('rendezvous');
+
+Route::get('/equipe/ajout-membre', function () {
+    if (Auth::user()->type === 'manager') {
+        return response()->view('Views-manager/manager-add-member');
+    } else return redirect('404');
+})->middleware(['auth'])->name('/equipe/ajout-membre');
+
+Route::post('/equipe/ajout-membre', [ManagerController::class, 'storeNewMember'])->middleware(['auth'])->name('/equipe/ajout-membre');
+
+Route::get('/test', [ManagerController::class, 'listTeamMembers']);

@@ -25,6 +25,4 @@
     @include('layouts.Equipe.team-header')
     @include('layouts.Equipe.team-table')
 
-</body>
-
 </html>

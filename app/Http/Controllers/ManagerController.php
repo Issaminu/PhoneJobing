@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -12,19 +12,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use \Illuminate\Http\RedirectResponse;
 
-class RegisteredUserController extends Controller
+class ManagerController extends Controller
 {
     /**
      * Display the registration view.
      *
      * @return \Illuminate\View\View
      */
-    public function create()
-    {
-        return view('auth.register');
-    }
-
     /**
      * Handle an incoming registration request.
      *
@@ -33,32 +29,27 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request)
+    public function storeNewMember(Request $request)
     {
-        // $lastid = Model::latest()->first() + 1;
         $attributes = $request->validate([
             'name' => ['required', 'string', 'max:200'],
             'email' => ['required', 'string', 'email', 'max:200', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
-        // if (!array_key_exists('teamid', $attributes)) {
-        //     $attributes["teamid"] = $lastid;
-        // }
-        // $request["teamid"] = $attributes["teamid"];
-
-        $user = User::create([
+        $newMember = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'type' => "manager",
-            'teamid' => DB::table('users')->latest()->first()->id + 1, //THIS IS TO GET "TEAMID" TO BE EQUIVALENT WITH THE "ID" OF THE NEW MANAGER AND WHOLE TEAM
+            'type' => $request->accountTypeChoice,
+            'teamid' => Auth::user()->teamid, //THIS IS TO GET "TEAMID" OF THE NEW MEMBER OF THE TEAM TO BE EQUIVALENT WITH THE "TEAMID" OF THE MANAGER
         ]);
-
-
-        event(new Registered($user));
-
-        Auth::login($user);
-
-        return redirect(RouteServiceProvider::HOME);
+        event(new Registered($newMember));
+        return redirect('/equipe');
+    }
+    public function listTeamMembers(Request $request)
+    {
+        $users = User::where('type', '!=', 'manager')->where('teamid', '=', Auth::user()->teamid)->get(['name', 'email', 'type']);
+        // dd($users);
+        return view('Views-manager/manager-equipe', compact('users'));
     }
 }

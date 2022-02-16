@@ -2156,6 +2156,32 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./resources/js/AccountTypeSelection.js":
+/*!**********************************************!*\
+  !*** ./resources/js/AccountTypeSelection.js ***!
+  \**********************************************/
+/***/ (() => {
+
+document.getElementById('AccTypeTeleButton').onclick = function () {
+  radiobtn = document.getElementById("TeleRadio");
+  radiobtn.checked = true;
+  document.getElementById("AccTypeTeleButton").style.backgroundColor = "#1f2937";
+  document.getElementById("AccTypeTeleButton").style.color = "#FFFF";
+  document.getElementById("AccTypeCommButton").style.backgroundColor = "#FFFF";
+  document.getElementById("AccTypeCommButton").style.color = "#4b5563";
+};
+
+document.getElementById('AccTypeCommButton').onclick = function () {
+  radiobtn = document.getElementById("CommRadio");
+  radiobtn.checked = true;
+  document.getElementById("AccTypeCommButton").style.backgroundColor = "#1f2937";
+  document.getElementById("AccTypeCommButton").style.color = "#FFFF";
+  document.getElementById("AccTypeTeleButton").style.backgroundColor = "#FFFF";
+  document.getElementById("AccTypeTeleButton").style.color = "#4b5563";
+};
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -2167,7 +2193,9 @@ module.exports = {
  * includes React and other helpers. It's a great starting point while
  * building robust, powerful web applications using React + Laravel.
  */
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // import ReactDOM from "react-dom";
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+
+__webpack_require__(/*! ./AccountTypeSelection */ "./resources/js/AccountTypeSelection.js"); // import ReactDOM from "react-dom";
 // import React from "react";
 // import Example from "./components/Example";
 // import Test from "./components/Test";
