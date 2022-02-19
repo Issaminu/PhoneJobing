@@ -18,7 +18,7 @@
 
                 @if (Auth::user()->type === 'manager')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link :href="route('my-dashboard')" :active="request()->routeIs('my-dashboard')">
+                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                             {{ __('Tableau de bord') }}
                         </x-nav-link>
                         <x-nav-link :href="route('equipe')" :active="request()->routeIs('equipe')">
@@ -36,7 +36,7 @@
                 @elseif (Auth::user()->type === 'teleoperateur')
 
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link :href="route('my-dashboard')" :active="request()->routeIs('my-dashboard')">
+                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                             {{ __('Accueil') }}
                         </x-nav-link>
                         <x-nav-link :href="route('equipe')" :active="request()->routeIs('equipe')">
@@ -54,7 +54,7 @@
                 @elseif (Auth::user()->type === 'commercial')
 
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link :href="route('my-dashboard')" :active="request()->routeIs('my-dashboard')">
+                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                             {{ __('Accueil') }}
                         </x-nav-link>
                         <x-nav-link :href="route('equipe')" :active="request()->routeIs('equipe')">

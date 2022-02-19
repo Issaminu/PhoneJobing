@@ -523,10 +523,6 @@ Axios.prototype.request = function request(configOrUrl, config) {
     config = configOrUrl || {};
   }
 
-  if (!config.url) {
-    throw new Error('Provided config url is not valid');
-  }
-
   config = mergeConfig(this.defaults, config);
 
   // Set config.method
@@ -609,9 +605,6 @@ Axios.prototype.request = function request(configOrUrl, config) {
 };
 
 Axios.prototype.getUri = function getUri(config) {
-  if (!config.url) {
-    throw new Error('Provided config url is not valid');
-  }
   config = mergeConfig(this.defaults, config);
   return buildURL(config.url, config.params, config.paramsSerializer).replace(/^\?/, '');
 };
@@ -1253,7 +1246,7 @@ module.exports = defaults;
 /***/ ((module) => {
 
 module.exports = {
-  "version": "0.25.0"
+  "version": "0.26.0"
 };
 
 /***/ }),
@@ -2195,7 +2188,10 @@ document.getElementById('AccTypeCommButton').onclick = function () {
  */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-__webpack_require__(/*! ./AccountTypeSelection */ "./resources/js/AccountTypeSelection.js"); // import ReactDOM from "react-dom";
+__webpack_require__(/*! ./AccountTypeSelection */ "./resources/js/AccountTypeSelection.js"); //For /equipe/ajout-membre
+//  require('./searchTeamTable');
+//  require('./FilterByAccountType');  // for /equipe Filter team table by account type
+// import ReactDOM from "react-dom";
 // import React from "react";
 // import Example from "./components/Example";
 // import Test from "./components/Test";

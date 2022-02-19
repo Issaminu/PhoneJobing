@@ -35,6 +35,21 @@
     width: 12.5rem;
     border-color: #d1d5db;
 }
+#FilterByTeleButton {
+    padding-top: 9px;
+    padding-bottom: 9px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .07);
+    width: 12.5rem;
+    border-color: #d1d5db
+}
+
+#FilterByCommButton {
+    padding-top: 9px;
+    padding-bottom: 9px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .07);
+    width: 12.5rem;
+    border-color: #d1d5db;
+}
 
 /* #AccTypeTeleButton:hover {
     background-color: #374151;
@@ -53,21 +68,37 @@
 
 }
 
+.search-bar {
+    background: rgb(225, 222, 237);
+    border-radius: 2rem;
+    padding: 0.6rem 1rem;
+}
+
+.search-bar input[type="search"] {
+    background: transparent;
+    width: 30vw;
+    color: rgb(36, 30, 56);
+}
+
+.search-bar input[type="search"]:placeholder {
+    color: rgb(158, 152, 179);
+}
 
 #teamSearch {
     border-color: #d1d5db;
     border-radius: .5rem;
-    border-bottom-left-radius: 0rem;
-    border-top-left-radius: 0rem;
+    /* border-bottom-right-radius: 0rem; */
+    /* border-top-right-radius: 0rem; */
+    /* border-right: 0rem; */
+
     /* padding-top: 10px; */
     height: 100%;
 }
 
-#teamSearch:focus {
-    /* border-color: #19212c; */
-
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .15), 0 1px 1px rgba(17, 24, 39, .075), 0 0 0 .18rem rgba(65, 73, 85, .5);
-}
+/* #teamSearch:focus {
+    border-color: #19212c; 
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .15), 0 1px 1px rgba(17, 24, 39, .075), 0 0 0 .18rem rgba(65, 73, 85, .5); 
+} */
 
 #AccTypeRadio {
     visibility: hidden !important;

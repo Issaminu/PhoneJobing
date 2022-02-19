@@ -16,14 +16,35 @@
             </ol>
         </nav>
         <h2 class="h4">Votre Équipe</h2>
-        <p class="mb-0">Vous avez 23 téléoperateurs et 15 commerciaux.</p>
+        <p class="mb-0">
+            @if (Auth::user()->type === 'manager')
+                @if ($TeleCount == 0)
+                Vous n'avez aucun téléoperateur @elseif($TeleCount == 1)Vous avez un seul
+                téléoperateur @else Vous avez {{ $TeleCount }} téléoperateurs
+                    @endif et @if ($CommCount == 0)
+                    aucun commercial. @elseif($CommCount == 1) un seul
+                    commercial. @else {{ $CommCount }} commerciaux.
+                    @endif
+                @else
+                    @if ($TeleCount == 0)
+                    Votre équipe contient aucun téléoperateur @elseif($TeleCount == 1)Votre équipe
+                    contient un seul téléoperateur @else Votre équipe contient {{ $TeleCount }} téléoperateurs
+                        @endif et @if ($CommCount == 0)
+                        aucun commercial. @elseif($CommCount == 1) un seul
+                        commercial. @else {{ $CommCount }} commerciaux.
+                        @endif
+                    @endif
+        </p>
     </div>
-    <div class="btn-toolbar mb-2 mb-md-0"><a href="/equipe/ajout-membre"
-            class="btn btn-sm btn-gray-800 d-inline-flex align-items-center"><svg class="icon icon-xs me-2" fill="none"
-                stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6">
-                </path>
-            </svg> Ajouter un employé</a>
+    @if (Auth::user()->type === 'manager')
+        <div id="ajoutEmploye" class="btn-toolbar mt-2"><a href="/equipe/ajout-membre"
+                class="btn btn-sm btn-gray-800 d-inline-flex align-items-center"><svg class="icon icon-xs me-2"
+                    fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 6v6m0 0v6m0-6h6m-6 0H6">
+                    </path>
+                </svg> Ajouter un employé</a>
 
-    </div>
+        </div>
+    @endif
 </div>

@@ -44,6 +44,7 @@ use App\Http\Controllers\ManagerController;
 
 // Route::post('/logout', [SessionsController::class, 'destroy']);
 
+require __DIR__ . '/auth.php';
 
 
 
@@ -55,14 +56,7 @@ Route::get('/react', function () {
 });
 
 
-Route::get('/dashboard', function () {    //THIS ROUTE WILL GET REMOVED
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
-require __DIR__ . '/auth.php';
-
-Route::get('/my-dashboard', function () {
-
+Route::get('/dashboard', function () {
     if (Auth::user()->type === 'manager') {
         return view('Views-manager/manager-dashboard');
     } elseif (Auth::user()->type === 'teleoperateur') {
@@ -70,18 +64,13 @@ Route::get('/my-dashboard', function () {
     } elseif (Auth::user()->type === 'commercial') {
         return response()->view('Views-commercial/commercial-dashboard');
     } else return redirect('404');
-})->middleware(['auth'])->name('my-dashboard');
+})->middleware(['auth'])->name('dashboard');
 
-/*Route::get('/equipe', function () {
 
-    if (Auth::user()->type === 'manager') {
-        return response()->view('Views-manager/manager-equipe');
-    } elseif (Auth::user()->type === 'teleoperateur') {
-        return response()->view('Views-teleoperateur/teleoperateur-equipe');
-    } elseif (Auth::user()->type === 'commercial') {
-        return response()->view('Views-commercial/commercial-equipe');
-    } else return redirect('404');
-})->middleware(['auth'])->name('equipe');*/
+Route::get('/my-dashboard', function () { //THIS ROUTE IS FORMALLY REPLACED BY "/dashboard", NOW IT JUST REDIRECTS TO "/dashboard" BUT IT NEEDS TO REMAIN AS A ROUTE FOR BACKWARDS COMPATIBILITY OF SOME OF MY VIEWS
+    return redirect('/dashboard');
+})->name('my-dashboard');
+
 Route::get('/equipe', [ManagerController::class, 'listTeamMembers'])->middleware(['auth'])->name('equipe');
 
 Route::get('/clients', function () {
@@ -123,4 +112,7 @@ Route::get('/equipe/ajout-membre', function () {
 
 Route::post('/equipe/ajout-membre', [ManagerController::class, 'storeNewMember'])->middleware(['auth'])->name('/equipe/ajout-membre');
 
-Route::get('/test', [ManagerController::class, 'listTeamMembers']);
+// Route::get('/test', [ManagerController::class, 'listTeamMembers']);
+Route::get('/test', function () {
+    return view('Views-manager/test');
+});

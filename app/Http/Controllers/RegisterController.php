@@ -45,6 +45,6 @@ class RegisterController extends Controller
 
 
 
-        return redirect('/manager-dashboard');
+        return redirect('/dashboard');
     }
 }

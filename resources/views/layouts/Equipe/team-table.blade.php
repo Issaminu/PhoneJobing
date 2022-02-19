@@ -1,23 +1,23 @@
 <div id="mainBody">
+
     <div id="searchAndAccountType">
         <div class="btn-toolbar mb-2 mb-md-0">
-            <div id="accTypeSelector" class="btn-group ms-2 ms-lg-3"><button id="AccTypeTeleButton" type="button"
-                    class="btn btn-sm btn-outline-gray-600 ml-">Teleoperateurs</button>
-                <button id="AccTypeCommButton" type="button" class="btn btn-sm btn-outline-gray-600">Commerciaux</button>
+            <div id="accTypeSelector" class="btn-group ms-2 ms-lg-3"><button id="FilterByTeleButton" type="button"
+                    class="btn btn-sm btn-outline-gray-600 ml-">Téléoperateurs</button>
+                <button id="FilterByCommButton" type="button"
+                    class="btn btn-sm btn-outline-gray-600">Commerciaux</button>
             </div>
         </div>
-        <div class="input-group me-2 me-lg-3 fmxw-300 "><span class="input-group-text"><svg class="icon icon-xs"
-                    x-description="Heroicon name: solid/search" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                    fill="currentColor" aria-hidden="true">
-                    <path fill-rule="evenodd"
-                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                        clip-rule="evenodd"></path>
-                </svg> </span><input style="width:14rem" id="teamSearch" type="text" class="form-control"
-                placeholder="Search">
+        <div class="input-group fmxw-300 ">
+            <input style="width:14rem" id="teamSearch" type="text" class="form-control" placeholder="Chercher">
+            {{-- <span class="input-group-text border-l-0"> </span> --}}
+
+
+
         </div>
 
     </div>
-    <br>
+    <br style="user-select: none;">
     <div class="card card-body shadow border-0 table-wrapper table-responsive">
         {{-- <div class="d-flex mb-3"><select class="form-select fmxw-200" aria-label="Message select example">
             <option selected="selected">Bulk Action</option>
@@ -25,13 +25,13 @@
             <option value="2">Change Group</option>
             <option value="3">Delete User</option>
         </select> <button class="btn btn-sm px-3 btn-secondary ms-3">Apply</button></div> --}}
-        <table class="table user-table table-hover align-items-center">
+        <table class="table user-table table-hover align-items-center" id="teamTable">
             <thead>
                 <tr>
-                    <th class="border-bottom">
+                    {{-- <th class="border-bottom">
                         <div class="form-check dashboard-check"><input class="form-check-input" type="checkbox" value=""
                                 id="userCheck55"> <label class="form-check-label" for="userCheck55"></label></div>
-                    </th>
+                    </th> --}}
                     <th class="border-bottom">Nom</th>
                     <th class="border-bottom">Classement</th>
                     <th class="border-bottom">Email</th>
@@ -44,14 +44,14 @@
                 @foreach ($users as $user)
                     <?php $i++; ?>
                     <tr>
-                        <td>
+                        {{-- <td>
                             <div class="form-check dashboard-check"><input class="form-check-input" type="checkbox"
                                     value="" id="userCheck1"> <label class="form-check-label" for="userCheck1"></label>
                             </div>
-                        </td>
+                        </td> --}}
                         <td><a href="users.html#" class="d-flex align-items-center">
                                 {{-- <img src="../assets/img/team/profile-picture-1.jpg" class="avatar rounded-circle me-3"
-                            alt="Avatar"> --}}
+                        alt="Avatar"> --}}
                                 <div class="d-block"><span
                                         class="fw-bold">{{ ucwords($user->name) }}</span>
                                     <div class="small text-gray"><span class="__cf_email__"
@@ -59,7 +59,8 @@
                                     </div>
                                 </div>
                             </a></td>
-                        <td><span class="fw-normal">#{{ $i }}</span></td>
+                        <td><span class="fw-normal">{{ $i }}</span>
+                        </td>
                         <td><span class="fw-normal d-flex align-items-center"><svg
                                     class="icon icon-xxs text-success me-1" fill="currentColor" viewBox="0 0 20 20"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -79,7 +80,7 @@
 
             </tbody>
         </table>
-        <div
+        {{-- <div
             class="card-footer px-3 border-0 d-flex flex-column flex-lg-row align-items-center justify-content-between">
             <nav aria-label="Page navigation example">
                 <ul class="pagination mb-0">
@@ -92,7 +93,11 @@
                     <li class="page-item"><a class="page-link" href="users.html#">Next</a></li>
                 </ul>
             </nav>
-            <div class="fw-normal small mt-4 mt-lg-0">Showing <b>3</b> out of <b>3</b> entries</div>
-        </div>
+            <div class="fw-normal small mt-4 mt-lg-0">Showing <b>{{ $TeleCount + $CommCount }}</b> out of
+                <b>{{ $TeleCount + $CommCount }}</b>
+                entries
+            </div>
+        </div> --}}
+        <br style="user-select: none;">
     </div>
 </div>
