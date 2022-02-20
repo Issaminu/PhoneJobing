@@ -29,10 +29,10 @@
                     document.getElementById("FilterByTeleButton").style.color = "#f2f4f6";
                     document.getElementById("FilterByCommButton").style.backgroundColor = "#f2f4f6";
                     document.getElementById("FilterByCommButton").style.color = "#4b5563";
-                    FilterTeamTable("Teleoperateur");
+                    FilterTeamTable("Téléoperateur");
                     TeleState = 1;
                     CommState = 0;
-                    Type = "Teleoperateur";
+                    Type = "Téléoperateur";
                     document.getElementById('teamSearch').dispatchEvent(new KeyboardEvent('keyup', {
                         'key': document.getElementById('teamSearch').value
                     }));
@@ -48,10 +48,8 @@
                         document.getElementById('teamSearch').dispatchEvent(new KeyboardEvent('keyup', {
                             'key': document.getElementById('teamSearch').value
                         }));
-
                     }
                 }
-
             };
 
             window.FilterByCommButton = document.getElementById('FilterByCommButton').onclick = function() {
@@ -78,10 +76,8 @@
                         document.getElementById('teamSearch').dispatchEvent(new KeyboardEvent('keyup', {
                             'key': document.getElementById('teamSearch').value
                         }));
-
                     }
                 }
-
             };
             window.searchTeamTable = document.getElementById('teamSearch').onkeyup = function() {
                 let myType = " ";
@@ -91,7 +87,7 @@
                 table = document.getElementById("teamTable");
                 tr = table.getElementsByTagName("tr");
                 if (TeleState === 1) {
-                    myType = "Teleoperateur";
+                    myType = "Téléoperateur";
                     FilterTeamTable(myType);
                 } else if (CommState === 1) {
                     myType = "Commercial";
@@ -105,7 +101,7 @@
                     td = tr[i].getElementsByTagName("td")[0];
                     if (td) {
                         txtValue = td.textContent || td.innerText;
-                        if (myType === "Commercial" || myType === "Teleoperateur") {
+                        if (myType === "Commercial" || myType === "Téléoperateur") {
                             if (txtValue.toUpperCase().indexOf(filter) > -1 && tr[i].getElementsByTagName("td")[3]
                                 .innerText === myType) {
                                 tr[i].style.display = "";
@@ -119,7 +115,6 @@
                                 tr[i].style.display = "none";
                             }
                         }
-
                     }
                 }
             };
@@ -168,5 +163,7 @@
     @include('layouts.navigation')
     @include('layouts.Equipe.team-header')
     @include('layouts.Equipe.team-table')
+    <br style="user-select: none;">
+    <br style="user-select: none;">
 
 </html>

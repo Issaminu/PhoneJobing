@@ -9,7 +9,8 @@
             </div>
         </div>
         <div class="input-group fmxw-300 ">
-            <input style="width:14rem" id="teamSearch" type="text" class="form-control" placeholder="Chercher">
+            <input style="width:14rem; --tw-ring-color: rgb(75, 85, 99);" id="teamSearch" type="text"
+                class="form-control" placeholder="Chercher">
             {{-- <span class="input-group-text border-l-0"> </span> --}}
 
 
@@ -77,7 +78,11 @@
                         </td>
                         {{-- <td><span class="fw-normal text-success">Active</span></td> --}}
                         <td>
-                            <span class="fw-normal">{{ ucwords($user->type) }}</span>
+                            <span class="fw-normal">
+                                @if ($user->type === 'teleoperateur')
+                                Téléoperateur @elseif($user->type === 'commercial')Commercial
+                                @endif
+                            </span>
                         </td>
                         @if (Auth::user()->type === 'manager')
                             <td>

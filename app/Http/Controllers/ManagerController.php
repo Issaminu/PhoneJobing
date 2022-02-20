@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -67,9 +68,73 @@ class ManagerController extends Controller
     }
     public function deleteMember(Request $request)
     {
-        // $user = User::find(User::where('email', $request->deleteEmail)->first());
-        // $user->delete();
-        User::where('email', '=', $request->deleteEmail)->delete();
-        return redirect('/equipe');
+        $user = User::where('email', '=', $request->deleteEmail)->first();
+        if (Auth::user()->type === 'manager' && $user->teamid === Auth::user()->teamid) {
+            // $user = User::find(User::where('email', $request->deleteEmail)->first());
+            // $user->delete();        
+            $user->delete();
+            //TODO: DELETE THIS USER'S DATA FROM STATISTICS
+            return redirect('/equipe');
+        } else return redirect('404');
+    }
+    public function listProducts(Request $request)
+    {
+        if (Auth::user()->type === "manager") {
+
+            // $products = Product::where('teamid', '=', Auth::user()->teamid)->get(['id', 'name', 'price', 'quantity']); UNCOMMENT THIS AND CHANGE THE NEXT 2 LINES
+            // $products = Product::where('teamid', '=', 0)->get(['id', 'name', 'price', 'quantity']);
+            $products = Product::where('teamid', '=', 14)->get(['id', 'name', 'price', 'quantity']);
+            $prodCount = 0;
+            foreach ($products as $product) {
+                $prodCount++;
+            }
+            // dd($vars);
+            return view('Views-manager/manager-produits', compact('products', 'prodCount'));
+        }
+    }
+    public function storeNewProduct(Request $request)
+    {
+        if (Auth::user()->type === 'manager') {
+            $attributes = $request->validate([
+                'prodName' => ['required', 'string', 'max:200'],
+                'prodPrice' => ['required', 'numeric'],
+                'prodQuantity' => ['required', 'integer'],
+            ]);
+            $product = new Product;
+            $product->name = ucwords($request->prodName);
+            $product->price = $request->prodPrice;
+            $product->quantity = $request->prodQuantity;
+            $product->teamid =  Auth::user()->teamid;
+            $product->save();
+            return redirect('/produits');
+        } else return redirect('404');
+    }
+    public function modifyProduct(Request $request)
+    {
+        // $test =  intval(Product::where('id', '=', $request->prodId)->first()->value('teamid'));
+        // dd($request);
+        // dd(Product::where('id', '=', $request->prodId)->first()->value('teamid'));
+        if (Auth::user()->type === 'manager' && intval(Auth::user()->id) == Product::where('id', '=', $request->prodId)->first()->value('teamid')) {
+            $attributes = $request->validate([
+                'prodName' => ['required', 'string', 'max:200'],
+                'prodPrice' => ['required', 'numeric'],
+                'prodQuantity' => ['required', 'integer'],
+            ]);
+            $product = Product::where('id', '=', $request->prodId)->first();
+            $product->name = $request->prodName;
+            $product->price = $request->prodPrice;
+            $product->quantity = $request->prodQuantity;
+            $product->save();
+            return redirect('/produits');
+        } else return redirect('404');
+    }
+    public function deleteProduct(Request $request)
+    {
+        $product = Product::where('id', '=', $request->deleteProdId)->first();
+        if (Auth::user()->type === 'manager' && intval(Auth::user()->id) == intval($product->teamid)) {
+            $product->delete();
+            //TODO: DELETE THIS PRODUCT'S DATA ELSEWHERE
+            return redirect('/produits');
+        } else return redirect('404');
     }
 }

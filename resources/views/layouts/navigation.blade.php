@@ -18,17 +18,20 @@
 
                 @if (Auth::user()->type === 'manager')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard*')">
                             {{ __('Tableau de bord') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('equipe')" :active="request()->routeIs('equipe')">
+                        <x-nav-link :href="route('equipe')" :active="request()->routeIs('equipe*')">
                             {{ __('Équipe') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('clients')" :active="request()->routeIs('clients')">
+                        <x-nav-link :href="route('clients')" :active="request()->routeIs('clients*')">
                             {{ __('Clients') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('scripts')" :active="request()->routeIs('scripts')">
+                        <x-nav-link :href="route('scripts')" :active="request()->routeIs('scripts*')">
                             {{ __('Scripts') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('produits')" :active="request()->routeIs('produits*')">
+                            {{ __('Produits') }}
                         </x-nav-link>
                     </div>
 
@@ -36,16 +39,16 @@
                 @elseif (Auth::user()->type === 'teleoperateur')
 
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard*')">
                             {{ __('Accueil') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('equipe')" :active="request()->routeIs('equipe')">
+                        <x-nav-link :href="route('equipe')" :active="request()->routeIs('equipe*')">
                             {{ __('Équipe') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('clients')" :active="request()->routeIs('clients')">
+                        <x-nav-link :href="route('clients')" :active="request()->routeIs('clients*')">
                             {{ __('Clients') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('historique')" :active="request()->routeIs('historique')">
+                        <x-nav-link :href="route('historique')" :active="request()->routeIs('historique*')">
                             {{ __('Historique') }}
                         </x-nav-link>
                     </div>
@@ -54,16 +57,16 @@
                 @elseif (Auth::user()->type === 'commercial')
 
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard*')">
                             {{ __('Accueil') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('equipe')" :active="request()->routeIs('equipe')">
+                        <x-nav-link :href="route('equipe')" :active="request()->routeIs('equipe*')">
                             {{ __('Équipe') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('rendezvous')" :active="request()->routeIs('rendezvous')">
+                        <x-nav-link :href="route('rendezvous')" :active="request()->routeIs('rendezvous*')">
                             {{ __('Rendez-vous') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('historique')" :active="request()->routeIs('historique')">
+                        <x-nav-link :href="route('historique')" :active="request()->routeIs('historique*')">
                             {{ __('Historique') }}
                         </x-nav-link>
                     </div>

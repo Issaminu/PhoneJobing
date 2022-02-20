@@ -2968,8 +2968,11 @@ progress {
     margin-bottom: 1rem;
     color: #374151;
     vertical-align: top;
-    border-color: #e5e7eb
+    border-color: #e5e7eb;
+
 }
+
+
 
 .table>:not(caption)>*>* {
     padding: .75rem .5rem;

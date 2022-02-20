@@ -12,12 +12,19 @@
                             </path>
                         </svg></a></li>
                 <li class="breadcrumb-item"><a href="/dashboard">Manager</a></li>
-                <li class="breadcrumb-item"> <a href="/equipe">Équipe</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Ajout Membre</li>
+                <li class="breadcrumb-item active" aria-current="page">Produits</li>
             </ol>
         </nav>
-        <h2 class="h4">Ajouter un membre</h2>
-        <p class="mb-0">Veuillez remplir les informations de l'employé que vous souhaitez ajouter.</p>
+        <h2 class="h4">Votre Produits</h2>
+        <p class="mb-0">
+            @if (Auth::user()->type === 'manager')
+                @if ($prodCount == 0)
+                Vous n'avez aucun produit. @elseif($prodCount == 1)Vous avez un seul
+                produit. @else Vous avez {{ $prodCount }} produits.
+                @endif
+            @endif
+        </p>
     </div>
+
 
 </div>

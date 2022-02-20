@@ -73,6 +73,8 @@ Route::get('/my-dashboard', function () { //THIS ROUTE IS FORMALLY REPLACED BY "
 
 Route::get('/equipe', [ManagerController::class, 'listTeamMembers'])->middleware(['auth'])->name('equipe');
 
+Route::get('/produits', [ManagerController::class, 'listProducts'])->middleware(['auth'])->name('produits');
+
 Route::get('/clients', function () {
 
     if (Auth::user()->type === 'manager') {
@@ -108,10 +110,20 @@ Route::get('/equipe/ajout-membre', function () {
     if (Auth::user()->type === 'manager') {
         return response()->view('Views-manager/manager-add-member');
     } else return redirect('404');
-})->middleware(['auth'])->name('/equipe/ajout-membre');
+})->middleware(['auth'])->name('equipe/ajout-membre');
+
+Route::get('/produits/ajout-produit', function () {
+    if (Auth::user()->type === 'manager') {
+        return response()->view('Views-manager/manager-add-product');
+    } else return redirect('404');
+})->middleware(['auth'])->name('produits/ajout-produit');
+
 
 Route::post('/equipe/ajout-membre', [ManagerController::class, 'storeNewMember'])->middleware(['auth'])->name('/equipe/ajout-membre');
 Route::post('/equipe/supprimer-membre', [ManagerController::class, 'deleteMember'])->middleware(['auth'])->name('/equipe/supprimer-membre');
+Route::post('/produits/modifier-produit', [ManagerController::class, 'modifyProduct'])->middleware(['auth'])->name('/produits/modifier-produit');
+Route::post('/produits/supprimer-produit', [ManagerController::class, 'deleteProduct'])->middleware(['auth'])->name('/produits/supprimer-produit');
+Route::post('/produits/ajout-produit', [ManagerController::class, 'storeNewProduct'])->middleware(['auth'])->name('/produits/ajout-produit');
 
 // Route::get('/test', [ManagerController::class, 'listTeamMembers']);
 Route::get('/test', function () {

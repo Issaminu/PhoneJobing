@@ -38,14 +38,14 @@
                 <x-label for="accountTypeChoice" :value="__('Role de membre')" />
                 <div id="AccTypeRadio">
                     <input id="TeleRadio" name=accountTypeChoice type=radio value="teleoperateur" required><label
-                        for=TeleRadio>Teleoperateur</label>
+                        for=TeleRadio>Téléoperateur</label>
                     <input id="CommRadio" name=accountTypeChoice type=radio value="commercial"><label
                         for=CommRadio>Commercial</label>
                 </div>
                 <div class="btn-toolbar mb-4 md-0 mt-2 ">
                     <div id="accTypeSelector" class="btn-group ms-2 ms-lg-3 ">
                         <button id="AccTypeTeleButton" type="button" class="btn btn-sm btn-outline-gray-600 "
-                            onclick="AccountTypeSelection()">Teleoperateur</button>
+                            onclick="AccountTypeSelection()">Téléoperateur</button>
                         <button id="AccTypeCommButton" type="button" class="btn btn-sm btn-outline-gray-600"
                             onclick="AccountTypeSelection()">Commercial</button>
                     </div>

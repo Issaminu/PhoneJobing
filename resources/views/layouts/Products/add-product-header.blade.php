@@ -12,12 +12,12 @@
                             </path>
                         </svg></a></li>
                 <li class="breadcrumb-item"><a href="/dashboard">Manager</a></li>
-                <li class="breadcrumb-item"> <a href="/equipe">Équipe</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Ajout Membre</li>
+                <li class="breadcrumb-item"> <a href="/produits">Produits</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Ajout Produit</li>
             </ol>
         </nav>
-        <h2 class="h4">Ajouter un membre</h2>
-        <p class="mb-0">Veuillez remplir les informations de l'employé que vous souhaitez ajouter.</p>
+        <h2 class="h4">Ajouter un produit</h2>
+        <p class="mb-0">Veuillez remplir les informations de produit que vous souhaitez ajouter.</p>
     </div>
 
 </div>
