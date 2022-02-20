@@ -39,7 +39,7 @@ class ManagerController extends Controller
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
             ]);
             $newMember = User::create([
-                'name' => $request->name,
+                'name' => ucwords($request->name),
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'type' => $request->accountTypeChoice,
@@ -62,9 +62,14 @@ class ManagerController extends Controller
                 $CommCount++;
             }
         }
-
         // dd($vars);
         return view('Views-manager/manager-equipe', compact('users', 'TeleCount', 'CommCount'));
-        // return view('Views-manager/test', compact('users'));
+    }
+    public function deleteMember(Request $request)
+    {
+        // $user = User::find(User::where('email', $request->deleteEmail)->first());
+        // $user->delete();
+        User::where('email', '=', $request->deleteEmail)->delete();
+        return redirect('/equipe');
     }
 }

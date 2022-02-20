@@ -30824,6 +30824,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding: 0.5rem;
 }.p-0{
   padding: 0px;
+}.p-3{
+  padding: 0.75rem;
 }.px-4{
   padding-left: 1rem;
   padding-right: 1rem;
@@ -30871,6 +30873,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-top: 0.25rem;
 }.pt-0{
   padding-top: 0px;
+}.pl-7{
+  padding-left: 1.75rem;
+}.pr-7{
+  padding-right: 1.75rem;
 }.text-center{
   text-align: center;
 }.font-sans{

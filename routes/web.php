@@ -111,6 +111,7 @@ Route::get('/equipe/ajout-membre', function () {
 })->middleware(['auth'])->name('/equipe/ajout-membre');
 
 Route::post('/equipe/ajout-membre', [ManagerController::class, 'storeNewMember'])->middleware(['auth'])->name('/equipe/ajout-membre');
+Route::post('/equipe/supprimer-membre', [ManagerController::class, 'deleteMember'])->middleware(['auth'])->name('/equipe/supprimer-membre');
 
 // Route::get('/test', [ManagerController::class, 'listTeamMembers']);
 Route::get('/test', function () {

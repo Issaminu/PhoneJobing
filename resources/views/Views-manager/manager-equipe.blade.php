@@ -106,7 +106,7 @@
                     if (td) {
                         txtValue = td.textContent || td.innerText;
                         if (myType === "Commercial" || myType === "Teleoperateur") {
-                            if (txtValue.toUpperCase().indexOf(filter) > -1 && tr[i].getElementsByTagName("td")[4]
+                            if (txtValue.toUpperCase().indexOf(filter) > -1 && tr[i].getElementsByTagName("td")[3]
                                 .innerText === myType) {
                                 tr[i].style.display = "";
                             } else {
@@ -131,7 +131,7 @@
 
                 // Loop through all table rows, and hide those who don't match the search query
                 for (i = 0; i < tr.length; i++) {
-                    td = tr[i].getElementsByTagName("td")[4];
+                    td = tr[i].getElementsByTagName("td")[3];
                     if (td) {
                         txtValue = td.textContent || td.innerText;
                         if (txtValue.toUpperCase().indexOf(filter) > -1) {
