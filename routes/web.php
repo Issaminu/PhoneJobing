@@ -75,14 +75,7 @@ Route::get('/equipe', [ManagerController::class, 'listTeamMembers'])->middleware
 
 Route::get('/produits', [ManagerController::class, 'listProducts'])->middleware(['auth'])->name('produits');
 
-Route::get('/clients', function () {
-
-    if (Auth::user()->type === 'manager') {
-        return response()->view('Views-manager/manager-clients');
-    } elseif (Auth::user()->type === 'teleoperateur') {
-        return response()->view('Views-teleoperateur/teleoperateur-clients');
-    } else return redirect('404');
-})->middleware(['auth'])->name('clients');
+Route::get('/clients', [ManagerController::class, 'listClients'])->middleware(['auth'])->name('clients');
 
 
 Route::get('/historique', function () {
@@ -118,12 +111,20 @@ Route::get('/produits/ajout-produit', function () {
     } else return redirect('404');
 })->middleware(['auth'])->name('produits/ajout-produit');
 
+Route::get('/clients/ajout-client', function () {
+    if (Auth::user()->type === 'manager') {
+        return response()->view('Views-manager/manager-add-client');
+    } else return redirect('404');
+})->middleware(['auth'])->name('clients/ajout-client');
+
 
 Route::post('/equipe/ajout-membre', [ManagerController::class, 'storeNewMember'])->middleware(['auth'])->name('/equipe/ajout-membre');
 Route::post('/equipe/supprimer-membre', [ManagerController::class, 'deleteMember'])->middleware(['auth'])->name('/equipe/supprimer-membre');
 Route::post('/produits/modifier-produit', [ManagerController::class, 'modifyProduct'])->middleware(['auth'])->name('/produits/modifier-produit');
 Route::post('/produits/supprimer-produit', [ManagerController::class, 'deleteProduct'])->middleware(['auth'])->name('/produits/supprimer-produit');
 Route::post('/produits/ajout-produit', [ManagerController::class, 'storeNewProduct'])->middleware(['auth'])->name('/produits/ajout-produit');
+Route::post('/clients/ajout-client', [ManagerController::class, 'storeNewClient'])->middleware(['auth'])->name('/clients/ajout-client');
+Route::post('/clients/supprimer-client', [ManagerController::class, 'deleteClient'])->middleware(['auth'])->name('/clients/supprimer-client');
 
 // Route::get('/test', [ManagerController::class, 'listTeamMembers']);
 Route::get('/test', function () {

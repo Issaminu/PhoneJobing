@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name', 'Laravel') }}</title>
+    {{-- <script rel="stylesheet" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+    {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> --}}
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}"></script>
+
+</head>
+
+<body>
+    @include('layouts.navigation')
+    @include('layouts.Clients.add-client-header')
+    <x-guest-layout id="addMemberInfo">
+        <x-add-member-card>
+            <x-slot name="logo">
+            </x-slot>
+
+            <!-- Validation Errors -->
+            <x-auth-validation-errors class="mb-4" :errors="$errors" />
+
+            <form method="POST" action="{{ route('clients/ajout-client') }}">
+                @csrf
+                <!-- Name -->
+                <div>
+                    <x-label for="clientName" :value="__('Nom complet de client')" />
+
+                    <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="clientName"
+                        class="block mt-1 w-full" type="text" name="clientName" :value="old('clientName')" required />
+                </div>
+
+                <!-- Email Address -->
+                <div class="mt-4">
+                    <x-label for="clientEmail" :value="__('Email')" />
+
+                    <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="clientEmail"
+                        class="block mt-1 w-full" type="email" name="clientEmail" :value="old('clientEmail')" required />
+                </div>
+
+                <div>
+                    <x-label for="clientCompany" :value="__('Entreprise')" class="mt-4" />
+
+                    <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="clientCompany"
+                        class="block mt-1 w-full" type="text" name="clientCompany" :value="old('clientCompany')"
+                        required />
+                </div>
+
+                <div>
+                    <x-label for="clientCountry" :value="__('Pays')" class="mt-4" />
+
+                    <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="clientCountry"
+                        class="block mt-1 w-full" type="text" name="clientCountry" :value="old('clientCountry')"
+                        required />
+                </div>
+                <div>
+                    <x-label for="clientCity" :value="__('Ville')" class="mt-4" />
+
+                    <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="clientCity"
+                        class="block mt-1 w-full" type="text" name="clientCity" :value="old('clientCity')" required />
+                </div>
+                <div>
+                    <x-label for="clientAddress" :value="__('Addresse')" class="mt-4" />
+
+                    <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="clientAddress"
+                        class="block mt-1 w-full" type="text" name="clientAddress" :value="old('clientAddress')"
+                        required />
+                </div>
+                <div>
+                    <x-label for="clientZip" :value="__('Zip code')" class="mt-4" />
+
+                    <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="clientZip"
+                        class="block mt-1 w-full" type="text" name="clientZip" :value="old('clientZip')" required />
+                </div>
+
+                <div type="submit" class="flex items-center justify-center mt-1 mr-5">
+                    <x-button class="h-10 rounded mt-5">
+                        {{ __('Ajouter Client') }}
+                    </x-button>
+                </div>
+            </form>
+        </x-add-member-card>
+    </x-guest-layout>
+    <br>
+</body>
+
+</html>

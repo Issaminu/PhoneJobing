@@ -1,7 +1,8 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
-@import './clients.css';
+@import './team.css';
+/* @import './clients.css'; */
 @import url("https://fonts.googleapis.com/css?family=Nunito:600");
 /* @import './volt.css'; */
 
@@ -12,6 +13,16 @@
 #mainBody {
     margin-left: 10rem;
     margin-right: 10rem;
+}
+
+html,
+body {
+
+    overflow-x: hidden;
+}
+
+ClientBox {
+    width: 80%;
 }
 
 #navigation {
@@ -33,6 +44,22 @@
     padding-bottom: 9px;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .07);
     width: 12.5rem;
+    border-color: #d1d5db;
+}
+
+#MrButton {
+    padding-top: 9px;
+    padding-bottom: 9px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .07);
+    width: 17.62rem;
+    border-color: #d1d5db
+}
+
+#MmeButton {
+    padding-top: 9px;
+    padding-bottom: 9px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .07);
+    width: 17.62rem;
     border-color: #d1d5db;
 }
 
@@ -150,11 +177,21 @@
     z-index: -1;
 }
 
-/*
-#TeRad {
-    display: inline !important;
-    visibility: hidden !important;
-     display: none !important; 
-    list-style: none !important;
-    opacity: 0 !important;
-} */
+.client-picture-rounded {
+    width: 110px;
+    height: 110px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0.75rem;
+    margin-bottom: 1rem;
+    -webkit-border-radius: 60px;
+    -webkit-background-clip: padding-box;
+    -moz-border-radius: 60px;
+    -moz-background-clip: padding;
+    border-radius: 50%;
+    background-clip: padding-box;
+    /* margin: 7px 0 0 5px; */
+    /* float: left; */
+    background-size: cover;
+    background-position: center center;
+}

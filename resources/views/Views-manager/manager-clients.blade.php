@@ -22,12 +22,10 @@
 
 <body>
     @include('layouts.navigation')
-    {{-- <div id="managerNavbar"></div> --}}
-    {{-- <script> const window.username = '{!! auth()-> user() -> name !!}'; --}}
-    {{-- <script src="./js/app.js"></script> --}}
-    {{-- <div id="login">    </div> --}}
-
-
+    @include('layouts.Clients.listAllClients-header')
+    <div style="margin-left: 10%; margin-right:10%;">
+        @include('layouts.Clients.listAllClients-body')
+    </div>
 </body>
 
 </html>
