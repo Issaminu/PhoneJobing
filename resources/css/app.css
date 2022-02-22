@@ -6,10 +6,13 @@
 @import url("https://fonts.googleapis.com/css?family=Nunito:600");
 /* @import './volt.css'; */
 
-/* html {
-    margin-left: 1rem;
-    margin-right: 1rem;
-} */
+html {
+    /* margin-left: 1rem;
+    margin-right: 1rem; */
+    overflow-y: scroll;
+
+}
+
 #mainBody {
     margin-left: 10rem;
     margin-right: 10rem;

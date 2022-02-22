@@ -1,3 +1,4 @@
+
 let TeleState = 0,
     CommState = 0;
 
@@ -8,10 +9,10 @@ window.onload = function () {
             document.getElementById("FilterByTeleButton").style.color = "#f2f4f6";
             document.getElementById("FilterByCommButton").style.backgroundColor = "#f2f4f6";
             document.getElementById("FilterByCommButton").style.color = "#4b5563";
-            FilterTeamTable("Teleoperateur");
+            FilterTeamTable("Téléoperateur");
             TeleState = 1;
             CommState = 0;
-            Type = "Teleoperateur";
+            Type = "Téléoperateur";
             document.getElementById('teamSearch').dispatchEvent(new KeyboardEvent('keyup', {
                 'key': document.getElementById('teamSearch').value
             }));
@@ -27,10 +28,8 @@ window.onload = function () {
                 document.getElementById('teamSearch').dispatchEvent(new KeyboardEvent('keyup', {
                     'key': document.getElementById('teamSearch').value
                 }));
-
             }
         }
-
     };
 
     window.FilterByCommButton = document.getElementById('FilterByCommButton').onclick = function () {
@@ -57,10 +56,8 @@ window.onload = function () {
                 document.getElementById('teamSearch').dispatchEvent(new KeyboardEvent('keyup', {
                     'key': document.getElementById('teamSearch').value
                 }));
-
             }
         }
-
     };
     window.searchTeamTable = document.getElementById('teamSearch').onkeyup = function () {
         let myType = " ";
@@ -70,7 +67,7 @@ window.onload = function () {
         table = document.getElementById("teamTable");
         tr = table.getElementsByTagName("tr");
         if (TeleState === 1) {
-            myType = "Teleoperateur";
+            myType = "Téléoperateur";
             FilterTeamTable(myType);
         } else if (CommState === 1) {
             myType = "Commercial";
@@ -84,8 +81,8 @@ window.onload = function () {
             td = tr[i].getElementsByTagName("td")[0];
             if (td) {
                 txtValue = td.textContent || td.innerText;
-                if (myType === "Commercial" || myType === "Teleoperateur") {
-                    if (txtValue.toUpperCase().indexOf(filter) > -1 && tr[i].getElementsByTagName("td")[4]
+                if (myType === "Commercial" || myType === "Téléoperateur") {
+                    if (txtValue.toUpperCase().indexOf(filter) > -1 && tr[i].getElementsByTagName("td")[3]
                         .innerText === myType) {
                         tr[i].style.display = "";
                     } else {
@@ -98,7 +95,6 @@ window.onload = function () {
                         tr[i].style.display = "none";
                     }
                 }
-
             }
         }
     };
@@ -110,7 +106,7 @@ window.onload = function () {
 
         // Loop through all table rows, and hide those who don't match the search query
         for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[4];
+            td = tr[i].getElementsByTagName("td")[3];
             if (td) {
                 txtValue = td.textContent || td.innerText;
                 if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -120,23 +116,5 @@ window.onload = function () {
                 }
             }
         }
-    };
-    document.getElementById('FilterByTeleButtonClicked').onclick = function () {
-        document.getElementById("FilterByTeleButtonClicked").style.backgroundColor = "#FFFF";
-        document.getElementById("FilterByTeleButtonClicked").style.color = "#4b5563";
-        document.getElementById("FilterByCommButtond").style.backgroundColor = "#FFFF";
-        document.getElementById("FilterByCommButton").style.color = "#4b5563";
-        // document.getElementById("FilterByTeleButtonClicked").id = "FilterByTeleButton";
-        document.getElementById("FilterByTeleButtonClicked").setAttribute("id", "FilterByTeleButton");
-    };
-
-    document.getElementById('FilterByCommButtonClicked').onclick = function () {
-        document.getElementById("FilterByCommButtonClicked").style.backgroundColor = "#FFFF";
-        document.getElementById("FilterByCommButtonClicked").style.color = "#4b5563";
-        document.getElementById("FilterByTeleButton").style.backgroundColor = "#FFFF";
-        document.getElementById("FilterByTeleButton").style.color = "#4b5563";
-        // document.getElementById("FilterByCommButtonClicked").id = "FilterByCommButton";
-        document.getElementById("FilterByCommButtonClicked").setAttribute("id", "FilterByCommButton");
-
     };
 }

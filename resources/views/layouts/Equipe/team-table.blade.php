@@ -37,7 +37,7 @@
                     <th class="border-bottom">Classement</th>
                     <th class="border-bottom">Email</th>
                     {{-- <th class="border-bottom"> Status</th> --}}
-                    <th class="border-bottom">Type</th>
+                    <th class="border-bottom">Rôle</th>
                     @if (Auth::user()->type === 'manager')
                         <th class="border-bottom">Action</th>
                     @endif
@@ -94,34 +94,12 @@
                                     </span>
                                     <input type="hidden" name="deleteEmail" value="{{ $user->email }}">
                                 </form>
-
                             </td>
                         @endif
-
                     </tr>
                 @endforeach
-
-
             </tbody>
         </table>
-        {{-- <div
-            class="card-footer px-3 border-0 d-flex flex-column flex-lg-row align-items-center justify-content-between">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination mb-0">
-                    <li class="page-item"><a class="page-link" href="users.html#">Previous</a></li>
-                    <li class="page-item active"><a class="page-link" href="users.html#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="users.html#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="users.html#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="users.html#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="users.html#">5</a></li>
-                    <li class="page-item"><a class="page-link" href="users.html#">Next</a></li>
-                </ul>
-            </nav>
-            <div class="fw-normal small mt-4 mt-lg-0">Showing <b>{{ $TeleCount + $CommCount }}</b> out of
-                <b>{{ $TeleCount + $CommCount }}</b>
-                entries
-            </div>
-        </div> --}}
         <br style="user-select: none;">
     </div>
 </div>

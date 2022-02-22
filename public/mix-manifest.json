@@ -1,4 +1,8 @@
 {
     "/js/app.js": "/js/app.js",
+    "/js/searchAndFilterTeamTable.js": "/js/searchAndFilterTeamTable.js",
+    "/js/searchProductsTable.js": "/js/searchProductsTable.js",
+    "/js/addClientRadio.js": "/js/addClientRadio.js",
+    "/js/accountTypeSelection.js": "/js/accountTypeSelection.js",
     "/css/app.css": "/css/app.css"
 }

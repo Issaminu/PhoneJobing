@@ -14,12 +14,12 @@
                     {{ $client->company }}</h5>
                 <p class="text-gray mb-4 text-sm">{{ $client->city }}, {{ $client->country }}</p>
                 <a class="btn btn-sm btn-gray-800 d-inline-flex align-items-center me-2" href="#"><svg
-                        class="icon icon-xs me-1" fill="currentColor" viewBox="0 0 20 20"
+                        class="icon icon-xs me-1" fill="currentColor" viewBox="0 0 21 21"
                         xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1  0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z">
+                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                            clip-rule="evenodd">
                         </path>
-                    </svg> Voir profile </a><a class="btn btn-sm btn-secondary d-inline-flex align-items-center"
+                    </svg> Voir Profile </a><a class="btn btn-sm btn-secondary d-inline-flex align-items-center"
                     href="https://mail.google.com/mail/?view=cm&source=mailto&to={{ $client->email }}"><svg
                         class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg">

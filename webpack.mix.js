@@ -18,6 +18,12 @@ mix.js('resources/js/app.js', 'public/js')
         require('tailwindcss'),
         require('autoprefixer'),
     ]);
+// mix.css('resources/css/volt.css', 'public/css/volt.css');
+mix.js('resources/js/searchAndFilterTeamTable.js', 'public/js/searchAndFilterTeamTable.js');
+mix.js('resources/js/searchProductsTable.js', 'public/js/searchProductsTable.js');
+mix.js('resources/js/addClientRadio.js', 'public/js/addClientRadio.js');
+mix.js('resources/js/accountTypeSelection.js', 'public/js/accountTypeSelection.js');
+
 mix.webpackConfig({
     stats: {
         children: true

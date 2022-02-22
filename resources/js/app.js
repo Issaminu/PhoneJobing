@@ -9,7 +9,7 @@
 
  require('./bootstrap');
 
- require('./AccountTypeSelection'); //For /equipe/ajout-membre
+//  require('./AccountTypeSelection'); //For /equipe/ajout-membre
  
 //  require('./searchTeamTable');
  

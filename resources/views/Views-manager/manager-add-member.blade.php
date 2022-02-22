@@ -17,6 +17,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/accountTypeSelection.js') }}"></script>
 
 </head>
 
@@ -44,10 +45,10 @@
                 </div>
                 <div class="btn-toolbar mb-4 md-0 mt-2 ">
                     <div id="accTypeSelector" class="btn-group ms-2 ms-lg-3 ">
-                        <button id="AccTypeTeleButton" type="button" class="btn btn-sm btn-outline-gray-600 "
-                            onclick="AccountTypeSelection()">Téléoperateur</button>
-                        <button id="AccTypeCommButton" type="button" class="btn btn-sm btn-outline-gray-600"
-                            onclick="AccountTypeSelection()">Commercial</button>
+                        <button id="AccTypeTeleButton" type="button"
+                            class="btn btn-sm btn-outline-gray-600 ">Téléoperateur</button>
+                        <button id="AccTypeCommButton" type="button"
+                            class="btn btn-sm btn-outline-gray-600">Commercial</button>
                     </div>
                 </div>
 

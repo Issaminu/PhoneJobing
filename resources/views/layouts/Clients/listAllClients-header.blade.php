@@ -22,6 +22,11 @@
                 Vous n'avez aucun client. @elseif($clientCount == 1)Vous avez un seul
                 client. @else Vous avez {{ $clientCount }} clients.
                 @endif
+            @else
+                @if ($clientCount == 0)
+                Votre établissement n'a pas de clients. @elseif($clientCount == 1)Votre établissement a un
+                seul client. @else Votre établissement dispose de {{ $clientCount }} clients.
+                @endif
             @endif
         </p>
     </div>

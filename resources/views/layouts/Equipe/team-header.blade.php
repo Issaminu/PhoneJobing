@@ -1,7 +1,4 @@
-<link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
-<div id="mainBody" class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
-
+<div id="mainBody" class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 mb-4">
     <div class="d-block mb-4 mb-md-0">
         <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
             <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
