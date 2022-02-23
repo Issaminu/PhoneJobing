@@ -55,10 +55,10 @@ return [
     */
 
     // 'url' => env('APP_URL', 'http://localhost'),
-
     // 'asset_url' => env('ASSET_URL', null),
-    'url' => env('APP_URL', 'https://www.estfbs.ga'),
 
+
+    'url' => env('APP_URL', 'https://www.estfbs.ga'),
     'asset_url' => env('ASSET_URL', 'https://www.estfbs.ga'),
 
     /*
