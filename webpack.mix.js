@@ -22,7 +22,7 @@ mix.js('resources/js/app.js', 'public/js')
 mix.js('resources/js/searchAndFilterTeamTable.js', 'public/js/searchAndFilterTeamTable.js');
 mix.js('resources/js/searchProductsTable.js', 'public/js/searchProductsTable.js');
 mix.js('resources/js/addClientRadio.js', 'public/js/addClientRadio.js');
-mix.js('resources/js/accountTypeSelection.js', 'public/js/accountTypeSelection.js');
+// mix.js('resources/js/accountTypeSelection.js', 'public/js/accountTypeSelection.js');
 
 mix.webpackConfig({
     stats: {
