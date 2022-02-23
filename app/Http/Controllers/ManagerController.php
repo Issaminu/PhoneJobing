@@ -85,10 +85,7 @@ class ManagerController extends Controller
             // $products = Product::where('teamid', '=', Auth::user()->teamid)->get(['id', 'name', 'price', 'quantity']); UNCOMMENT THIS AND CHANGE THE NEXT 2 LINES
             // $products = Product::where('teamid', '=', 0)->get(['id', 'name', 'price', 'quantity']);
             $products = Product::where('teamid', '=', Auth::user()->teamid)->get(['id', 'name', 'price', 'quantity']);
-            $prodCount = 0;
-            foreach ($products as $product) {
-                $prodCount++;
-            }
+            $prodCount = count($products);
             // dd($vars);
             return view('Views-manager/manager-produits', compact('products', 'prodCount'));
         } else return redirect('404');
@@ -144,10 +141,8 @@ class ManagerController extends Controller
         if (Auth::user()->type === "manager" || Auth::user()->type === "teleoperateur") {
             // $clients = Client::where('teamid', '=', Auth::user()->teamid)->get(['id', 'name', 'company', 'position', 'phone', 'email', 'gender', 'country', 'city', 'address', 'zip']);
             $clients = Client::where('teamid', '=', Auth::user()->teamid)->get(['id', 'name', 'company', 'position', 'email', 'city', 'country', 'image']);
-            $clientCount = 0;
-            foreach ($clients as $client) {
-                $clientCount++;
-            }
+            $clientCount = count($clients);
+            // dd($clientCount);
             // dd($vars);
             return view('Views-manager/manager-clients', compact('clientCount', 'clients'));
         } else return redirect('404');

@@ -29,7 +29,7 @@
         <div class="card card-body border-0 shadow mb-4">
             <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-            <h2 class="h5 mb-5">Informations générales</h2>
+            <h2 class="h5 mb-5 text-center mt-5" style="color: #47484e;">Informations générales</h2>
 
             <form method="POST" action="{{ route('clients/ajout-client') }}" enctype="multipart/form-data">
                 @csrf
@@ -87,7 +87,7 @@
                 </div>
                 <div class="row align-items-center">
 
-                    <h2 class="h5 mt-6 mb-4">Location</h2>
+                    <h2 class="h5 mt-9 mb-4 text-center" style="color: #47484e;">Location</h2>
                     <div>
                         <x-label for="clientCountry" :value="__('Pays')" class="mt-4" />
 
