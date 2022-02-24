@@ -49,7 +49,8 @@ require __DIR__ . '/auth.php';
 
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return redirect('/login');
 });
 Route::get('/react', function () {
     return view('react-test');

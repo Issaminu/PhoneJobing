@@ -112,7 +112,7 @@ class ManagerController extends Controller
         // $test =  intval(Product::where('id', '=', $request->prodId)->first()->value('teamid'));
         // dd($request);
         // dd(Product::where('id', '=', $request->prodId)->first());
-        if (Auth::user()->type === 'manager' && intval(Auth::user()->id) == intval(Product::where('id', '=', $request->prodId)->first()->value('teamid'))) {
+        if (Auth::user()->type === 'manager' && intval(Auth::user()->teamid) == intval(Product::where('id', '=', $request->prodId)->first()->value('teamid'))) {
             $attributes = $request->validate([
                 'prodName' => ['required', 'string', 'max:200'],
                 'prodPrice' => ['required', 'numeric'],
@@ -197,7 +197,7 @@ class ManagerController extends Controller
     public function deleteClient(Request $request)
     {
         $client = Client::where('id', '=', $request->deleteClientId)->first();
-        if (Auth::user()->type === 'manager' && intval(Auth::user()->id) == intval($client->teamid)) {
+        if (Auth::user()->type === 'manager' && intval(Auth::user()->teamid) == intval($client->teamid)) {
             $client->delete();
             //TODO: DELETE THIS CLIENT'S DATA ELSEWHERE
             return redirect('/clients');
