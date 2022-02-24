@@ -19,7 +19,8 @@
                         <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
                             clip-rule="evenodd">
                         </path>
-                    </svg> Voir Profile </a><a class="btn btn-sm btn-secondary d-inline-flex align-items-center"
+                    </svg> Voir Profile </a><a target="_blank"
+                    class="btn btn-sm btn-secondary d-inline-flex align-items-center"
                     href="https://mail.google.com/mail/?view=cm&source=mailto&to={{ $client->email }}"><svg
                         class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg">

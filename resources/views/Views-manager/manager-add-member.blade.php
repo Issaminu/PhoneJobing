@@ -17,7 +17,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/accountTypeSelection.js') }}"></script>
+    <script src="{{ asset('js/AccountTypeSelection.js') }}"></script>
 
 </head>
 
