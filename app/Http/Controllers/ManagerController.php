@@ -112,7 +112,7 @@ class ManagerController extends Controller
         // $test =  intval(Product::where('id', '=', $request->prodId)->first()->value('teamid'));
         // dd($request);
         // dd(Product::where('id', '=', $request->prodId)->first());
-        if (Auth::user()->type === 'manager' && intval(Auth::user()->teamid) == intval(Product::where('id', '=', $request->prodId)->first()->value('teamid'))) {
+        if (Auth::user()->type === 'manager') {
             $attributes = $request->validate([
                 'prodName' => ['required', 'string', 'max:200'],
                 'prodPrice' => ['required', 'numeric'],
@@ -129,7 +129,8 @@ class ManagerController extends Controller
     public function deleteProduct(Request $request)
     {
         $product = Product::where('id', '=', $request->deleteProdId)->first();
-        if (Auth::user()->type === 'manager' && intval(Auth::user()->id) == intval($product->teamid)) {
+        // if (Auth::user()->type === 'manager' && intval(Auth::user()->teamid) == intval($product->teamid)) {
+        if (Auth::user()->type === 'manager') {
             $product->delete();
             //TODO: DELETE THIS PRODUCT'S DATA ELSEWHERE
             return redirect('/produits');
