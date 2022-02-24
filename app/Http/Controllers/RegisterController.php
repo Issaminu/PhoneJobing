@@ -32,16 +32,16 @@ class RegisterController extends Controller
         if (!array_key_exists('remember_token', $attributes)) {
             $attributes["remember_token"] = "off";
         }
-        if (!array_key_exists('teamid', $attributes)) {
-            $attributes["id"] = "0";
-        }
+        // if (!array_key_exists('teamid', $attributes)) {
+        //     $attributes["id"] = "0";
+        // }
         // $attributes["teamid"] = static::$teamid;
-
-
+        $attributes["id"] = User::orderBy('id', 'desc')->take(1)->first()->id + 1;
         //dd($attributes);
         $user = User::create($attributes);
 
         auth()->login($user);
+        // dd($attributes["id"]);
 
 
 

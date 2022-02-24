@@ -58,9 +58,9 @@
                         alt="Avatar"> --}}
                                 <div class="d-block"><span
                                         class="fw-bold">{{ ucwords($user->name) }}</span>
-                                    <div class="small text-gray"><span class="__cf_email__"
+                                    {{-- <div class="small text-gray"><span class="__cf_email__"
                                             data-cfemail="dbb2b5bdb49bbea3bab6abb7bef5b8b4b6"></span>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </a></td>
                         <td><span class="fw-normal">{{ $i }}</span>

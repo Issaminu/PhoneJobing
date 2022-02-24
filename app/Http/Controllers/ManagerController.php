@@ -111,8 +111,8 @@ class ManagerController extends Controller
     {
         // $test =  intval(Product::where('id', '=', $request->prodId)->first()->value('teamid'));
         // dd($request);
-        // dd(Product::where('id', '=', $request->prodId)->first()->value('teamid'));
-        if (Auth::user()->type === 'manager' && intval(Auth::user()->id) == Product::where('id', '=', $request->prodId)->first()->value('teamid')) {
+        // dd(Product::where('id', '=', $request->prodId)->first());
+        if (Auth::user()->type === 'manager' && intval(Auth::user()->id) == intval(Product::where('id', '=', $request->prodId)->first()->value('teamid'))) {
             $attributes = $request->validate([
                 'prodName' => ['required', 'string', 'max:200'],
                 'prodPrice' => ['required', 'numeric'],
