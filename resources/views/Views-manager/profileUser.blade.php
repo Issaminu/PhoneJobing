@@ -17,17 +17,17 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/searchAndFilterTeamTable.js') }}"></script>
 
 </head>
 
 <body>
     @include('layouts.navigation')
-    @include('layouts.Clients.listAllClients-header')
-    @include('layouts.Clients.listAllClients-body')
-    {{-- <div style="margin-left: 10%; margin-right:10%;">
-        @include('layouts.Clients.listAllClients-body')
-    </div> --}}
+    @include('layouts.Equipe.profileUser-header')
+    <div class="mr-40 ml-40">
+        @include('layouts.Equipe.profileUser-body')
+    </div>
+
+
 </body>
 
 </html>

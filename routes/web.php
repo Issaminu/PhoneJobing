@@ -118,6 +118,10 @@ Route::get('/clients/ajout-client', function () {
     } else return redirect('404');
 })->middleware(['auth'])->name('clients/ajout-client');
 
+Route::get('/equipe/{slug}', [ManagerController::class, 'profileUser'])->middleware(['auth'])->name('equipe/{slug}');
+Route::get('/equipe/{slug}', [ManagerController::class, 'profileUser'])->middleware(['auth'])->name('equipe/{slug}');
+Route::get('/clients/{slug}', [ManagerController::class, 'profileClient'])->middleware(['auth'])->name('clients/{slug}');
+
 
 Route::post('/equipe/ajout-membre', [ManagerController::class, 'storeNewMember'])->middleware(['auth'])->name('/equipe/ajout-membre');
 Route::post('/equipe/supprimer-membre', [ManagerController::class, 'deleteMember'])->middleware(['auth'])->name('/equipe/supprimer-membre');

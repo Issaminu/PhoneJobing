@@ -39,10 +39,12 @@ class ManagerController extends Controller
                 'name' => ['required', 'string', 'max:200'],
                 'email' => ['required', 'string', 'email', 'max:200', 'unique:users'],
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
+                'memberImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp',
             ]);
             $newMember = User::create([
-                'name' => ucwords($request->name),
+                'name' => ucwords(strtolower($request->name)),
                 'email' => $request->email,
+                'image' => $this->imageUpload($request),
                 'password' => Hash::make($request->password),
                 'type' => $request->accountTypeChoice,
                 'teamid' => Auth::user()->teamid, //THIS IS TO GET "TEAMID" OF THE NEW MEMBER OF THE TEAM TO BE EQUIVALENT WITH THE "TEAMID" OF THE MANAGER
@@ -51,21 +53,35 @@ class ManagerController extends Controller
             return redirect('/equipe');
         } else return redirect('404');
     }
+    public function imageUpload(Request $request)
+    {
+        // $newId = Client::orderBy('id', 'desc')->take(1)->first()->id + 1;
+        $name = base64_encode(random_bytes(18));
+        $imageName = preg_replace('/[\W]/', '', $name) . "." . $request->memberImage->extension();
+        // dd($imageName);
+        // $request->clientImage->move(public_path('images'), $imageName);
+        $request->memberImage->move(public_path('images'), $imageName);
+        /* Store $imageName name in DATABASE from HERE */
+        return $imageName;
+    }
     public function listTeamMembers(Request $request)
     {
-        $users = User::where('type', '!=', 'manager')->where('teamid', '=', Auth::user()->teamid)->get(['name', 'email', 'type']);
+        $users = User::where('type', '!=', 'manager')->where('teamid', '=', Auth::user()->teamid)->get(['id', 'name', 'email', 'type', 'image']);
         // dd($users);
         $TeleCount = 0;
         $CommCount = 0;
+        $Teleoperateurs = array();
+        $Commerciaux = array();
         foreach ($users as $i) {
             if ($i->type == "teleoperateur") {
                 $TeleCount++;
+                array_push($Teleoperateurs, $i);
             } elseif ($i->type == "commercial") {
                 $CommCount++;
+                array_push($Commerciaux, $i);
             }
         }
-        // dd($vars);
-        return view('Views-manager/manager-equipe', compact('users', 'TeleCount', 'CommCount'));
+        return view('Views-manager/manager-equipe', compact('Teleoperateurs', 'Commerciaux', 'TeleCount', 'CommCount'));
     }
     public function deleteMember(Request $request)
     {
@@ -99,7 +115,7 @@ class ManagerController extends Controller
                 'prodQuantity' => ['required', 'integer'],
             ]);
             $product = new Product;
-            $product->name = ucwords($request->prodName);
+            $product->name = ucwords(strtolower($request->prodName));
             $product->price = $request->prodPrice;
             $product->quantity = $request->prodQuantity;
             $product->teamid =  Auth::user()->teamid;
@@ -111,7 +127,7 @@ class ManagerController extends Controller
     {
         // $test =  intval(Product::where('id', '=', $request->prodId)->first()->value('teamid'));
         // dd($request);
-        // dd(Product::where('id', '=', $request->prodId)->first());
+        // dd(intval(Product::where('id', '=', $request->prodId)->first()->value('teamid')));
         if (Auth::user()->type === 'manager') {
             $attributes = $request->validate([
                 'prodName' => ['required', 'string', 'max:200'],
@@ -141,14 +157,30 @@ class ManagerController extends Controller
     {
         if (Auth::user()->type === "manager" || Auth::user()->type === "teleoperateur") {
             // $clients = Client::where('teamid', '=', Auth::user()->teamid)->get(['id', 'name', 'company', 'position', 'phone', 'email', 'gender', 'country', 'city', 'address', 'zip']);
-            $clients = Client::where('teamid', '=', Auth::user()->teamid)->get(['id', 'name', 'company', 'position', 'email', 'city', 'country', 'image']);
+            $clients = Client::where('teamid', '=', Auth::user()->teamid)->get(['id', 'name', 'phone', 'company', 'position', 'email', 'city', 'country']);
             $clientCount = count($clients);
             // dd($clientCount);
             // dd($vars);
             return view('Views-manager/manager-clients', compact('clientCount', 'clients'));
         } else return redirect('404');
     }
-
+    public function profileUser(Request $request)
+    {
+        $userName = ucwords(strtolower(trim(preg_replace('/(?<!\ )[A-Z]/', ' $0', $request->slug))));
+        $user = User::where('name', '=', $userName)->get(['id', 'name', 'email', 'type', 'image', 'teamid'])->first();
+        //ADD USER SPECIFIC STATISTICS HERE TO DISPLAY THEM TO THEIR PROFILE
+        // dd($user);
+        return view('Views-manager/profileUser', compact('user'));
+        // return redirect('/equipe');
+    }
+    public function profileClient(Request $request)
+    {
+        $clientName = ucwords(strtolower(trim(preg_replace('/(?<!\ )[A-Z]/', ' $0', $request->slug))));
+        $client = Client::where('name', '=', $clientName)->get(['id', 'name', 'company', 'position', 'email', 'city', 'country'])->first();
+        //ADD CLIENT SPECIFIC STATISTICS HERE TO DISPLAY THEM TO THEIR PROFILE
+        // dd($client);
+        return redirect('/clients');
+    }
 
 
     public function storeNewClient(Request $request)
@@ -165,18 +197,16 @@ class ManagerController extends Controller
                 'clientCity' => ['required', 'string', 'max:200'],
                 'clientAddress' => ['required', 'string', 'max:200'],
                 'clientZip' => ['required', 'string', 'max:200'],
-                'clientImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp',
             ]);
             $client = new Client;
-            $client->name = ucwords($request->clientName);
+            $client->name = ucwords(strtolower($request->clientName));
             $client->gender = $request->clientGender;
-            $client->image = $this->imageUpload($request);
             $client->email = $request->clientEmail;
             $client->phone = $request->clientNumber;
             $client->company = ucwords($request->clientCompany);
             $client->position = ucwords($request->clientPosition);
-            $client->country = ucwords($request->clientCountry);
-            $client->city = ucwords($request->clientCity);
+            $client->country = ucwords(strtolower($request->clientCountry));
+            $client->city = ucwords(strtolower($request->clientCity));
             $client->address = ucwords($request->clientAddress);
             $client->zip = $request->clientZip;
             $client->teamid =  Auth::user()->teamid;
@@ -184,17 +214,7 @@ class ManagerController extends Controller
             return redirect('/clients');
         } else return redirect('404');
     }
-    public function imageUpload(Request $request)
-    {
-        // $newId = Client::orderBy('id', 'desc')->take(1)->first()->id + 1;
-        $name = base64_encode(random_bytes(18));
-        $imageName = preg_replace('/[\W]/', '', $name) . "." . $request->clientImage->extension();
-        // dd($imageName);
-        // $request->clientImage->move(public_path('images'), $imageName);
-        $request->clientImage->move(public_path('images'), $imageName);
-        /* Store $imageName name in DATABASE from HERE */
-        return $imageName;
-    }
+
     public function deleteClient(Request $request)
     {
         $client = Client::where('id', '=', $request->deleteClientId)->first();

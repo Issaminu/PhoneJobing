@@ -31,7 +31,7 @@
 
             <h2 class="h5 mb-5 text-center mt-5" style="color: #47484e;">Informations générales</h2>
 
-            <form method="POST" action="{{ route('clients/ajout-client') }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('clients/ajout-client') }}">
                 @csrf
                 <x-label for="accountTypeChoice" :value="__('Role de membre')" />
                 <div id="AccTypeRadio">
@@ -65,11 +65,6 @@
                     <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="clientNumber"
                         class="block mt-1 w-full" type="text" name="clientNumber" :value="old('clientNumber')"
                         required />
-                </div>
-
-                <div>
-                    <x-label for="clientImage" :value="__('Photo')" class="mt-4" />
-                    <input name="clientImage" id="clientImage" type="file">
                 </div>
                 <div>
                     <x-label for="clientCompany" :value="__('Entreprise')" class="mt-4" />

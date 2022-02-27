@@ -32,7 +32,7 @@
             <!-- Validation Errors -->
             <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-            <form method="POST" action="{{ route('/equipe/ajout-membre') }}">
+            <form method="POST" action="{{ route('/equipe/ajout-membre') }}" enctype="multipart/form-data">
                 @csrf
 
                 <!-- Type de Compte de nouveau membre -->
@@ -83,8 +83,12 @@
                     <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="password_confirmation"
                         class="block mt-1 mb-5 w-full" type="password" name="password_confirmation" required />
                 </div>
-
-                <div type="submit" class="flex items-center justify-center mt-1 mr-5">
+                {{-- Image Upload --}}
+                <div>
+                    <x-label for="memberImage" :value="__('Photo')" class="mt-4" />
+                    <input name="memberImage" id="memberImage" type="file">
+                </div>
+                <div type="submit" class="flex items-center justify-center mt-4 mr-5">
                     <x-button class="h-10 rounded">
                         {{ __('Ajouter Membre') }}
                     </x-button>

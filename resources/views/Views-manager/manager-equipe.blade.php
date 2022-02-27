@@ -12,15 +12,17 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/searchAndFilterTeamTable.js') }}"></script>
+    {{-- <script src="{{ asset('js/searchAndFilterTeamTable.js') }}"></script> --}}
 
 </head>
 
 <body>
     @include('layouts.navigation')
-    @include('layouts.Equipe.team-header')
+    @include('layouts.Equipe.listAllTeam-header')
+    <div class="ml-32 mr-32">
+        @include('layouts.Equipe.listAllTeam-body')
 
-    @include('layouts.Equipe.team-table')
+    </div>
 
     <br style="user-select: none;">
     <br style="user-select: none;">

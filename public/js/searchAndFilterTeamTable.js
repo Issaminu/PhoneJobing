@@ -7,60 +7,58 @@ var TeleState = 0,
     CommState = 0;
 
 window.onload = function () {
-  window.FilterByTeleButton = document.getElementById('FilterByTeleButton').onclick = function () {
-    if (TeleState == 0) {
-      document.getElementById("FilterByTeleButton").style.backgroundColor = "#1f2937";
-      document.getElementById("FilterByTeleButton").style.color = "#f2f4f6";
-      document.getElementById("FilterByCommButton").style.backgroundColor = "#f2f4f6";
-      document.getElementById("FilterByCommButton").style.color = "#4b5563";
-      FilterTeamTable("Téléoperateur");
-      TeleState = 1;
-      CommState = 0;
-      Type = "Téléoperateur";
-      document.getElementById('teamSearch').dispatchEvent(new KeyboardEvent('keyup', {
-        'key': document.getElementById('teamSearch').value
-      }));
-    } else {
-      if (TeleState == 1) {
-        document.getElementById("FilterByTeleButton").style.backgroundColor = "#f2f4f6";
-        document.getElementById("FilterByTeleButton").style.color = "#4b5563";
-        FilterTeamTable(" ");
-        TeleState = 0;
-        CommState = 0;
-        document.getElementById('teamSearch').dispatchEvent(new KeyboardEvent('keyup', {
-          'key': document.getElementById('teamSearch').value
-        }));
-      }
-    }
-  };
-
-  window.FilterByCommButton = document.getElementById('FilterByCommButton').onclick = function () {
-    if (CommState == 0) {
-      document.getElementById("FilterByCommButton").style.backgroundColor = "#1f2937";
-      document.getElementById("FilterByCommButton").style.color = "#f2f4f6";
-      document.getElementById("FilterByTeleButton").style.backgroundColor = "#f2f4f6";
-      document.getElementById("FilterByTeleButton").style.color = "#4b5563";
-      FilterTeamTable("Commercial");
-      CommState = 1;
-      TeleState = 0;
-      Type = "Commercial";
-      document.getElementById('teamSearch').dispatchEvent(new KeyboardEvent('keyup', {
-        'key': document.getElementById('teamSearch').value
-      }));
-    } else {
-      if (CommState == 1) {
-        document.getElementById("FilterByCommButton").style.backgroundColor = "#f2f4f6";
-        document.getElementById("FilterByCommButton").style.color = "#4b5563";
-        FilterTeamTable(" ");
-        CommState = 0;
-        TeleState = 0;
-        document.getElementById('teamSearch').dispatchEvent(new KeyboardEvent('keyup', {
-          'key': document.getElementById('teamSearch').value
-        }));
-      }
-    }
-  };
-
+  // window.FilterByTeleButton = document.getElementById('FilterByTeleButton').onclick = function () {
+  //     if (TeleState == 0) {
+  //         document.getElementById("FilterByTeleButton").style.backgroundColor = "#1f2937";
+  //         document.getElementById("FilterByTeleButton").style.color = "#f2f4f6";
+  //         document.getElementById("FilterByCommButton").style.backgroundColor = "#f2f4f6";
+  //         document.getElementById("FilterByCommButton").style.color = "#4b5563";
+  //         FilterTeamTable("Téléoperateur");
+  //         TeleState = 1;
+  //         CommState = 0;
+  //         Type = "Téléoperateur";
+  //         document.getElementById('teamSearch').dispatchEvent(new KeyboardEvent('keyup', {
+  //             'key': document.getElementById('teamSearch').value
+  //         }));
+  //     } else {
+  //         if (TeleState == 1) {
+  //             document.getElementById("FilterByTeleButton").style.backgroundColor = "#f2f4f6";
+  //             document.getElementById("FilterByTeleButton").style.color = "#4b5563";
+  //             FilterTeamTable(" ");
+  //             TeleState = 0;
+  //             CommState = 0;
+  //             document.getElementById('teamSearch').dispatchEvent(new KeyboardEvent('keyup', {
+  //                 'key': document.getElementById('teamSearch').value
+  //             }));
+  //         }
+  //     }
+  // };
+  // window.FilterByCommButton = document.getElementById('FilterByCommButton').onclick = function () {
+  //     if (CommState == 0) {
+  //         document.getElementById("FilterByCommButton").style.backgroundColor = "#1f2937";
+  //         document.getElementById("FilterByCommButton").style.color = "#f2f4f6";
+  //         document.getElementById("FilterByTeleButton").style.backgroundColor = "#f2f4f6";
+  //         document.getElementById("FilterByTeleButton").style.color = "#4b5563";
+  //         FilterTeamTable("Commercial");
+  //         CommState = 1;
+  //         TeleState = 0;
+  //         Type = "Commercial";
+  //         document.getElementById('teamSearch').dispatchEvent(new KeyboardEvent('keyup', {
+  //             'key': document.getElementById('teamSearch').value
+  //         }));
+  //     } else {
+  //         if (CommState == 1) {
+  //             document.getElementById("FilterByCommButton").style.backgroundColor = "#f2f4f6";
+  //             document.getElementById("FilterByCommButton").style.color = "#4b5563";
+  //             FilterTeamTable(" ");
+  //             CommState = 0;
+  //             TeleState = 0;
+  //             document.getElementById('teamSearch').dispatchEvent(new KeyboardEvent('keyup', {
+  //                 'key': document.getElementById('teamSearch').value
+  //             }));
+  //         }
+  //     }
+  // };
   window.searchTeamTable = document.getElementById('teamSearch').onkeyup = function () {
     var myType = " ";
     var input, filter, table, tr, td, i, txtValue;
