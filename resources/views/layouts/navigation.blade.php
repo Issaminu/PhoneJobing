@@ -34,10 +34,7 @@
                             {{ __('Produits') }}
                         </x-nav-link>
                     </div>
-
-
                 @elseif (Auth::user()->type === 'teleoperateur')
-
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard*')">
                             {{ __('Accueil') }}
@@ -52,10 +49,7 @@
                             {{ __('Historique') }}
                         </x-nav-link>
                     </div>
-
-
                 @elseif (Auth::user()->type === 'commercial')
-
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard*')">
                             {{ __('Accueil') }}
@@ -77,10 +71,18 @@
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-dropdown align="right" width="48">
+
                     <x-slot name="trigger">
                         <button
                             class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-                            <div>{{ ucwords(Auth::user()->name) }}</div>
+                            <a href="/equipe/{{ str_replace(' ', '', Auth::user()->name) }}">
+                                <div class="flex" style="align-items: center">
+                                    <div class="client-picture-rounded"
+                                        style="border-style:solid; border-color:#6b7280; border-width:0.03rem; margin-bottom:0.7rem; margin-right:0.7rem; cursor: pointer;
+                                width: 2rem; height: 2rem; background-image: url({{ asset('images/' . Auth::user()->image) }})">
+                                    </div>{{ ucwords(Auth::user()->name) }}
+                                </div>
+                            </a>
 
                             <div class="ml-1">
 

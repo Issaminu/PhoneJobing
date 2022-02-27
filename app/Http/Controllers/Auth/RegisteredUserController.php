@@ -35,11 +35,15 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         // $lastid = Model::latest()->first() + 1;
         $attributes = $request->validate([
             'name' => ['required', 'string', 'max:200'],
             'email' => ['required', 'string', 'email', 'max:200', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'phone' => ['required', 'string', 'max:20'],
+            'company' => ['required', 'string', 'max:200'],
+            'managerImage' => 'required|image|mimes:jpeg,png,jpg,svg,webp',
         ]);
         // if (!array_key_exists('teamid', $attributes)) {
         //     $attributes["teamid"] = $lastid;
@@ -50,6 +54,13 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'phone' => $request->phone,
+            'company' => $request->company,
+            'image' => $this->imageUpload($request),
+            'country' => $request->country,
+            'city' => ucwords(strtolower($request->city)),
+            'address' => ucwords($request->address),
+            'zip' => $request->zip,
             'type' => "manager",
             'teamid' => DB::table('users')->latest()->first()->id + 1, //THIS IS TO GET "TEAMID" TO BE EQUIVALENT WITH THE "ID" OF THE NEW MANAGER AND WHOLE TEAM
         ]);
@@ -60,5 +71,16 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         return redirect('/dashboard');
+    }
+    public function imageUpload(Request $request)
+    {
+        // $newId = Client::orderBy('id', 'desc')->take(1)->first()->id + 1;
+        $name = base64_encode(random_bytes(18));
+        $imageName = preg_replace('/[\W]/', '', $name) . "." . $request->managerImage->extension();
+        // dd($imageName);
+        // $request->clientImage->move(public_path('images'), $imageName);
+        $request->managerImage->move(public_path('images'), $imageName);
+        /* Store $imageName name in DATABASE from HERE */
+        return $imageName;
     }
 }

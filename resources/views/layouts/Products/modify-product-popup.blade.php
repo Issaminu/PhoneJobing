@@ -15,8 +15,7 @@
                     @csrf
                     <!-- Name -->
                     <div>
-                        <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="prodId"
-                            class="block mt-1 w-full" type="hidden" name="prodId" required />
+                        <x-input id="prodId" class="block mt-1 w-full" type="hidden" name="prodId" required />
                     </div>
                     <div>
                         <x-label for="prodName" :value="__('Nom de produit')" />
@@ -25,7 +24,6 @@
                             class="block mt-1 w-full" type="text" name="prodName" required />
                     </div>
 
-                    <!-- Email Address -->
                     <div class="mt-4">
                         <x-label for="prodPrice" :value="__('Prix')" />
 

@@ -30617,14 +30617,9 @@ Ensure the default browser behavior of the `hidden` attribute.
   z-index: 50;
 }.m-0{
   margin: 0px;
-}.m-4{
-  margin: 1rem;
 }.mx-auto{
   margin-left: auto;
   margin-right: auto;
-}.my-4{
-  margin-top: 1rem;
-  margin-bottom: 1rem;
 }.ml-3{
   margin-left: 0.75rem;
 }.-ml-px{
@@ -30671,32 +30666,22 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-left: 3rem;
 }.-mt-px{
   margin-top: -1px;
-}.mt-14{
-  margin-top: 3.5rem;
-}.mb-2{
-  margin-bottom: 0.5rem;
-}.mt-0{
-  margin-top: 0px;
-}.ml-8{
-  margin-left: 2rem;
-}.mr-8{
-  margin-right: 2rem;
-}.ml-16{
-  margin-left: 4rem;
 }.ml-32{
   margin-left: 8rem;
 }.mr-32{
   margin-right: 8rem;
+}.mt-14{
+  margin-top: 3.5rem;
+}.mb-2{
+  margin-bottom: 0.5rem;
+}.mb-16{
+  margin-bottom: 4rem;
 }.mr-1{
   margin-right: 0.25rem;
-}.mr-10{
-  margin-right: 2.5rem;
-}.ml-10{
-  margin-left: 2.5rem;
-}.mr-40{
-  margin-right: 10rem;
-}.ml-40{
-  margin-left: 10rem;
+}.mt-0{
+  margin-top: 0px;
+}.mb-6{
+  margin-bottom: 1.5rem;
 }.block{
   display: block;
 }.flex{
@@ -31187,11 +31172,11 @@ body {
     margin-top: 0.75rem;
     margin-bottom: 1rem;
     -webkit-border-radius: 60px;
-    -webkit-background-clip: padding-box;
-    -moz-border-radius: 60px;
-    -moz-background-clip: padding;
-    border-radius: 50%;
-    background-clip: padding-box;
+-webkit-background-clip: padding-box;
+-moz-border-radius: 60px;
+-moz-background-clip: padding;
+border-radius: 50%;
+background-clip: padding-box;
     /* margin: 7px 0 0 5px; */
     /* float: left; */
     background-size: cover;

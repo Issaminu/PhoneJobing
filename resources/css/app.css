@@ -142,7 +142,6 @@ ClientBox {
     height: 66rem !important;
     display: block !important;
 }
-
 .popup {
     display: none;
     position: fixed;
@@ -156,7 +155,6 @@ ClientBox {
     background: #FFF;
     z-index: 20;
 }
-
 
 #modifyProductPopup:after {
     position: fixed;
@@ -188,11 +186,11 @@ ClientBox {
     margin-top: 0.75rem;
     margin-bottom: 1rem;
     -webkit-border-radius: 60px;
-    -webkit-background-clip: padding-box;
-    -moz-border-radius: 60px;
-    -moz-background-clip: padding;
-    border-radius: 50%;
-    background-clip: padding-box;
+-webkit-background-clip: padding-box;
+-moz-border-radius: 60px;
+-moz-background-clip: padding;
+border-radius: 50%;
+background-clip: padding-box;
     /* margin: 7px 0 0 5px; */
     /* float: left; */
     background-size: cover;
