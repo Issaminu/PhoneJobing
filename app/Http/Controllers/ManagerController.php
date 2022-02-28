@@ -102,10 +102,11 @@ class ManagerController extends Controller
     }
     public function modifyMember(Request $request)
     {
-        // dd($request->membreId);
+        // dd($request->membreImage);
         if (Auth::user()->type === 'manager' || intval(Auth::user()->id) === intval($request->membreId)) {
             $attributes = $request->validate([
                 'membreName' => ['required', 'string', 'max:200'],
+                'membrePhone' => ['required', 'string', 'max:20'],
             ]);
             $user = User::where('id', '=', $request->membreId)->first();
             // dd($request->membreName);

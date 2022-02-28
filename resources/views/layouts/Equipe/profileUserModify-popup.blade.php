@@ -36,8 +36,8 @@
                             required />
                     </div>
                     <div>
-                        <x-label for="memberImage" :value="__('Photo')" class="mt-4" />
-                        <input name="memberImage" id="memberImage" type="file"
+                        <x-label for="membreImage" :value="__('Photo')" class="mt-4" />
+                        <input name="membreImage" id="memberImage" type="file"
                             accept="image/png, image/jpeg, image/jpg, image/svg, image/webp">
                     </div>
                     <div class="mt-4">

@@ -73,7 +73,8 @@
                     <x-label for="phone" :value="__('Numéro de téléphone *')" style="margin-top:1rem;" />
 
                     <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="phone"
-                        class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required />
+                        class="block mt-1 w-full" type="text" name="phone" value="{{ old('phone') ?? '+212' }}"
+                        required />
                 </div>
 
                 <!-- Password -->
