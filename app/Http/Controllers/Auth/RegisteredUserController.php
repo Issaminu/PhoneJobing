@@ -43,7 +43,7 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'phone' => ['required', 'string', 'max:20'],
             'company' => ['required', 'string', 'max:200'],
-            'managerImage' => 'required|image|mimes:jpeg,png,jpg,svg,webp',
+            'managerImage' => 'image|mimes:jpeg,png,jpg,svg,webp',
         ]);
         // if (!array_key_exists('teamid', $attributes)) {
         //     $attributes["teamid"] = $lastid;
@@ -51,13 +51,13 @@ class RegisteredUserController extends Controller
         // $request["teamid"] = $attributes["teamid"];
 
         $user = User::create([
-            'name' => $request->name,
+            'name' => ucwords(strtolower($request->name)),
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'phone' => $request->phone,
             'company' => $request->company,
-            'image' => $this->imageUpload($request),
-            'country' => $request->country,
+            'image' => $this->imageUpload($request->managerImage),
+            'country' => ucwords(strtolower($request->country)),
             'city' => ucwords(strtolower($request->city)),
             'address' => ucwords($request->address),
             'zip' => $request->zip,
@@ -72,15 +72,20 @@ class RegisteredUserController extends Controller
 
         return redirect('/dashboard');
     }
-    public function imageUpload(Request $request)
+    public function imageUpload($Image)
     {
-        // $newId = Client::orderBy('id', 'desc')->take(1)->first()->id + 1;
-        $name = base64_encode(random_bytes(18));
-        $imageName = preg_replace('/[\W]/', '', $name) . "." . $request->managerImage->extension();
-        // dd($imageName);
-        // $request->clientImage->move(public_path('images'), $imageName);
-        $request->managerImage->move(public_path('images'), $imageName);
-        /* Store $imageName name in DATABASE from HERE */
-        return $imageName;
+        if ($Image) {
+            // $newId = Client::orderBy('id', 'desc')->take(1)->first()->id + 1;
+            $name = base64_encode(random_bytes(18));
+            $imageName = preg_replace('/[\W]/', '', $name) . "." . $Image->extension();
+            // dd($imageName);
+            // $request->clientImage->move(public_path('images'), $imageName);
+            $Image->move(public_path('images'), $imageName);
+            /* Store $imageName name in DATABASE from HERE */
+            return $imageName;
+        } else {
+            $imageName = "defaultPFP.webp"; //THIS IS PROFILE PICTURE BY DEFAULT, IF A PFP ISN'T PROVIDED, WE'LL USE THIS ONE
+            return $imageName;
+        }
     }
 }

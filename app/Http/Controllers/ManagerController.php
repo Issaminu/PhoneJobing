@@ -41,7 +41,7 @@ class ManagerController extends Controller
                 'email' => ['required', 'string', 'email', 'max:200', 'unique:users'],
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
                 'phone' => ['required', 'string', 'max:20'],
-                'memberImage' => 'required|image|mimes:jpeg,png,jpg,svg,webp',
+                'memberImage' => 'image|mimes:jpeg,png,jpg,svg,webp',
             ]);
             $newMember = User::create([
                 'name' => ucwords(strtolower($request->name)),
@@ -55,7 +55,7 @@ class ManagerController extends Controller
                 'image' => $this->imageUpload($request->memberImage),
                 'password' => Hash::make($request->password),
                 'type' => $request->accountTypeChoice,
-                'teamid' => Auth::user()->teamid, //THIS IS TO GET "TEAMID" OF THE NEW MEMBER OF THE TEAM TO BE EQUIVALENT WITH THE "TEAMID" OF THE MANAGER
+                'teamid' => Auth::user()->teamid, //THIS IS TO GET "TEAMID" OF THE NEW MEMBRE OF THE TEAM TO BE EQUIVALENT WITH THE "TEAMID" OF THE MANAGER
             ]);
             event(new Registered($newMember));
             return redirect('/equipe');
@@ -63,14 +63,19 @@ class ManagerController extends Controller
     }
     public function imageUpload($Image)
     {
-        // $newId = Client::orderBy('id', 'desc')->take(1)->first()->id + 1;
-        $name = base64_encode(random_bytes(18));
-        $imageName = preg_replace('/[\W]/', '', $name) . "." . $Image->extension();
-        // dd($imageName);
-        // $request->clientImage->move(public_path('images'), $imageName);
-        $Image->move(public_path('images'), $imageName);
-        /* Store $imageName name in DATABASE from HERE */
-        return $imageName;
+        if ($Image) {
+            // $newId = Client::orderBy('id', 'desc')->take(1)->first()->id + 1;
+            $name = base64_encode(random_bytes(18));
+            $imageName = preg_replace('/[\W]/', '', $name) . "." . $Image->extension();
+            // dd($imageName);
+            // $request->clientImage->move(public_path('images'), $imageName);
+            $Image->move(public_path('images'), $imageName);
+            /* Store $imageName name in DATABASE from HERE */
+            return $imageName;
+        } else {
+            $imageName = "defaultPFP.webp"; //THIS IS PROFILE PICTURE BY DEFAULT, IF A PFP ISN'T PROVIDED, WE'LL USE THIS ONE
+            return $imageName;
+        }
     }
     public function listTeamMembers(Request $request)
     {
@@ -94,11 +99,17 @@ class ManagerController extends Controller
     public function profileMember(Request $request)
     {
         $userName = ucwords(strtolower(trim(preg_replace('/(?<!\ )[A-Z]/', ' $0', $request->slug))));
-        $user = User::where('name', '=', $userName)->get(['id', 'name', 'email', 'company', 'phone', 'country', 'city', 'address', 'zip', 'type', 'image', 'teamid'])->first();
-        //ADD USER SPECIFIC STATISTICS HERE TO DISPLAY THEM TO THEIR PROFILE
+        $user = User::where('name', '=', $userName)->first();
         // dd($user);
-        return view('Views-manager/profileUser', compact('user'));
-        // return redirect('/equipe');
+        if (intval(Auth::user()->teamid) === intval($user->teamid)) {
+            $user = User::where('name', '=', $userName)->get(['id', 'name', 'email', 'company', 'phone', 'country', 'city', 'address', 'zip', 'type', 'image', 'teamid'])->first();
+            //ADD USER SPECIFIC STATISTICS HERE TO DISPLAY THEM TO THEIR PROFILE
+            // dd($user);
+            if ($user) {
+                return view('Views-manager/profileUser', compact('user'));
+            } else return redirect('404');
+            // return redirect('/equipe');
+        } else return redirect('404');
     }
     public function modifyMember(Request $request)
     {
@@ -109,19 +120,25 @@ class ManagerController extends Controller
                 'membrePhone' => ['required', 'string', 'max:20'],
             ]);
             $user = User::where('id', '=', $request->membreId)->first();
-            // dd($request->membreName);
-            $user->name = ucwords(strtolower($request->membreName));
-            $user->phone = $request->membrePhone;
-            $user->country = ucwords(strtolower($request->membreCountry));
-            if ($request->membreImage) {
-                $user->image = $this->imageUpload($request->membreImage);
-            }
-            $user->city = ucwords(strtolower($request->membreCity));
-            $user->address = ucwords($request->membreAddress);
-            $user->zip = $request->membreZip;
-            // dd($user);
-            $user->update();
-            return redirect("/equipe/" . str_replace(' ', '', $request->membreName));
+            if ($user) {
+                $user->name = ucwords(strtolower($request->membreName));
+                $user->phone = $request->membrePhone;
+                $user->country = ucwords(strtolower($request->membreCountry));
+                // dd($request);
+                if (Auth::user()->type === 'manager' && $request->membreId === Auth::user()->teamid) {
+                    $user->company = $request->membreCompany;
+                    User::where(['teamid' => Auth::user()->teamid])->update(['company' => $request->membreCompany]); //THIS WILL UPDATE THE COMPANY NAME OF ALL TEAM MEMBERS TO THE MANAGER'S NEW COMPANY NAME
+                    // dd($user);
+                }
+                if ($request->membreImage) {
+                    $user->image = $this->imageUpload($request->membreImage);
+                }
+                $user->city = ucwords(strtolower($request->membreCity));
+                $user->address = ucwords($request->membreAddress);
+                $user->zip = $request->membreZip;
+                $user->update();
+                return redirect("/equipe/" . str_replace(' ', '', $user->name));
+            } else return redirect('404');
         } else return redirect('404');
     }
     public function deleteMember(Request $request)
@@ -168,9 +185,9 @@ class ManagerController extends Controller
     {
         // $test =  intval(Product::where('id', '=', $request->prodId)->first()->value('teamid'));
         // dd($request);
-        // dd(intval(Product::where('id', '=', $request->prodId)->first()->value('teamid')));
+        // dd(intval(Auth::user()->id));
 
-        if (Auth::user()->type === 'manager') {
+        if (Auth::user()->type === 'manager' && intval(Product::where('id', '=', $request->prodId)->first()->value('teamid')) == intval(Auth::user()->id)) {
             $attributes = $request->validate([
                 'prodName' => ['required', 'string', 'max:200'],
                 'prodPrice' => ['required', 'numeric'],
@@ -209,13 +226,49 @@ class ManagerController extends Controller
 
     public function profileClient(Request $request)
     {
-        $clientName = ucwords(strtolower(trim(preg_replace('/(?<!\ )[A-Z]/', ' $0', $request->slug))));
-        $client = Client::where('name', '=', $clientName)->get(['id', 'name', 'company', 'position', 'email', 'city', 'country'])->first();
-        //ADD CLIENT SPECIFIC STATISTICS HERE TO DISPLAY THEM TO THEIR PROFILE
+        if (Auth::user()->type === "manager" || Auth::user()->type === "teleoperateur") {
+            $clientName = ucwords(strtolower(trim(preg_replace('/(?<!\ )[A-Z]/', ' $0', $request->slug))));
+            $client = Client::where('name', '=', $clientName)->get(['id', 'gender', 'name', 'email', 'company', 'position', 'phone', 'country', 'city', 'address', 'zip', 'teamid'])->first();
+            if ($client) {
+                if (intval(Auth::user()->teamid) === intval($client->teamid)) {
+                    //ADD CLIENT SPECIFIC STATISTICS HERE TO DISPLAY THEM TO THEIR PROFILE
+                    return view('Views-manager/profileClient', compact('client'));
+                } else return redirect('404');
+            } else return redirect('404');
+        } else return redirect('404');
         // dd($client);
-        return redirect('/clients');
     }
-
+    public function modifyClient(Request $request)
+    {
+        // dd($request);
+        if (Auth::user()->type === 'manager') {
+            $attributes = $request->validate([
+                'clientId' => ['required', 'string', 'max:200'],
+                'clientName' => ['required', 'string', 'max:200'],
+                'clientCompany' => ['required', 'string', 'max:200'],
+                'clientPhone' => ['required', 'string', 'max:200'],
+                'clientPosition' => ['required', 'string', 'max:200'],
+                'clientCountry' => ['required', 'string', 'max:200'],
+                'clientCity' => ['required', 'string', 'max:200'],
+                'clientAddress' => ['required', 'string', 'max:200'],
+                'clientZip' => ['required', 'string', 'max:200'],
+            ]);
+            $client = Client::where('id', '=', $request->clientId)->first();
+            if ($client) {
+                $client->name = ucwords(strtolower($request->clientName));
+                $client->phone = $request->clientPhone;
+                $client->company = $request->clientCompany;
+                $client->position = $request->clientPosition;
+                $client->country = ucwords(strtolower($request->clientCountry));
+                $client->city = ucwords(strtolower($request->clientCity));
+                $client->address = ucwords($request->clientAddress);
+                $client->zip = $request->clientZip;
+                // dd($request);
+                $client->update();
+                return redirect("/clients/" . str_replace(' ', '', $client->name));
+            } else return redirect('404');
+        } else return redirect('404');
+    }
 
     public function storeNewClient(Request $request)
     {
@@ -251,7 +304,7 @@ class ManagerController extends Controller
 
     public function deleteClient(Request $request)
     {
-        $client = Client::where('id', '=', $request->deleteClientId)->first();
+        $client = Client::where('email', '=', $request->deleteEmail)->first();
         if (Auth::user()->type === 'manager' && intval(Auth::user()->teamid) == intval($client->teamid)) {
             $client->delete();
             //TODO: DELETE THIS CLIENT'S DATA ELSEWHERE

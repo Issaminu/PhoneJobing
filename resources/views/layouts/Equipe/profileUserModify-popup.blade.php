@@ -35,11 +35,35 @@
                             class="block mt-1 w-full" type="text" name="membrePhone" value="{{ $user->phone }}"
                             required />
                     </div>
-                    <div>
-                        <x-label for="membreImage" :value="__('Photo')" class="mt-4" />
-                        <input name="membreImage" id="memberImage" type="file"
-                            accept="image/png, image/jpeg, image/jpg, image/svg, image/webp">
-                    </div>
+
+
+
+
+                    @if (Auth::user()->type === 'manager' && $user->type === 'manager')
+                        <div class="mt-4">
+                            <x-label for="membreCompany" :value="__('Entreprise *')" />
+                            <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="membreCompany"
+                                class="block mt-1 w-full" type="text" name="membreCompany"
+                                value="{{ $user->company }}" required />
+                        </div>
+                        <div>
+                            <x-label for="membreImage" :value="__('Photo')" class="mt-4" />
+                            <input name="membreImage" id="memberImage" type="file"
+                                accept="image/png, image/jpeg, image/jpg, image/svg, image/webp">
+                        </div>
+                    @else
+                        <div>
+                            <x-label for="membreImage" :value="__('Photo')" class="mt-4" />
+                            <input name="membreImage" id="memberImage" type="file"
+                                accept="image/png, image/jpeg, image/jpg, image/svg, image/webp">
+                        </div>
+                        <div class="mt-4">
+                            <x-label for="membreCompany" :value="__('Entreprise')" />
+                            <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="membreCompany"
+                                class="block mt-1 w-full form-control" type="text" name="membreCompany"
+                                value="{{ $user->company }}" required disabled=disabled />
+                        </div>
+                    @endif
                     <div class="mt-4">
                         <x-label for="membreEmail" :value="__('Email')" />
 
@@ -47,30 +71,23 @@
                             class="block mt-1 w-full form-control" type="text" name="membreEmail"
                             value="{{ $user->email }}" required disabled=disabled />
                     </div>
-
                     <div class="mt-4">
-                        <x-label for="membreCompany" :value="__('Entreprise')" />
 
-                        <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="membreCompany"
-                            class="block mt-1 w-full form-control" type="text" name="membreCompany"
-                            value="{{ $user->company }}" required disabled=disabled />
+                        <x-label for="membreType" :value="__('Rôle')" />
+                        <?php
+                        if ($user->type === 'teleoperateur') {
+                            $accType = 'Téléoperateur';
+                        } elseif ($user->type === 'commercial') {
+                            $accType = 'Commercial';
+                        } elseif ($user->type === 'manager') {
+                            $accType = 'Manager';
+                        }
+                        ?>
+
+                        <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="membreType"
+                            class="block mt-1 w-full form-control" type="text" name="membreType"
+                            value="{{ $accType }}" required disabled=disabled />
                     </div>
-                    @if (Auth::user()->type === 'manager')
-                        <div class="mt-4">
-
-                            <x-label for="membreType" :value="__('Rôle')" />
-                            <?php
-                            if ($user->type === 'teleoperateur') {
-                                $accType = 'Téléoperateur';
-                            } elseif ($user->type === 'commercial') {
-                                $accType = 'Commercial';
-                            }
-                            ?>
-                            <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="membreType"
-                                class="block mt-1 w-full form-control" type="text" name="membreType"
-                                value="{{ $accType }}" required disabled=disabled />
-                        </div>
-                    @endif
 
                     <div class="mt-4">
                         <x-label for="membreCountry" :value="__('Pays')" />
@@ -88,7 +105,8 @@
                         <x-label for="membreAddress" :value="__('Addresse')" />
 
                         <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="membreAddress"
-                            class="block mt-1 w-full" type="text" name="membreAddress" value="{{ $user->address }}" />
+                            class="block mt-1 w-full" type="text" name="membreAddress"
+                            value="{{ $user->address }}" />
                     </div>
                     <div class="mt-4">
                         <x-label for="membreZip" :value="__('Zip code')" />

@@ -36,20 +36,20 @@
 
                 <!-- Name -->
                 <div>
-                    <x-label for="prodName" :value="__('Nom de produit')" />
+                    <x-label for="prodName" :value="__('Nom de produit *')" />
 
                     <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="prodName"
                         class="block mt-1 mb-3 w-full" type="text" name="prodName" :value="old('prodName')" required
                         autofocus />
                 </div>
                 <div>
-                    <x-label for="prodPrice" :value="__('Prix')" />
+                    <x-label for="prodPrice" :value="__('Prix *')" />
 
                     <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="prodPrice"
                         class="block mt-1 mb-3 w-full" type="text" name="prodPrice" :value="old('prodPrice')" required />
                 </div>
                 <div>
-                    <x-label for="prodQuantity" :value="__('Stock')" />
+                    <x-label for="prodQuantity" :value="__('Stock *')" />
 
                     <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="prodQuantity"
                         class="block mt-1 mb-10 w-full" type="text" name="prodQuantity" :value="old('name')" required />

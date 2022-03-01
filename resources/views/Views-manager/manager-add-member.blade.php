@@ -95,9 +95,9 @@
                 </div>
                 {{-- Image Upload --}}
                 <div>
-                    <x-label for="memberImage" :value="__('Photo *')" class="mt-4" />
+                    <x-label for="memberImage" :value="__('Photo')" class="mt-4" />
                     <input name="memberImage" id="memberImage" type="file"
-                        accept="image/png, image/jpeg, image/jpg, image/svg, image/webp" required>
+                        accept="image/png, image/jpeg, image/jpg, image/svg, image/webp">
                 </div>
 
                 <!-- Country -->

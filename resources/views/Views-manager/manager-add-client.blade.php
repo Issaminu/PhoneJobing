@@ -33,7 +33,7 @@
 
             <form method="POST" action="{{ route('clients/ajout-client') }}">
                 @csrf
-                <x-label for="accountTypeChoice" :value="__('Role de membre')" />
+                <x-label for="accountTypeChoice" :value="__('Sexe de client *')" />
                 <div id="AccTypeRadio">
                     <input id="MrRadio" name=clientGender type=radio value="Monsieur" required><label
                         for=TeleRadio>Monsieur</label>
@@ -47,34 +47,34 @@
                 </div>
 
                 <div>
-                    <x-label for="clientName" :value="__('Nom complet de client')" />
+                    <x-label for="clientName" :value="__('Nom complet de client *')" />
 
                     <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="clientName"
                         class="block mt-1 w-full" type="text" name="clientName" :value="old('clientName')" required />
                 </div>
                 <div class="mt-4">
-                    <x-label for="clientEmail" :value="__('Email')" />
+                    <x-label for="clientEmail" :value="__('Email *')" />
 
                     <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="clientEmail"
                         class="block mt-1 w-full" type="email" name="clientEmail" :value="old('clientEmail')" required />
                 </div>
 
                 <div>
-                    <x-label for="clientNumber" :value="__('Numéro de téléphone')" class="mt-4" />
+                    <x-label for="clientNumber" :value="__('Numéro de téléphone *')" class="mt-4" />
 
                     <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="clientNumber"
                         class="block mt-1 w-full" type="text" name="clientNumber"
                         value="{{ old('clientNumber') ?? '+212' }}" required />
                 </div>
                 <div>
-                    <x-label for="clientCompany" :value="__('Entreprise')" class="mt-4" />
+                    <x-label for="clientCompany" :value="__('Entreprise *')" class="mt-4" />
 
                     <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="clientCompany"
                         class="block mt-1 w-full" type="text" name="clientCompany" :value="old('clientCompany')"
                         required />
                 </div>
                 <div>
-                    <x-label for="clientPosition" :value="__('Poste')" class="mt-4" />
+                    <x-label for="clientPosition" :value="__('Poste *')" class="mt-4" />
 
                     <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="clientPosition"
                         class="block mt-1 w-full" type="text" name="clientPosition" :value="old('clientPosition')"
@@ -84,28 +84,28 @@
 
                     <h2 class="h5 mt-9 mb-4 text-center" style="color: #47484e;">Location</h2>
                     <div>
-                        <x-label for="clientCountry" :value="__('Pays')" class="mt-4" />
+                        <x-label for="clientCountry" :value="__('Pays *')" class="mt-4" />
 
                         <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="clientCountry"
                             class="block mt-1 w-full" type="text" name="clientCountry" :value="old('clientCountry')"
                             required />
                     </div>
                     <div>
-                        <x-label for="clientCity" :value="__('Ville')" class="mt-4" />
+                        <x-label for="clientCity" :value="__('Ville *')" class="mt-4" />
 
                         <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="clientCity"
                             class="block mt-1 w-full" type="text" name="clientCity" :value="old('clientCity')"
                             required />
                     </div>
                     <div>
-                        <x-label for="clientAddress" :value="__('Addresse')" class="mt-4" />
+                        <x-label for="clientAddress" :value="__('Addresse *')" class="mt-4" />
 
                         <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="clientAddress"
                             class="block mt-1 w-full" type="text" name="clientAddress" :value="old('clientAddress')"
                             required />
                     </div>
                     <div>
-                        <x-label for="clientZip" :value="__('Zip code')" class="mt-4" />
+                        <x-label for="clientZip" :value="__('Zip code *')" class="mt-4" />
 
                         <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="clientZip"
                             class="block mt-1 w-full" type="text" name="clientZip" :value="old('clientZip')" required />

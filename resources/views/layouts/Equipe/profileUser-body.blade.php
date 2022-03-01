@@ -21,7 +21,7 @@
     <div class="row">
         <div style="flex-wrap: nowrap">
             <div class="row mt-4 mb-3">
-                <div style="width: 10rem;"><small class="text-muted text-sm">Nom Complet:</small>
+                <div style="width: 10rem;"><small class="text-muted text-sm">Nom complet:</small>
                 </div>
                 <div style="width: fit-content;">
                     <p class="text-dark mb-0 font-normale" style="font-weight: 500;">{{ $user->name }}
@@ -45,6 +45,8 @@
                             Téléoperateur
                         @elseif ($user->type === 'commercial')
                             Commercial
+                        @elseif ($user->type === 'manager')
+                            Manager
                         @endif
                     </p>
                 </div>
@@ -113,7 +115,7 @@
                         required>
 
                     <button id="DelButton"
-                        style="margin-top:0.5rem; margin-left:22%; font-weight: 500; color: rgb(225, 29, 72)"
+                        style="margin-top:0.5rem; margin-left:24%; font-weight: 500; color: rgb(225, 29, 72)"
                         type="submit">
                         Supprimer ce membre
                     </button>

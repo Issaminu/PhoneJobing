@@ -13,7 +13,7 @@
                                 id="userCheck55"> <label class="form-check-label" for="userCheck55"></label></div>
                     </th> --}}
                     <th class="border-bottom">Nom</th>
-                    <th class="border-bottom">Position</th>
+                    <th class="border-bottom">Poste</th>
                     <th class="border-bottom">Entreprise</th>
                     {{-- <th class="border-bottom"> Status</th> --}}
                     <th class="border-bottom">Location</th>

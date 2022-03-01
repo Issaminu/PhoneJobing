@@ -8,24 +8,14 @@
                                 d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
                             </path>
                         </svg></a></li>
-                <li class="breadcrumb-item"><a href="/equipe">Équipe</a></li>
-                <li class="breadcrumb-item active" aria-current="page">
-                    @if ($user->type === 'manager')
-                        Manager
-                    @elseif ($user->type === 'teleoperateur')
-                        Téléoperateur
-                    @elseif ($user->type === 'commercial')
-                        Commercial
-                    @endif
-                </li>
+                <li class="breadcrumb-item"><a href="/clients">Clients</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ $client->name }}</li>
             </ol>
         </nav>
         <div class="nameAndPic" style="display: flex; align-items: center; margin-left:0.5rem;">
-            <div class="client-picture-rounded" style="
-            width: 10rem; height: 10rem; background-image: url({{ asset('images/' . $user->image) }})">
-            </div>
-            <h2 class="h1" style="margin-left:2rem; font-weight:600;">
-                {{ $user->name }}
+
+            <h2 class="h1" style=" font-weight:600;">
+                {{ $client->name }}
             </h2>
         </div>
 
