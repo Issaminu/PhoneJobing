@@ -33,7 +33,7 @@
                                     value="" id="userCheck1"> <label class="form-check-label" for="userCheck1"></label>
                             </div>
                         </td> --}}
-                        <td><a href="/clients/{{ str_replace(' ', '', $client->name) }}"
+                        <td><a href="/clients/{{ str_replace(' ', '', $client->name) }}-{{ $client->id }}"
                                 class="d-flex align-items-center">
                                 {{-- <img src="../assets/img/team/profile-picture-1.jpg" class="avatar rounded-circle me-3"
                         alt="Avatar"> --}}

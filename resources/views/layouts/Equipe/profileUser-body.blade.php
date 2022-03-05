@@ -107,7 +107,7 @@
                     </div>
                 </div>
             @endif
-            @if (Auth::user()->type === 'manager')
+            @if (Auth::user()->type === 'manager' && $user->type != 'manager')
                 <form method="POST" action="/equipe/supprimer-membre">
                     @csrf
                     <input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="deleteEmail"
@@ -118,6 +118,20 @@
                         style="margin-top:0.5rem; margin-left:24%; font-weight: 500; color: rgb(225, 29, 72)"
                         type="submit">
                         Supprimer ce membre
+                    </button>
+                </form>
+            @endif
+            @if (Auth::user()->type === 'manager' && $user->type === 'manager')
+                <form method="POST" action="/equipe/supprimer-membre">
+                    @csrf
+                    <input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="deleteEmail"
+                        class="block mt-1 w-full" type="hidden" name="deleteEmail" value="{{ $user->email }}"
+                        required>
+
+                    <button id="DelButton"
+                        style="margin-top:0.5rem; margin-left:24%; font-weight: 500; color: rgb(225, 29, 72)"
+                        type="submit">
+                        Supprimer l'equipe
                     </button>
                 </form>
             @endif

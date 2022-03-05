@@ -2153,14 +2153,19 @@ module.exports = {
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+Object(function webpackMissingModule() { var e = new Error("Cannot find module './libs/trix'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes React and other helpers. It's a great starting point while
  * building robust, powerful web applications using React + Laravel.
  */
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); //  require('./AccountTypeSelection'); //For /equipe/ajout-membre
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+
+ //  require('./AccountTypeSelection'); //For /equipe/ajout-membre
 //  require('./searchTeamTable');
 //  require('./FilterByAccountType');  // for /equipe Filter team table by account type
 // import ReactDOM from "react-dom";

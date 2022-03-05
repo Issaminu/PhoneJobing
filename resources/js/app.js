@@ -8,7 +8,7 @@
 
 
  require('./bootstrap');
-
+ import './libs/trix';
 //  require('./AccountTypeSelection'); //For /equipe/ajout-membre
  
 //  require('./searchTeamTable');

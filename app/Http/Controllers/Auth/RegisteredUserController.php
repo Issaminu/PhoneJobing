@@ -38,7 +38,7 @@ class RegisteredUserController extends Controller
         // dd($request);
         // $lastid = Model::latest()->first() + 1;
         $attributes = $request->validate([
-            'name' => ['required', 'string', 'max:200'],
+            'name' => ['required', 'regex:/^[a-zA-Z0-9\s]+$/', 'string', 'max:200'],
             'email' => ['required', 'string', 'email', 'max:200', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'phone' => ['required', 'string', 'max:20'],

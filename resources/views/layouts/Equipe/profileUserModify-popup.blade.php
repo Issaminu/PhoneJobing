@@ -35,7 +35,13 @@
                             class="block mt-1 w-full" type="text" name="membrePhone" value="{{ $user->phone }}"
                             required />
                     </div>
+                    <div class="mt-4">
+                        <x-label for="membreEmail" :value="__('Email *')" />
 
+                        <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="membreEmail"
+                            class="block mt-1 w-full" type="email" name="membreEmail" value="{{ $user->email }}"
+                            required />
+                    </div>
 
 
 
@@ -64,13 +70,7 @@
                                 value="{{ $user->company }}" required disabled=disabled />
                         </div>
                     @endif
-                    <div class="mt-4">
-                        <x-label for="membreEmail" :value="__('Email')" />
 
-                        <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="membreEmail"
-                            class="block mt-1 w-full form-control" type="text" name="membreEmail"
-                            value="{{ $user->email }}" required disabled=disabled />
-                    </div>
                     <div class="mt-4">
 
                         <x-label for="membreType" :value="__('Rôle')" />

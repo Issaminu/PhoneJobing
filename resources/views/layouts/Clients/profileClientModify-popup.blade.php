@@ -28,8 +28,8 @@
                         <x-label for="clientEmail" :value="__('Email *')" />
 
                         <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="clientEmail"
-                            class="block mt-1 w-full form-control" type="text" name="clientEmail"
-                            value="{{ $client->email }}" required disabled=disabled />
+                            class="block mt-1 w-full" type="email" name="clientEmail" value="{{ $client->email }}"
+                            required />
                     </div>
                     <div class="mt-4">
                         <x-label for="clientPhone" :value="__('Numéro de téléphone *')" />

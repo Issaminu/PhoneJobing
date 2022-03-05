@@ -17,19 +17,19 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/searchAndFilterTeamTable.js') }}"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
 </head>
 
 <body>
     @include('layouts.navigation')
-    @include('layouts.Clients.listAllClients-header')
-    @include('layouts.Clients.listAllClients-body')
-    {{-- <div style="margin-left: 10%; margin-right:10%;">
-        @include('layouts.Clients.listAllClients-body')
-    </div> --}}
-    <br style="user-select: none;">
-    <br style="user-select: none;">
+    @include('layouts.Scripts.profileScript-header')
+    <div style="margin-right:10rem !important; margin-left:10rem !important;">
+        @include('layouts.Scripts.profileScript-body')
+    </div>
+
+
 </body>
 
 </html>

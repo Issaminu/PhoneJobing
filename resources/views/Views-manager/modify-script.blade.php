@@ -17,19 +17,22 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/searchAndFilterTeamTable.js') }}"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/32.0.0/classic/ckeditor.js"></script>
+    <style>
+        .ck-editor__editable_inline {
+            min-height: 40px;
+        }
 
+    </style>
 </head>
 
 <body>
+
     @include('layouts.navigation')
-    @include('layouts.Clients.listAllClients-header')
-    @include('layouts.Clients.listAllClients-body')
-    {{-- <div style="margin-left: 10%; margin-right:10%;">
-        @include('layouts.Clients.listAllClients-body')
-    </div> --}}
-    <br style="user-select: none;">
-    <br style="user-select: none;">
+    @include('layouts.Scripts.scriptModify-header')
+    @include('layouts.Scripts.scriptModify-body')
+
+
 </body>
 
 </html>

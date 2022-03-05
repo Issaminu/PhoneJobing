@@ -6,6 +6,8 @@ use App\Http\Controllers\SessionsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ManagerController;
+use Illuminate\Http\Request;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -78,6 +80,8 @@ Route::get('/produits', [ManagerController::class, 'listProducts'])->middleware(
 
 Route::get('/clients', [ManagerController::class, 'listClients'])->middleware(['auth'])->name('clients');
 
+Route::get('/scripts', [ManagerController::class, 'listScripts'])->middleware(['auth'])->name('scripts');
+
 
 Route::get('/historique', function () {
     if (Auth::user()->type === 'teleoperateur') {
@@ -86,13 +90,6 @@ Route::get('/historique', function () {
         return response()->view('Views-commercial/commercial-historique');
     } else return redirect('404');
 })->middleware(['auth'])->name('historique');
-
-
-Route::get('/scripts', function () {
-    if (Auth::user()->type === 'manager') {
-        return response()->view('Views-manager/manager-scripts');
-    } else return redirect('404');
-})->middleware(['auth'])->name('scripts');
 
 Route::get('/rendezvous', function () {
     if (Auth::user()->type === 'commercial') {
@@ -118,8 +115,21 @@ Route::get('/clients/ajout-client', function () {
     } else return redirect('404');
 })->middleware(['auth'])->name('clients/ajout-client');
 
+Route::get('/scripts/ajout-script', function () {
+    if (Auth::user()->type === 'manager') {
+        return response()->view('Views-manager/manager-add-script');
+    } else return redirect('404');
+})->middleware(['auth'])->name('scripts/ajout-script');
+
+Route::get('/scripts/modifier-script/{slug}', function () {
+    if (Auth::user()->type === 'manager') {
+        return response()->view('Views-manager/modify-script');
+    } else return redirect('404');
+})->middleware(['auth'])->name('scripts/modifier-script/{slug}');
+
 Route::get('/equipe/{slug}', [ManagerController::class, 'profileMember'])->middleware(['auth'])->name('equipe/{slug}');
 Route::get('/clients/{slug}', [ManagerController::class, 'profileClient'])->middleware(['auth'])->name('clients/{slug}');
+Route::get('/scripts/{slug}', [ManagerController::class, 'profileScript'])->middleware(['auth'])->name('scripts/{slug}');
 
 Route::post('/equipe/ajout-membre', [ManagerController::class, 'storeNewMember'])->middleware(['auth'])->name('/equipe/ajout-membre');
 Route::post('/equipe/modifier-membre', [ManagerController::class, 'modifyMember'])->middleware(['auth'])->name('/equipe/modifier-membre');
@@ -130,8 +140,12 @@ Route::post('/produits/supprimer-produit', [ManagerController::class, 'deletePro
 Route::post('/clients/ajout-client', [ManagerController::class, 'storeNewClient'])->middleware(['auth'])->name('/clients/ajout-client');
 Route::post('/clients/modifier-client', [ManagerController::class, 'modifyClient'])->middleware(['auth'])->name('/clients/modifier-client');
 Route::post('/clients/supprimer-client', [ManagerController::class, 'deleteClient'])->middleware(['auth'])->name('/clients/supprimer-client');
+Route::post('/scripts/ajout-script', [ManagerController::class, 'storeNewScript'])->middleware(['auth'])->name('/scripts/ajout-script');
+Route::post('/scripts/modifier-script', [ManagerController::class, 'changeScript'])->middleware(['auth'])->name('/scripts/modifier-script');
+Route::post('/scripts/enregistrer-script', [ManagerController::class, 'modifyScript'])->middleware(['auth'])->name('/scripts/enregistrer-script');
+Route::post('/scripts/supprimer-script', [ManagerController::class, 'deleteScript'])->middleware(['auth'])->name('/scripts/supprimer-script');
 
-// Route::get('/test', [ManagerController::class, 'listTeamMembers']);
+Route::post('/test/test', [ManagerController::class, 'test'])->middleware(['auth']);
 Route::get('/test', function () {
     return view('Views-manager/test');
-});
+})->middleware(['auth']);
