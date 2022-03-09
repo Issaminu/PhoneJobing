@@ -1,8 +1,8 @@
 <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
-<div id="mainBody" class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+<div id="mainBody" class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-4">
 
-    <div class="d-block mb-4 mb-md-0">
+    <div class="d-block mb-md-0">
         <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
             <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
                 <li class="breadcrumb-item" style="margin-top: 0.1rem;"><a href="/dashboard"><svg class="icon icon-xxs"

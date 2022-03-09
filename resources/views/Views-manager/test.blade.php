@@ -24,6 +24,7 @@
 
 <body>
     @include('layouts.navigation')
+    {{-- {{ dd($request);}} --}}
     <form action="test/test" method="post">
         <div class="" style="margin-left: 13%;margin-right: 13%; margin-top:7rem;">
             <textarea name="content" id="editor">

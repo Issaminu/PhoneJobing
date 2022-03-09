@@ -19,7 +19,7 @@
             <option value="2">Change Group</option>
             <option value="3">Delete User</option>
         </select> <button class="btn btn-sm px-3 btn-secondary ms-3">Apply</button></div> --}}
-        <table class="table user-table table-hover align-items-center" id="productTable" style="table-layout: fixed;">
+        <table class="table user-table table-hover align-items-center" id="productTable" style="table-layout: auto;">
             <thead>
                 <tr>
                     {{-- <th class="border-bottom">

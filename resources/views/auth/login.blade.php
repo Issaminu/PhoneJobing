@@ -55,9 +55,9 @@
                     </a>
                 @endif
             </div>
-            <div class="flex items-center justify-center mt-4">
-                <x-button>
-                    {{ __('Log in') }}
+            <div class="flex items-center justify-center mt-4" style="flex-direction: column;">
+                <x-button style="width: 8rem; padding-left:2.5rem;">
+                    Log in
                 </x-button>
             </div>
 

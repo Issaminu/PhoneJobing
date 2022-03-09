@@ -172,16 +172,16 @@ class ManagerController extends Controller
     {
         if (Auth::user()->type === 'manager') {
             $attributes = $request->validate([
-                'clientName' => ['required', 'regex:/^[a-zA-Z0-9\s]+$/', 'string', 'max:200'],
+                'clientName' => ['required', 'regex:/^[a-zA-Z0-9\s]+$/', 'string', 'max:22'],
                 'clientGender' => ['required'],
-                'clientEmail' => ['required', 'string', 'email', 'max:200'],
-                'clientCompany' => ['required', 'string', 'max:200'],
-                'clientNumber' => ['required', 'string', 'max:200'],
-                'clientPosition' => ['required', 'string', 'max:200'],
-                'clientCountry' => ['required', 'string', 'max:200'],
-                'clientCity' => ['required', 'string', 'max:200'],
-                'clientAddress' => ['required', 'string', 'max:200'],
-                'clientZip' => ['required', 'string', 'max:200'],
+                'clientEmail' => ['required', 'string', 'email', 'max:18'],
+                'clientCompany' => ['required', 'string', 'max:22'],
+                'clientNumber' => ['required', 'string', 'max:22'],
+                'clientPosition' => ['required', 'string', 'max:22'],
+                'clientCountry' => ['required', 'string', 'max:22'],
+                'clientCity' => ['required', 'string', 'max:22'],
+                'clientAddress' => ['required', 'string', 'max:22'],
+                'clientZip' => ['required', 'string', 'max:22'],
             ]);
             $client = new Client;
             $client->name = ucwords(strtolower($request->clientName));
@@ -232,14 +232,15 @@ class ManagerController extends Controller
         if (Auth::user()->type === 'manager') {
             $attributes = $request->validate([
                 'clientId' => ['required', 'string', 'max:200'],
-                'clientName' => ['required', 'regex:/^[a-zA-Z0-9\s]+$/', 'string', 'max:200'],
-                'clientCompany' => ['required', 'string', 'max:200'],
-                'clientPhone' => ['required', 'string', 'max:200'],
-                'clientPosition' => ['required', 'string', 'max:200'],
-                'clientCountry' => ['required', 'string', 'max:200'],
-                'clientCity' => ['required', 'string', 'max:200'],
-                'clientAddress' => ['required', 'string', 'max:200'],
-                'clientZip' => ['required', 'string', 'max:200'],
+                'clientName' => ['required', 'regex:/^[a-zA-Z0-9\s]+$/', 'string', 'max:17'],
+                'clientEmail' => ['required', 'string', 'max:17'],
+                'clientCompany' => ['required', 'string', 'max:22'],
+                'clientPhone' => ['required', 'string', 'max:22'],
+                'clientPosition' => ['required', 'string', 'max:22'],
+                'clientCountry' => ['required', 'string', 'max:22'],
+                'clientCity' => ['required', 'string', 'max:22'],
+                'clientAddress' => ['required', 'string', 'max:22'],
+                'clientZip' => ['required', 'string', 'max:22'],
             ]);
             $client = Client::where('id', '=', $request->clientId)->first();
             if ($client) {
@@ -417,8 +418,8 @@ class ManagerController extends Controller
                 $script->name = ucwords(strtolower($request->scriptName));
             } elseif ($request->scriptName === $checkByName->name && intval($checkByName->id) != intval($request->scriptId)) {
                 // dd("yo wtf");
-                // throw ValidationException::withMessages(['scriptName' => 'Ce nom est déjà réservé.']);
-                return redirect($this->redirectTo = url()->previous());
+                throw ValidationException::withMessages(['scriptName' => 'Ce nom est déjà réservé.']);
+                // return redirect($this->redirectTo = url()->previous());
             }
             // dd($script);
             // $script->content = $scriptContent;

@@ -12,7 +12,7 @@
             <div>
                 <x-label for="scriptName" :value="__('Nom de script *')" />
 
-                <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="scriptName"
+                <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 1px 8px 0px;" id="scriptName"
                     class="block w-full mb-4" type="text" name="scriptName"
                     value="{{ old('scriptName') ?? $script->name }}" required autofocus />
             </div>

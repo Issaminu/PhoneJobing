@@ -33,11 +33,14 @@
                         <x-nav-link :href="route('produits')" :active="request()->routeIs('produits*')">
                             {{ __('Produits') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('historique')" :active="request()->routeIs('historique*')">
+                            {{ __('Historique') }}
+                        </x-nav-link>
                     </div>
                 @elseif (Auth::user()->type === 'teleoperateur')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard*')">
-                            {{ __('Accueil') }}
+                            {{ __('Appel') }}
                         </x-nav-link>
                         <x-nav-link :href="route('equipe')" :active="request()->routeIs('equipe*')">
                             {{ __('Équipe') }}
