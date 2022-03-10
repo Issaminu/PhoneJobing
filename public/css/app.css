@@ -30843,6 +30843,9 @@ select {
 .mr-5 {
   margin-right: 1.25rem;
 }
+.mb-6 {
+  margin-bottom: 1.5rem;
+}
 .ml-32 {
   margin-left: 8rem;
 }
@@ -30852,8 +30855,8 @@ select {
 .mb-0 {
   margin-bottom: 0px;
 }
-.mb-6 {
-  margin-bottom: 1.5rem;
+.mt-16 {
+  margin-top: 4rem;
 }
 .mb-3 {
   margin-bottom: 0.75rem;
@@ -30909,17 +30912,8 @@ select {
 .mt-0 {
   margin-top: 0px;
 }
-.ml-5 {
-  margin-left: 1.25rem;
-}
 .ml-6 {
   margin-left: 1.5rem;
-}
-.mt-32 {
-  margin-top: 8rem;
-}
-.mt-16 {
-  margin-top: 4rem;
 }
 .block {
   display: block;
@@ -30966,6 +30960,9 @@ select {
 .w-full {
   width: 100%;
 }
+.w-32 {
+  width: 8rem;
+}
 .w-20 {
   width: 5rem;
 }
@@ -30980,9 +30977,6 @@ select {
 }
 .w-48 {
   width: 12rem;
-}
-.w-32 {
-  width: 8rem;
 }
 .max-w-7xl {
   max-width: 80rem;
@@ -31379,6 +31373,9 @@ select {
 }
 .grayscale {
   --tw-grayscale: grayscale(100%);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+.filter {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 .transition {

@@ -75,14 +75,8 @@ Route::get('/clients', [ManagerController::class, 'listClients'])->middleware(['
 
 Route::get('/scripts', [ManagerController::class, 'listScripts'])->middleware(['auth'])->name('scripts');
 
+Route::get('/historique', [ManagerController::class, 'listCalls'])->middleware(['auth'])->name('historique');
 
-Route::get('/historique', function () {
-    if (Auth::user()->type === 'teleoperateur') {
-        return response()->view('Views-teleoperateur/teleoperateur-historique');
-    } elseif (Auth::user()->type === 'commercial') {
-        return response()->view('Views-commercial/commercial-historique');
-    } else return redirect('404');
-})->middleware(['auth'])->name('historique');
 
 Route::get('/rendezvous', function () {
     if (Auth::user()->type === 'commercial') {

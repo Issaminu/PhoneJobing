@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Call;
 use App\Models\Product;
 use App\Models\User;
 use App\Models\Client;
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use \Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use PDO;
 use Illuminate\Validation\ValidationException;
 
@@ -66,13 +68,23 @@ class ManagerController extends Controller
     public function imageUpload($Image)
     {
         if ($Image) {
-            // $newId = Client::orderBy('id', 'desc')->take(1)->first()->id + 1;
-            $name = base64_encode(random_bytes(18));
-            $imageName = preg_replace('/[\W]/', '', $name) . "." . $Image->extension();
-            // dd($imageName);
-            // $request->clientImage->move(public_path('images'), $imageName);
+            $name = preg_replace('/[\W]/', '', base64_encode(random_bytes(18)));
+            $imageName =  $name . "." . $Image->extension();
             $Image->move(public_path('images'), $imageName);
-            /* Store $imageName name in DATABASE from HERE */
+            // $path = $Image->store('images', 'public');
+            // $storage = Storage::disk('s3');
+            // $path = "a0002587_main.jpg";
+            // $contents = $storage->get('a0002587_main.jpg');
+            // dd($contents);
+            // Storage::disk('s3')->put('/filename', file_get_contents("C:\Users\Issam Boubcher\Desktop\shutterstock_312911786-1200x675.png"));
+            // dd(Storage::disk('s3')->get($path));
+            // if (Storage::disk('s3')->exists('a0002587_main.jpg')) {
+            //     dd("pooog");
+            // } else {
+            //     dd("no pog");
+            // }
+            // dd($storage);
+            // dd($path);
             return $imageName;
         } else {
             $imageName = "defaultPFP.webp"; //THIS IS PROFILE PICTURE BY DEFAULT, IF A PFP ISN'T PROVIDED, WE'LL USE THIS ONE
@@ -286,7 +298,7 @@ class ManagerController extends Controller
                 'prodQuantity' => ['required', 'integer'],
             ]);
             $product = new Product;
-            $product->name = ucwords(strtolower($request->prodName));
+            $product->name = ucwords($request->prodName);
             $product->price = $request->prodPrice;
             $product->quantity = $request->prodQuantity;
             $product->teamid =  Auth::user()->teamid;
@@ -369,7 +381,7 @@ class ManagerController extends Controller
     {
         if (Auth::user()->type === "manager") {
             $scripts = Script::where('teamid', '=', Auth::user()->teamid)->orderBy('name')->get(['id', 'name', 'content', 'teamid']);
-            $scripts = $scripts;
+            // $scripts = $scripts;
             $scriptCount = count($scripts);
             return view('Views-manager/manager-scripts', compact('scriptCount', 'scripts'));
         } else return redirect('404');
@@ -438,5 +450,23 @@ class ManagerController extends Controller
             //TODO: DELETE THIS SCRIPT'S DATA ELSEWHERE
             return redirect('/scripts');
         } else return redirect('404');
+    }
+
+    public function listCalls(Request $request)
+    {
+        if (Auth::user()->type === "manager") {
+            $calls = Call::where('teamid', '=', Auth::user()->teamid)->orderBy('callId')->get([
+                'id', 'callId', 'teleoperateur', 'client', 'quantity', 'product', 'result', 'callDate', 'callLength', 'teleoperateurId', 'productId', 'clientId', 'teamid'
+            ]);
+            $callCount = count($calls);
+            return view('Views-manager/manager-historique', compact('callCount', 'calls'));
+        } elseif (Auth::user()->type === "teleoperateur") {
+            $calls = Call::where('teamid', '=', Auth::user()->teamid)->where('teleoperateurId', '=', Auth::user()->id)->orderBy('callId')->get([
+                'id', 'callId', 'teleoperateur', 'client', 'quantity', 'product', 'result', 'callDate', 'callLength', 'teleoperateurId', 'productId', 'clientId', 'teamid'
+            ]);
+            $callCount = count($calls);
+            return view('Views-manager/manager-historique', compact('callCount', 'calls'));
+        }
+        return redirect('404');
     }
 }

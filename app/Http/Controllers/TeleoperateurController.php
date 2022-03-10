@@ -59,7 +59,7 @@ class TeleoperateurController extends Controller
             ]);
             $client = Client::where('name', '=', $request->client)->get(['id', 'name', 'gender', 'email', 'phone', 'position', 'company', 'country', 'city', 'address', 'zip', 'teamid'])->first();
             $script = Script::where('name', '=', $request->script)->get(['id', 'name', 'content', 'teamid'])->first();
-            $products = Product::where('teamid', '=', Auth::user()->teamid)->orderBy('name')->get(['id', 'name', 'price', 'quantity', 'teamid']);
+            $products = Product::where('teamid', '=', Auth::user()->teamid)->where('quantity', '>', '0')->orderBy('name')->get(['id', 'name', 'price', 'quantity', 'teamid']);
             // dd($products);
             if ($client->teamid === Auth::user()->teamid && $script->teamid === Auth::user()->teamid) {
                 // return response()->view('Views-teleoperateur/teleoperateur-equipe', compact('client', 'script'));
@@ -71,6 +71,7 @@ class TeleoperateurController extends Controller
 
     public function callSave(Request $request)
     {
+        // dd($request);
         // dd(Product::where('name', '=', $request->prodSelection)->first());
         if (Auth::user()->type === 'teleoperateur') {
             // dd(Client::where('id', '=', $request->callClient)->first()->name);
@@ -88,19 +89,22 @@ class TeleoperateurController extends Controller
             $call->callLength = $request->callLength;
             $call->teleoperateurId = Auth::user()->id;
             $call->clientId = $request->callClient;
+            $lastCallId = DB::table('calls')->latest()->first()->callId;
+            $call->callId = "#APPEL" . sprintf("%03d", intval(substr($lastCallId, -3)) + 1);
+            // dd($call->callId);
             $call->result = $request->callResult;
             $call->teamid = Auth::user()->teamid;
 
             if ($request->prodQuantity > 0 && $request->callResult === "Vente réussie") {
                 $call->quantity = $request->prodQuantity;
                 $call->product = $request->prodSelection;
-                $product = Product::where('name', '=', $request->prodSelection)->first();
+                $product = Product::where('id', '=', $request->productId)->first();
                 $product->quantity = $product->quantity - $request->prodQuantity;
                 $product->save();
-                $call->productId = $product->id;
+                $call->productId = $request->productId;
             } else {
-                $call->quantity = null;
-                $call->product = null;
+                $call->quantity = "̶ ̶ ̶ ̶ ̶ ̶ ̶ ̶ ̶ ̶";
+                $call->product = "̶ ̶ ̶ ̶ ̶ ̶ ̶ ̶ ̶ ̶";
                 $call->productId = null;
             }
             // dd($call);

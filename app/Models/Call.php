@@ -19,6 +19,7 @@ class Call extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'callId',
         'teleoperateur',
         'client',
         'quantity',

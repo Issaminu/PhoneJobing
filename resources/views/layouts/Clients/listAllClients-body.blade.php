@@ -6,7 +6,7 @@
     <br style="user-select: none;">
     <div class="card card-body shadow border-0 table-wrapper table-responsive">
         <table class="table user-table table-hover align-items-center" id="teamTable">
-            <thead>
+            <thead style="text-align: center;">
                 <tr>
                     {{-- <th class="border-bottom">
                         <div class="form-check dashboard-check"><input class="form-check-input" type="checkbox" value=""
@@ -27,14 +27,14 @@
                 <?php $i = 0; ?>
                 @foreach ($clients as $client)
                     <?php $i++; ?>
-                    <tr>
+                    <tr style="text-align: center;">
                         {{-- <td>
                             <div class="form-check dashboard-check"><input class="form-check-input" type="checkbox"
                                     value="" id="userCheck1"> <label class="form-check-label" for="userCheck1"></label>
                             </div>
                         </td> --}}
                         <td><a href="/clients/{{ str_replace(' ', '', $client->name) }}-{{ $client->id }}"
-                                class="d-flex align-items-center">
+                                class="d-flexr">
                                 {{-- <img src="../assets/img/team/profile-picture-1.jpg" class="avatar rounded-circle me-3"
                         alt="Avatar"> --}}
                                 <div class="d-block"><span
@@ -46,7 +46,7 @@
                             </a></td>
                         <td><span class="fw-normal">{{ $client->position }}</span>
                         </td>
-                        <td><span class="fw-normal d-flex align-items-center">
+                        <td><span class="fw-normal">
                                 {{ $client->company }}
                             </span>
                         </td>
@@ -63,7 +63,7 @@
                         </td>
                         @if (Auth::user()->type === 'manager')
                             <td>
-                                <a target="_blank" class="btn btn-sm btn-secondary d-inline-flex align-items-center"
+                                <a target="_blank" class="btn btn-sm btn-secondary d-inline-flex"
                                     href="https://mail.google.com/mail/?view=cm&source=mailto&to={{ $client->email }}"><svg
                                         class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20"
                                         xmlns="http://www.w3.org/2000/svg">

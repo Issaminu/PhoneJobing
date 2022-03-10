@@ -1,18 +1,16 @@
-<?php $ach = 0; ?>
-<div id="mainBody">
+<div id="mainBody" style="margin-top:-1.7rem; margin-left:15rem;">
 
     <div id="searchAndAccountType" style="display: flex; justify-content: flex-end;">
 
-        <div class="input-group fmxw-300 ">
-            <input style="width:14rem; --tw-ring-color: rgb(75, 85, 99);" id="productSearch" type="text"
-                class="form-control" placeholder="Chercher">
+        <div class="input-group" style="max-width: 14rem;">
+            <input style="--tw-ring-color: rgb(75, 85, 99);" id="productSearch" type="text" class="form-control"
+                placeholder="Chercher">
             {{-- <span class="input-group-text border-l-0"> </span> --}}
         </div>
 
 
     </div>
-    <br style="user-select: none;">
-    <div class="card card-body shadow border-0 table-wrapper table-responsive">
+    <div class="card card-body shadow border-0 table-wrapper table-responsive" style="width:60rem; margin-top:4rem;">
         {{-- <div class="d-flex mb-3"><select class="form-select fmxw-200" aria-label="Message select example">
             <option selected="selected">Bulk Action</option>
             <option value="1">Send Email</option>
@@ -21,19 +19,20 @@
         </select> <button class="btn btn-sm px-3 btn-secondary ms-3">Apply</button></div> --}}
         <table class="table user-table table-hover align-items-center" id="productTable" style="table-layout: auto;">
             <thead>
-                <tr>
+                <tr style="text-align: center;">
                     {{-- <th class="border-bottom">
                         <div class="form-check dashboard-check"><input class="form-check-input" type="checkbox" value=""
                                 id="userCheck55"> <label class="form-check-label" for="userCheck55"></label></div>
                     </th> --}}
+                    <th class="border-bottom">Produit ID</th>
                     <th class="border-bottom">Produit</th>
                     <th class="border-bottom">Prix</th>
-                    <th class="border-bottom">Quantité</th>
+                    <th class="border-bottom">Stock</th>
                     <th class="border-bottom">Action</th>
 
                 </tr>
             </thead>
-            <tbody>
+            <tbody style="text-align: center;">
 
                 @foreach ($products as $product)
                     <tr>
@@ -42,7 +41,11 @@
                                     value="" id="userCheck1"> <label class="form-check-label" for="userCheck1"></label>
                             </div>
                         </td> --}}
-                        <td><a href="users.html#" class="d-flex align-items-center">
+                        <td><span class="fw-normal d-flex justify-content-center">
+                                {{ $product->id }}
+                            </span>
+                        </td>
+                        <td><a href="users.html#" class="justify-content-center">
                                 {{-- <img src="../assets/img/team/profile-picture-1.jpg" class="avatar rounded-circle me-3"
                         alt="Avatar"> --}}
                                 <div class="d-block"><span
@@ -50,11 +53,11 @@
                                 </div>
                             </a></td>
                         </td>
-                        <td><span class="fw-normal d-flex align-items-center">
+                        <td><span class="fw-normal d-flex justify-content-center">
                                 {{ $product->price }} DH
                             </span>
                         </td>
-                        <td><span class="fw-normal d-flex align-items-center">
+                        <td><span class="fw-normal d-flex justify-content-center">
                                 {{ $product->quantity }}
                             </span>
                         </td>
@@ -66,7 +69,7 @@
                                     data-bs-target="#exampleModal" prodName="{{ $product->name }}"
                                     prodPrice="{{ $product->price }}" prodQuantity="{{ $product->quantity }}"
                                     prodId="{{ $product->id }}" id="ModButton"
-                                    style=" font-weight: 500; color: rgb(29, 175, 131)">
+                                    style=" font-weight: 500; color: #10b981">
                                     Modifier
                                 </button>
                                 <form method="POST" action="/produits/supprimer-produit">
@@ -75,7 +78,7 @@
                                         id="deleteProdId" class="block mt-1 w-full" type="hidden" name="deleteProdId"
                                         value="{{ $product->id }}" required>
 
-                                    <button id="DelButton" style=" font-weight: 500; color: rgb(225, 29, 72)">
+                                    <button id="DelButton" style=" font-weight: 500; color: #e11d48">
                                         Supprimer
                                     </button>
                                 </form>

@@ -16,7 +16,6 @@
                     <td><a class="fw-bold" style="cursor: default;">{{ ucwords($product->name) }}
 
                     </td>
-                    </td>
                     <td><span class="fw-normal d-flex">
                             {{ $product->price }} DH
                         </span>

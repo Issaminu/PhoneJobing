@@ -13,7 +13,7 @@ window.onload = function () {
     tr = table.getElementsByTagName("tr"); // Loop through all list items, and hide those who don't match the search query
 
     for (i = 1; i < tr.length; i++) {
-      td = tr[i].getElementsByTagName("td")[0];
+      td = tr[i].getElementsByTagName("td")[1];
 
       if (td) {
         txtValue = td.textContent || td.innerText;

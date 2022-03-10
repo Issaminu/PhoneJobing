@@ -14,12 +14,14 @@
     </div>
 
     <div>
-        <div class="card card-body shadow mb-6 ml-8 mr-8" style="width: 55rem; height:38.67rem;">
-
-            <div class="h3 d-flex" style="justify-content: center;">{{ $script->name }}</div>
-            <div class="mt-3" style="width: fit-content;overflow-y:auto;">
+        <div class="card card-body shadow mb-6 ml-8 mr-8"
+            style="padding:0rem; width: 55rem; height:38.67rem; padding-bottom:1.2rem;">
+            <div class="h3 mt-3 d-flex" style="justify-content: center;">{{ $script->name }}</div>
+            <hr class="mt-3" style="border: 2px solid #ced0d4;">
+            <div style="width: fit-content;overflow-y:auto; padding-right:0rem;padding-left:0.7rem;">
                 {!! $script->content !!}
             </div>
+            <hr class="mb-2" style="margin-top:0rem; border: 2px solid #ced0d4;">
         </div>
 
         <div class="card card-body shadow mb-6 ml-8"
@@ -41,28 +43,28 @@
                     </div>
                     <div class="mb-3" style=" width:10rem;">
                         @foreach ($products as $product)
-                            <input type="hidden" id='{{ str_replace(' ', '', $product->name) }}'
+                            <input type="hidden" id='{{ $product->id . 'Quantity' }}'
                                 value="{{ $product->quantity }}">
                         @endforeach
+                        <input type="hidden" id='productId' name="productId" value="{{ $products[0]->id }}">
                         <x-label for="prodSelection" :value="__('Produit:')"
                             style="margin-left: 0.3rem; color:white;" />
                         <select class="form-select fmxw-200" style="margin-top:-0.5rem;" id="prodSelection"
-                            name="prodSelection" onchange="document.getElementById('prodQuantity').value=''">
+                            name="prodSelection" onchange="selectingProduct(this)">
                             @foreach ($products as $product)
-                                <option value="{{ $product->name }}">{{ $product->name }}</option>
+                                <option id="{{ $product->id }}" value="{{ $product->name }}">{{ $product->name }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
 
                     <div class="d-flex mb-3" style="flex-direction: column;">
-                        <x-label for="prodSelection" :value="__('Résultat:')"
-                            style="margin-left: 0.3rem; color:white;" />
+                        <x-label for="callResult" :value="__('Résultat:')" style="margin-left: 0.3rem; color:white;" />
                         <select class="form-select fmxw-200" style="margin-top:-0.5rem; width:13rem;" name="callResult">
                             <option value="Vente réussie" selected="selected">Vente réussie</option>
                             <option value="Appel reporté">Appel reporté</option>
                             <option value="Vente non réalisée">Vente non réalisée</option>
                             <option value="Aucune réponse">Aucune réponse</option>
-                            <option value="Non intéressé">Non intéressé</option>
                             <option value="Mauvaise numéro">Mauvaise numéro</option>
                             <option value="Problème technique">Problème technique</option>
                         </select>
@@ -85,8 +87,12 @@
     <script>
         $('#prodQuantity').on('paste input', function() {
             let selectedProduct = document.getElementById("prodSelection").value;
+            // alert(options[selectedProduct].id);
             // alert(selectedProduct.replaceAll(" ", ""));
-            let maxQuantity = document.getElementById(selectedProduct.replaceAll(" ", "")).value;
+            let prod = document.getElementById("prodSelection")[document.getElementById("prodSelection")
+                .selectedIndex].id;
+            // alert(prod);
+            let maxQuantity = document.getElementById(prod.concat('Quantity')).value;
             if (isNaN(document.getElementById("prodQuantity").value)) {
                 alert("Veuiller entrer seulement un nombre.");
                 document.getElementById("prodQuantity").value = null;
@@ -124,4 +130,14 @@
             }, 10);
         }
     </script>
+    <script>
+        function selectingProduct(s) {
+            document.getElementById('prodQuantity').value = '';
+            let prod = s[document.getElementById("prodSelection").selectedIndex].id;
+            // alert(prod);
+            document.getElementById('productId').value = prod;
+            // alert(prod);
+        }
+    </script>
+
 </div>
