@@ -18,9 +18,15 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/32.0.0/classic/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/32.0.0/classic/translations/fr.js"></script>
+
     <style>
         .ck-editor__editable_inline {
             min-height: 300px;
+        }
+
+        div.ck.ck-editor__editable_inline * {
+            all: revert;
         }
 
     </style>
@@ -59,6 +65,26 @@
             </div>
         </form>
         <script>
+            ClassicEditor.defaultConfig = {
+                toolbar: {
+                    items: [
+                        'heading',
+                        '|',
+                        'bold',
+                        'italic',
+                        '|',
+                        'bulletedList',
+                        'numberedList',
+                        '|',
+                        'undo',
+                        'redo'
+                    ]
+                },
+                table: {
+                    contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
+                },
+                language: 'fr'
+            };
             ClassicEditor
                 .create(document.querySelector('#editor'))
                 .catch(error => {

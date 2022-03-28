@@ -42,9 +42,15 @@
                             class="block mt-1 w-full" type="email" name="membreEmail" value="{{ $user->email }}"
                             required />
                     </div>
-
-
-
+                    @if (Auth::user()->type == 'manager' && $user->type != 'manager')
+                        <div class="mt-4">
+                            <x-label for="clients" :value="__('Clients *')" style="margin-top:1rem;" />
+                            <input name='clients' value='{{ $reservedClients }}'
+                                @if (Auth::user()->type != 'manager') disabled @endif required>
+                            <input type="hidden" name='oldClients' value='{{ $user->clients }}' required>
+                            @include('layouts.Equipe.modifyClientReserveTags')
+                        </div>
+                    @endif
                     @if (Auth::user()->type === 'manager' && $user->type === 'manager')
                         <div class="mt-4">
                             <x-label for="membreCompany" :value="__('Entreprise *')" />
@@ -52,17 +58,83 @@
                                 class="block mt-1 w-full" type="text" name="membreCompany"
                                 value="{{ $user->company }}" required />
                         </div>
-                        <div>
-                            <x-label for="membreImage" :value="__('Photo')" class="mt-4" />
-                            <input name="membreImage" id="memberImage" type="file"
-                                accept="image/png, image/jpeg, image/jpg, image/svg, image/webp">
+                        <x-label for="membreImage" :value="__('Photo')" style="margin-top:1rem;" />
+
+                        <x-input type="file" style="display:none;" name="membreImage" class="file"
+                            accept="image/png, image/jpeg, image/jpg, image/svg, image/webp" />
+                        <div class="input-group my-3">
+                            <x-input id='membreImage' type="text" class="form-control"
+                                style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px; border-color:#e5e7eb; border-top-left-radius:0.5rem; border-bottom-left-radius:0.5rem;"
+                                disabled placeholder="Choisissez une image ..." id="file" />
+                            <div class="input-group-append">
+                                <button type="button" class="browse btn btn-primary"
+                                    style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px; color: #fff; background-color: #1f2937;
+                                border-color: #1f2937; border-top-left-radius:0rem; border-bottom-left-radius:0rem; height:3rem;">Uploader</button>
+                            </div>
                         </div>
+                        <script>
+                            $(document).on("click", ".browse", function() {
+                                var file = $(this).parents().find(".file");
+                                file.trigger("click");
+                            });
+                            $('input[type="file"]').change(function(e) {
+                                var fileName = e.target.files[0].name;
+                                $("#file").val(fileName);
+
+                                var reader = new FileReader();
+                                reader.onload = function(e) {
+                                    // get loaded data and render thumbnail.
+                                    document.getElementById("preview").src = e.target.result;
+                                };
+                                // read the image file as a data URL.
+                                reader.readAsDataURL(this.files[0]);
+                            });
+                        </script>
                     @else
-                        <div>
-                            <x-label for="membreImage" :value="__('Photo')" class="mt-4" />
-                            <input name="membreImage" id="memberImage" type="file"
-                                accept="image/png, image/jpeg, image/jpg, image/svg, image/webp">
+                        <x-label for="membreImage" :value="__('Photo')" style="margin-top:1rem;" />
+
+                        <x-input type="file" style="display:none;" name="membreImage" class="file"
+                            accept="image/png, image/jpeg, image/jpg, image/svg, image/webp" />
+                        <div class="input-group my-3">
+                            <x-input id='membreImage' type="text" class="form-control"
+                                style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px; border-color:#e5e7eb; border-top-left-radius:0.5rem; border-bottom-left-radius:0.5rem;"
+                                disabled placeholder="Choisissez une image ..." id="file" />
+                            <div class="input-group-append">
+                                <button type="button" class="browse btn btn-primary"
+                                    style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px; color: #fff; background-color: #1f2937;
+                                border-color: #1f2937; border-top-left-radius:0rem; border-bottom-left-radius:0rem; height:3rem;">Uploader</button>
+                            </div>
                         </div>
+                        <script>
+                            $(document).on("click", ".browse", function() {
+                                var file = $(this).parents().find(".file");
+                                file.trigger("click");
+                            });
+                            $('input[type="file"]').change(function(e) {
+                                var fileName = e.target.files[0].name;
+                                $("#file").val(fileName);
+
+                                var reader = new FileReader();
+                                reader.onload = function(e) {
+                                    // get loaded data and render thumbnail.
+                                    document.getElementById("preview").src = e.target.result;
+                                };
+                                // read the image file as a data URL.
+                                reader.readAsDataURL(this.files[0]);
+                            });
+                        </script>
+                        @if (Auth::user()->type != 'manager')
+                            <?php
+                            $names = implode(', ', json_decode($reservedClients));
+                            ?>
+                            <div class="mt-4">
+                                <x-label for="clients" :value="__('Clients')" style="margin-top:1rem;" />
+                                <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;"
+                                    id="membreClients" class="form-control block mt-1 w-full" type="text" name="clients"
+                                    value="{{ $names }}" disabled />
+
+                            </div>
+                        @endif
                         <div class="mt-4">
                             <x-label for="membreCompany" :value="__('Entreprise')" />
                             <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="membreCompany"
@@ -70,7 +142,6 @@
                                 value="{{ $user->company }}" required disabled=disabled />
                         </div>
                     @endif
-
                     <div class="mt-4">
 
                         <x-label for="membreType" :value="__('Rôle')" />
@@ -89,11 +160,14 @@
                             value="{{ $accType }}" required disabled=disabled />
                     </div>
 
+
+
                     <div class="mt-4">
                         <x-label for="membreCountry" :value="__('Pays')" />
 
                         <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="membreCountry"
-                            class="block mt-1 w-full" type="text" name="membreCountry" value="{{ $user->country }}" />
+                            class="block mt-1 w-full" type="text" name="membreCountry"
+                            value="{{ $user->country }}" />
                     </div>
                     <div class="mt-4">
                         <x-label for="membreCity" :value="__('Ville')" />

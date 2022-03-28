@@ -20,10 +20,7 @@ class Call extends Authenticatable
      */
     protected $fillable = [
         'callId',
-        'teleoperateur',
-        'client',
         'quantity',
-        'product',
         'result',
         'script',
         'callDate',
@@ -47,6 +44,6 @@ class Call extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        // 'cities' => 'array',
+        'callDate' => 'date:d/m/Y',
     ];
 }

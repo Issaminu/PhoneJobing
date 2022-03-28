@@ -17,15 +17,16 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"> --}}
     </script>
 </head>
 
 <body>
     @include('layouts.navigation')
     @include('layouts.Scripts.profileScript-header')
-    <div style="margin-right:10rem !important; margin-left:10rem !important;">
+    <div class="list-disc list-inside"
+        style="margin-right:10rem !important; margin-left:10rem !important; list-style: revert !important;">
         @include('layouts.Scripts.profileScript-body')
     </div>
 

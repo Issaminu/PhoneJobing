@@ -13,6 +13,10 @@
     {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> --}}
 
     <!-- Styles -->
+    <script src="https://unpkg.com/@yaireo/tagify"></script>
+    <script src="https://unpkg.com/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
+    <link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+    {{-- <link rel="stylesheet" href="{{ asset('css/tags.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
     <!-- Scripts -->
@@ -35,11 +39,10 @@
                 @csrf
 
                 <!-- Type de Compte de nouveau membre -->
-                <x-label for="accountTypeChoice" :value="__('Role de membre *')" />
+                {{-- <x-label for="accountTypeChoice" :value="__('Role de membre *')" />
                 <div id="AccTypeRadio">
                     <input id="TeleRadio" name=accountTypeChoice type=radio value="teleoperateur"
-                        @if (old('accountTypeChoice')) checked @endif required><label
-                        for=TeleRadio>Téléoperateur</label>
+                        @if (old('accountTypeChoice')) checked @endif><label for=TeleRadio>Téléoperateur</label>
                     <input id="CommRadio" name=accountTypeChoice type=radio value="commercial"
                         @if (old(!'accountTypeChoice')) checked @endif><label for=CommRadio>Commercial</label>
                 </div>
@@ -50,7 +53,7 @@
                         <button id="AccTypeCommButton" type="button" class="btn btn-sm btn-outline-gray-600"
                             style="width: 17.62rem;">Commercial</button>
                     </div>
-                </div>
+                </div> --}}
 
                 <!-- Name -->
                 <div class="mt-2">
@@ -82,8 +85,7 @@
                     <x-label for="password" :value="__('Mot de passe *')" />
 
                     <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="password"
-                        class="block mt-1 w-full" type="password" name="password" required
-                        autocomplete="new-password" />
+                        class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
                 </div>
 
                 <!-- Confirm Password -->
@@ -93,6 +95,14 @@
                     <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="password_confirmation"
                         class="block mt-1 mb-5 w-full" type="password" name="password_confirmation" required />
                 </div>
+
+                <!-- Assigned Clients -->
+                <div class="mt-4">
+                    <x-label for="clients" :value="__('Clients')" style="margin-top:1rem;" />
+                    <input name='clients' value=''>
+                    @include('layouts.Equipe.clientReserveTags')
+                </div>
+
                 {{-- Image Upload --}}
                 <div>
                     <x-label for="memberImage" :value="__('Photo')" class="mt-4" />

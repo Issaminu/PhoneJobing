@@ -877,12 +877,12 @@ progress {
 
 .list-unstyled {
     padding-left: 0;
-    list-style: none
+    /* list-style: none */
 }
 
 .list-inline {
     padding-left: 0;
-    list-style: none
+    /* list-style: none */
 }
 
 .list-inline-item {
@@ -6099,7 +6099,7 @@ fieldset:disabled .btn {
     font-size: .875rem;
     color: #374151;
     text-align: left;
-    list-style: none;
+    /* list-style: none; */
     background-color: #fff;
     background-clip: padding-box;
     border: .0625rem solid #e5e7eb;
@@ -6546,7 +6546,7 @@ fieldset:disabled .btn {
     flex-wrap: wrap;
     padding-left: 0;
     margin-bottom: 0;
-    list-style: none
+    /* list-style: none */
 }
 
 .nav-link {
@@ -6683,7 +6683,7 @@ fieldset:disabled .btn {
     flex-direction: column;
     padding-left: 0;
     margin-bottom: 0;
-    list-style: none
+    /* list-style: none */
 }
 
 .navbar-nav .nav-link {
@@ -7348,7 +7348,7 @@ fieldset:disabled .btn {
     flex-wrap: wrap;
     padding: .5rem 1rem;
     margin-bottom: 1rem;
-    list-style: none;
+    /* list-style: none; */
     background-color: #e5e7eb;
     border-radius: .5rem
 }
@@ -7371,7 +7371,7 @@ fieldset:disabled .btn {
 .pagination {
     display: flex;
     padding-left: 0;
-    list-style: none
+    /* list-style: none */
 }
 
 .page-link {
@@ -7794,7 +7794,7 @@ fieldset:disabled .btn {
 }
 
 .list-group-numbered {
-    list-style-type: none;
+    /* list-style-type: none; */
     counter-reset: section
 }
 
@@ -9283,7 +9283,7 @@ fieldset:disabled .btn {
     margin-right: 15%;
     margin-bottom: 1rem;
     margin-left: 15%;
-    list-style: none
+    /* list-style: none */
 }
 
 .carousel-indicators [data-bs-target] {
@@ -22275,7 +22275,7 @@ fieldset:disabled .btn {
 .footer ul {
     margin-bottom: 0;
     padding: 0;
-    list-style: none
+    /* list-style: none */
 }
 
 .footer ul li {
@@ -26379,7 +26379,7 @@ label {
 .dataTable-pagination-list {
     display: flex;
     padding-left: 0;
-    list-style: none
+    /* list-style: none */
 }
 
 .dataTable-pagination-list li>a {
@@ -27716,7 +27716,7 @@ label {
 .dataTable-pagination {
     display: flex;
     padding-left: 0;
-    list-style: none
+    /* list-style: none */
 }
 
 .dataTable-pagination a {

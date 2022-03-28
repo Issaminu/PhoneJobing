@@ -2,10 +2,11 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 @import './team.css';
+@import './tags.css';
 
 /* @import './clients.css'; */
 /* @import url("https://fonts.googleapis.com/css?family=Nunito:600"); */
-/* @import './volt.css'; */
+/* @import './volt.css';  DONT UNCOMMENT THIS, VOLT IS IMPORTED USING Sass */
 
 html {
     /* margin-left: 1rem;
@@ -23,6 +24,13 @@ html,
 body {
 
     overflow-x: hidden;
+}
+
+#script-body ol,
+#script-body ul {
+    list-style: revert !important;
+    margin: revert !important;
+    padding: revert !important;
 }
 
 ClientBox {

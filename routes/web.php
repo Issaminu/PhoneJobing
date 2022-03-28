@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\TeleoperateurController;
 use Illuminate\Http\Request;
+use ArielMejiaDev\LarapexCharts\LarapexChart;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -63,7 +65,7 @@ Route::get('/react', function () {
 Route::get('/dashboard', [DashboardController::class, 'dashboardRouting'])->middleware(['auth'])->name('dashboard');
 
 
-Route::get('/my-dashboard', function () { //THIS ROUTE IS FORMALLY REPLACED BY "/dashboard", NOW IT JUST REDIRECTS TO "/dashboard" BUT IT NEEDS TO REMAIN AS A ROUTE FOR BACKWARDS COMPATIBILITY OF SOME OF MY VIEWS
+Route::get('/my-dashboard', function () { //THIS ROUTE IS FORMALLY REPLACED BY "/dashboard", NOW IT JUST REDIRECTS TO "/dashboard" BUT IT NEEDS TO REMAIN AS A ROUTE FOR BACKWARDS COMPATIBILITY OF SOME VIEWS
     return redirect('/dashboard');
 })->name('my-dashboard');
 
@@ -77,6 +79,8 @@ Route::get('/scripts', [ManagerController::class, 'listScripts'])->middleware(['
 
 Route::get('/historique', [ManagerController::class, 'listCalls'])->middleware(['auth'])->name('historique');
 
+Route::get('/equipe/ajout-membre', [ManagerController::class, 'addMember'])->middleware(['auth'])->name('equipe/ajout-membre');
+
 
 Route::get('/rendezvous', function () {
     if (Auth::user()->type === 'commercial') {
@@ -84,11 +88,11 @@ Route::get('/rendezvous', function () {
     } else return redirect('404');
 })->middleware(['auth'])->name('rendezvous');
 
-Route::get('/equipe/ajout-membre', function () {
-    if (Auth::user()->type === 'manager') {
-        return response()->view('Views-manager/manager-add-member');
-    } else return redirect('404');
-})->middleware(['auth'])->name('equipe/ajout-membre');
+// Route::get('/equipe/ajout-membre', function () {
+//     if (Auth::user()->type === 'manager') {
+//         return response()->view('Views-manager/manager-add-member');
+//     } else return redirect('404');
+// })->middleware(['auth'])->name('equipe/ajout-membre');
 
 Route::get('/produits/ajout-produit', function () {
     if (Auth::user()->type === 'manager') {
@@ -138,7 +142,10 @@ Route::post('/dashboard/sauvegarder-appel', [TeleoperateurController::class, 'ca
 
 
 
-Route::post('/test/test', [ManagerController::class, 'test'])->middleware(['auth']);
-Route::get('/test', function () {
-    return view('Views-manager/test');
-})->middleware(['auth']);
+// Route::post('/test/test', [ManagerController::class, 'test'])->middleware(['auth']);
+// Route::get('/test', function () {
+//     return response()->view('Views-manager/justTest');
+// })->middleware(['auth']);
+
+// Route::post('/tagsPost', function () {
+// })->middleware(['auth']);

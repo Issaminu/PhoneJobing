@@ -5,7 +5,7 @@
 
     </div>
     <div style="">
-        <div style="width: fit-content;">
+        <div id='script-body' style="width: 71.7rem;">
             {!! $script->content !!}
         </div>
     </div>

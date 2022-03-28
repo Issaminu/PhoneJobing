@@ -20,8 +20,8 @@
                     Vous avez un seul
                     téléoperateur
                 @else
-                    Vous avez {{ $TeleCount }} téléoperateurs
-                    @endif et @if ($CommCount == 0)
+                    Vous avez {{ $TeleCount }} téléoperateurs.
+                    {{-- @endif et @if ($CommCount == 0)
                         aucun commercial.
                     @elseif($CommCount == 1)
                         un seul
@@ -43,9 +43,9 @@
                             un seul
                             commercial.
                         @else
-                            {{ $CommCount }} commerciaux.
-                        @endif
-                    @endif
+                            {{ $CommCount }} commerciaux. --}}
+                @endif
+            @endif
         </p>
     </div>
     @if (Auth::user()->type === 'manager')
@@ -55,7 +55,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M12 6v6m0 0v6m0-6h6m-6 0H6">
                     </path>
-                </svg> Ajouter un employé</a>
+                </svg> Ajouter un téléoperateur</a>
 
         </div>
     @endif

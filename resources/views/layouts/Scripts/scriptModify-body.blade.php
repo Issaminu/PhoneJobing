@@ -32,6 +32,26 @@
 
     </form>
     <script>
+        ClassicEditor.defaultConfig = {
+            toolbar: {
+                items: [
+                    'heading',
+                    '|',
+                    'bold',
+                    'italic',
+                    '|',
+                    'bulletedList',
+                    'numberedList',
+                    '|',
+                    'undo',
+                    'redo'
+                ]
+            },
+            table: {
+                contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
+            },
+            language: 'fr'
+        };
         ClassicEditor
             .create(document.querySelector('#editor'))
             .catch(error => {

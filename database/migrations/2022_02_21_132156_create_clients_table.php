@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('company');
             $table->string('position');
             $table->string('phone');
+            $table->string('teleoperateur');
             $table->string('email');
             $table->string('gender');
             $table->string('country');

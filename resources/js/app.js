@@ -8,6 +8,12 @@
 
 
  require('./bootstrap');
+ require('echarts');
+ 
+//  require('apexcharts');
+//  import ApexCharts from 'apexcharts';
+
+ 
 //  require('./AccountTypeSelection'); //For /equipe/ajout-membre
  
 //  require('./searchTeamTable');

@@ -23,6 +23,7 @@ class User extends Authenticatable
         'password',
         'company',
         'phone',
+        'clients',
         'country',
         'city',
         'address',

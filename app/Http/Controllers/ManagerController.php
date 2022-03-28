@@ -7,9 +7,14 @@ use App\Models\Call;
 use App\Models\Product;
 use App\Models\User;
 use App\Models\Client;
+use App\Models\LastWeek;
+use App\Models\Sale;
 use App\Models\Script;
+use App\Models\ThisWeek;
 use App\Providers\RouteServiceProvider;
+use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Filesystem\AwsS3V3Adapter;
 // use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,6 +26,9 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use PDO;
 use Illuminate\Validation\ValidationException;
+use League\Flysystem\Filesystem;
+use Illuminate\Support\Facades\File;
+
 
 class ManagerController extends Controller
 {
@@ -37,9 +45,26 @@ class ManagerController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function storeNewMember(Request $request)
+
+
+    public function addMember(Request $request)
     {
         if (Auth::user()->type === 'manager') {
+            $clients = Client::where('teamid', '=', Auth::user()->teamid)->where('teleoperateur', '=', null)->orderBy('name')->get(['id AS value', 'name', 'email']);
+            $clients = json_encode($clients);
+            // dd($clients);
+            return view('Views-manager/manager-add-member', compact('clients'));
+        } else return redirect('404');
+    }
+
+    public function storeNewMember(Request $request)
+    {
+        // dd($request);
+        if (Auth::user()->type === 'manager') {
+            // dd(json_decode($request->clients));
+
+            // dd($request->clients[0]['value']);
+            // dd($request);
             $attributes = $request->validate([
                 'name' => ['required', 'regex:/^[a-zA-Z0-9\s]+$/', 'string', 'max:200'],
                 'email' => ['required', 'string', 'email', 'max:200', 'unique:users'],
@@ -47,44 +72,62 @@ class ManagerController extends Controller
                 'phone' => ['required', 'string', 'max:20'],
                 'memberImage' => 'image|mimes:jpeg,png,jpg,svg,webp',
             ]);
+            $clients = [];
+            $i = 0;
+            foreach (json_decode($request->clients) as $client) {
+                $clients[$i] = $client->value;
+                $i++;
+            }
+            $clients = json_encode($clients);
+
             $newMember = User::create([
                 'name' => ucwords(strtolower($request->name)),
                 'email' => $request->email,
                 'phone' => $request->phone,
+                'clients' => $clients,
                 'company' => Auth::user()->company,
                 'country' => ucwords(strtolower($request->country)),
                 'city' => ucwords(strtolower($request->city)),
                 'address' => ucwords($request->address),
                 'zip' => $request->zip,
-                'image' => $this->imageUpload($request->memberImage),
+                'image' => $this->imageUpload($request->memberImage, 0),  //JUST IGNORE THE 0, IT PROBABLY WON'T HARM ANYONE, RIGHT?
                 'password' => Hash::make($request->password),
-                'type' => $request->accountTypeChoice,
+                'type' => 'teleoperateur',
                 'teamid' => Auth::user()->teamid, //THIS IS TO GET "TEAMID" OF THE NEW MEMBRE OF THE TEAM TO BE EQUIVALENT WITH THE "TEAMID" OF THE MANAGER
             ]);
-            event(new Registered($newMember));
+            // event(new Registered($newMember));
+            foreach (json_decode($request->clients) as $client) {
+                $thisClient = Client::where('id', '=', $client->value)->first();
+                if (!$thisClient || $thisClient->teleoperateur != null) {
+                    return redirect('404');
+                }
+                $thisClient->teleoperateur = $newMember->id;
+                $thisClient->update();
+            }
+            $Sale = new Sale;
+            $Sale->TeleoperateurId = $newMember->id;
+            $Sale->callCount = 0;
+            $Sale->earnings = 0;
+            $Sale->saleCount = 0;
+            $Sale->productCount = 0;
+            $Sale->teamid = $newMember->teamid;
+            // dd($Sale);
+            $Sale->save();
+
             return redirect('/equipe');
         } else return redirect('404');
     }
-    public function imageUpload($Image)
+    public function imageUpload($Image, $id)
     {
         if ($Image) {
             $name = preg_replace('/[\W]/', '', base64_encode(random_bytes(18)));
             $imageName =  $name . "." . $Image->extension();
             $Image->move(public_path('images'), $imageName);
-            // $path = $Image->store('images', 'public');
-            // $storage = Storage::disk('s3');
-            // $path = "a0002587_main.jpg";
-            // $contents = $storage->get('a0002587_main.jpg');
-            // dd($contents);
-            // Storage::disk('s3')->put('/filename', file_get_contents("C:\Users\Issam Boubcher\Desktop\shutterstock_312911786-1200x675.png"));
-            // dd(Storage::disk('s3')->get($path));
-            // if (Storage::disk('s3')->exists('a0002587_main.jpg')) {
-            //     dd("pooog");
-            // } else {
-            //     dd("no pog");
-            // }
-            // dd($storage);
-            // dd($path);
+            $nameInS3 = 'images/' . $imageName . '/';
+            $storeS3 = Storage::disk('s3')->put($nameInS3, file_get_contents('images/' . $imageName));
+            if (strval(auth()->user()->id) === strval($id)) {
+                auth()->user()->image = $imageName;
+            }
             return $imageName;
         } else {
             $imageName = "defaultPFP.webp"; //THIS IS PROFILE PICTURE BY DEFAULT, IF A PFP ISN'T PROVIDED, WE'LL USE THIS ONE
@@ -94,6 +137,17 @@ class ManagerController extends Controller
     public function listTeamMembers(Request $request)
     {
         $users = User::where('type', '!=', 'manager')->where('teamid', '=', Auth::user()->teamid)->orderBy('name')->get(['id', 'name', 'email', 'company', 'phone', 'country', 'city', 'address', 'zip', 'type', 'image']);
+        $manager = User::where('type', '=', 'manager')->where('teamid', '=', Auth::user()->teamid)->get(['id', 'name', 'email', 'company', 'phone', 'country', 'city', 'address', 'zip', 'type', 'image'])->first();
+        // dd($manager->image);
+        if (file_exists(public_path(('images/' . $manager->image)))) {
+            $manager->image = asset('images/' . $manager->image);
+            // dd($manager->image);
+        } else {
+            $manager->image =  Storage::disk('s3')->temporaryUrl(
+                'images/' . $manager->image,
+                Carbon::now()->addMinutes(20)
+            );
+        }
         // dd($users);
         $TeleCount = 0;
         $CommCount = 0;
@@ -102,14 +156,38 @@ class ManagerController extends Controller
         foreach ($users as $i) {
             if ($i->type == "teleoperateur") {
                 $TeleCount++;
+                if (!$i->image) {
+                    $i->image = "defaultPFP.webp";
+                    $i->update();
+                }
+                if (file_exists(public_path(('images/' . $i->image)))) {
+                    $i->image = asset('images/' . $i->image);
+                } else {
+                    $i->image =  Storage::disk('s3')->temporaryUrl(
+                        'images/' . $i->image,
+                        Carbon::now()->addMinutes(20)
+                    );
+                }
                 array_push($Teleoperateurs, $i);
             } elseif ($i->type == "commercial") {
                 $CommCount++;
+                if (!$i->image) {
+                    $i->image = "defaultPFP.webp";
+                    $i->update();
+                }
+                if (file_exists(public_path(('images/' . $i->image)))) {
+                    $i->image = asset('images/' . $i->image);
+                } else {
+                    $i->image =  Storage::disk('s3')->temporaryUrl(
+                        'images/' . $i->image,
+                        Carbon::now()->addMinutes(20)
+                    );
+                }
                 array_push($Commerciaux, $i);
             }
         }
         // dd($Teleoperateurs);
-        return view('Views-manager/manager-equipe', compact('Teleoperateurs', 'Commerciaux', 'TeleCount', 'CommCount'));
+        return view('Views-manager/manager-equipe', compact('manager', 'Teleoperateurs', 'Commerciaux', 'TeleCount', 'CommCount'));
     }
     public function profileMember(Request $request)
     {
@@ -117,24 +195,54 @@ class ManagerController extends Controller
         $user = User::where('name', '=', $userName)->first();
         // dd($user);
         if (intval(Auth::user()->teamid) === intval($user->teamid)) {
-            $user = User::where('name', '=', $userName)->get(['id', 'name', 'email', 'company', 'phone', 'country', 'city', 'address', 'zip', 'type', 'image', 'teamid'])->first();
+            $user = User::where('name', '=', $userName)->get(['id', 'name', 'email', 'company', 'phone', 'clients', 'country', 'city', 'address', 'zip', 'type', 'image', 'teamid'])->first();
             //ADD USER SPECIFIC STATISTICS HERE TO DISPLAY THEM TO THEIR PROFILE
             // dd($user);
+            // $user->image = Storage::disk('s3')->get('images/' . $user->image);
+            $clients = json_encode(Client::where('teamid', '=', Auth::user()->teamid)->where(function ($q) use ($user) {
+                $q->where('teleoperateur', null)
+                    ->orWhere('teleoperateur', $user->id);
+            })->orderBy('name')->get(['id AS value', 'name', 'email']));
+            // $unreservedClients = json_encode(Client::where('teamid', '=', Auth::user()->teamid)->where('teleoperateur', '=', null)->orderBy('name')->get(['id AS value', 'name', 'email']));
+            // dd(json_decode($clients));
+            $i = 0;
+            $reservedClients = [];
+            if ($user->clients) {
+                foreach (json_decode($clients) as $client) {
+                    foreach (json_decode($user->clients) as $reservedClient) {
+                        if ($client->value === intval($reservedClient)) {
+                            $reservedClients[$i] = $client->name;
+                            $i++;
+                        }
+                    }
+                }
+            }
+            $reservedClients = json_encode($reservedClients);
+            // dd($reservedClients);
+
+            if (file_exists(public_path(('images/' . $user->image)))) {
+                $user->image = asset('images/' . $user->image);
+            } else {
+                $user->image =  Storage::disk('s3')->temporaryUrl(
+                    'images/' . $user->image,
+                    Carbon::now()->addMinutes(20)
+                );
+            }
+            // dd($user->image);
             if ($user) {
-                return view('Views-manager/profileUser', compact('user'));
+                return view('Views-manager/profileUser', compact('user', 'clients', 'reservedClients'));
             } else return redirect('404');
             // return redirect('/equipe');
         } else return redirect('404');
     }
     public function modifyMember(Request $request)
     {
-        // dd($request->membreImage);
+        // dd($request->memberImage);
         if (Auth::user()->type === 'manager' || intval(Auth::user()->id) === intval($request->membreId)) {
             $attributes = $request->validate([
                 'membreName' => ['required', 'regex:/^[a-zA-Z0-9\s]+$/', 'string', 'max:200'],
                 'membrePhone' => ['required', 'string', 'max:20'],
                 'membreEmail' => ['required', 'string', 'email', 'max:200'],
-
             ]);
             $user = User::where('id', '=', $request->membreId)->first();
             if ($user) {
@@ -148,7 +256,31 @@ class ManagerController extends Controller
                     throw ValidationException::withMessages(['membreEmail' => 'Cet email est déjà réservé.']);
                 }
                 // dd($request);
+                $clients = [];
+                $i = 0;
+                if (Auth::user()->type === "manager") {
+                    foreach (json_decode($request->clients) as $client) {
+                        $clients[$i] = $client->value;
+                        $i++;
+                        $thisClient = Client::where('id', '=', $client->value)->first();
+                        if (!$thisClient || ($thisClient->teleoperateur != null && $thisClient->teleoperateur != $user->id)) {
+                            return redirect('404');
+                        }
+                        $thisClient->teleoperateur = $user->id;
+                        $thisClient->update();
+                    }
+                    $clients = json_encode($clients);
+                    $user->clients = $clients; //THIS IS TO SAVE THE RESERVED CLIENTS ONTO THE TELEOP'S ROW IN THE USERS TABLE
 
+                    if ($request->oldClients) {
+                        $unreservedClients = array_diff(json_decode($request->oldClients), json_decode($clients)); //THIS IS TO REMOVE THE TELEOP ID FROM THE CLIENT WHICH IS NO LONGER RESERVED FOR THIS TELEOP
+                        foreach ($unreservedClients as $unreservedClient) {
+                            $deletedClient = Client::where('id', '=', $unreservedClient)->first();
+                            $deletedClient->teleoperateur = null;
+                            $deletedClient->update();
+                        }
+                    }
+                }
                 // $user->email = $request->membreEmail;
                 $user->country = ucwords(strtolower($request->membreCountry));
                 // dd($request);
@@ -158,8 +290,18 @@ class ManagerController extends Controller
                     // dd($user);
                 }
                 if ($request->membreImage) {
-                    $user->image = $this->imageUpload($request->membreImage);
+                    // dd($request->membreImage);
+                    if ($user->image != 'defaultPFP.webp') {
+                        if (file_exists(public_path(('images/' . $user->image)))) {
+                            File::delete(public_path('images/' . $user->image));
+                        }
+                        if (Storage::disk('s3')->exists('images/' . $user->image)) {
+                            Storage::disk('s3')->delete('images/' . $user->image);
+                        }
+                        $user->image = $this->imageUpload($request->membreImage, $user->id);
+                    }
                 }
+                // dd('bruh');
                 $user->city = ucwords(strtolower($request->membreCity));
                 $user->address = ucwords($request->membreAddress);
                 $user->zip = $request->membreZip;
@@ -173,9 +315,35 @@ class ManagerController extends Controller
         $user = User::where('email', '=', $request->deleteEmail)->first();
         if (Auth::user()->type === 'manager' && $user->teamid === Auth::user()->teamid) {
             // $user = User::find(User::where('email', $request->deleteEmail)->first());
-            // $user->delete();        
+            // $user->delete();
+            if ($user->image != 'defaultPFP.webp') {
+                if (file_exists(public_path(('images/' . $user->image)))) {
+                    File::delete(public_path('images/' . $user->image));
+                }
+                if (Storage::disk('s3')->exists('images/' . $user->image)) {
+                    Storage::disk('s3')->delete('images/' . $user->image);
+                }
+            }
+            //TODO: DELETE THIS USER'S DATA FROM STATISTICS [DONE]
+            $sale = Sale::where('teleoperateurId', '=', $user->id)->first();
+            if ($sale) {
+                $sale->delete();
+            }
+            //TODO: DELETE THIS USER'S DATA FROM CALLS [DONE]
+            $call = Call::where('teleoperateurId', '=', $user->id)->first();
+            if ($call) {
+                $call->delete();
+            }
+            //TODO: UNRESERVE THE CLIENTS RESERVED TO THIS TELEOPERATEUR [DONE]
+            $clients = json_decode($user->clients);
+            if ($clients) {
+                foreach ($clients as $clientId) {
+                    $reservedClient = Client::where('id', '=', $clientId)->first();
+                    $reservedClient->teleoperateur = null;
+                }
+            }
+
             $user->delete();
-            //TODO: DELETE THIS USER'S DATA FROM STATISTICS
             return redirect('/equipe');
         } else return redirect('404');
     }
@@ -430,6 +598,7 @@ class ManagerController extends Controller
                 $script->name = ucwords(strtolower($request->scriptName));
             } elseif ($request->scriptName === $checkByName->name && intval($checkByName->id) != intval($request->scriptId)) {
                 // dd("yo wtf");
+                // throw (ValidationException::withMessages(['Ce nom est déjà réservé.']));
                 throw ValidationException::withMessages(['scriptName' => 'Ce nom est déjà réservé.']);
                 // return redirect($this->redirectTo = url()->previous());
             }
@@ -455,18 +624,126 @@ class ManagerController extends Controller
     public function listCalls(Request $request)
     {
         if (Auth::user()->type === "manager") {
-            $calls = Call::where('teamid', '=', Auth::user()->teamid)->orderBy('callId')->get([
-                'id', 'callId', 'teleoperateur', 'client', 'quantity', 'product', 'result', 'callDate', 'callLength', 'teleoperateurId', 'productId', 'clientId', 'teamid'
+            $calls = Call::where('teamid', '=', Auth::user()->teamid)->orderBy('callId', 'DESC')->get([
+                'id', 'callId', 'quantity', 'result', 'callDate', 'callLength', 'teleoperateurId', 'productId', 'clientId', 'teamid'
             ]);
+            foreach ($calls as $call) {
+                $call->teleoperateur = User::where('id', '=', $call->teleoperateurId)->first()->name; //CHANGE "->id" TO "->name"
+                $call->client = Client::where('id', '=', $call->clientId)->first()->name;
+                if (Product::where('id', '=', $call->productId)->first() != null) {
+                    $call->product = Product::where('id', '=', $call->productId)->first()->name;   //CHANGE "->price" TO "->name"
+                } else {
+                    $call->product = "̶ ̶ ̶ ̶ ̶ ̶ ̶ ̶ ̶ ̶";
+                }
+            }
             $callCount = count($calls);
             return view('Views-manager/manager-historique', compact('callCount', 'calls'));
         } elseif (Auth::user()->type === "teleoperateur") {
-            $calls = Call::where('teamid', '=', Auth::user()->teamid)->where('teleoperateurId', '=', Auth::user()->id)->orderBy('callId')->get([
-                'id', 'callId', 'teleoperateur', 'client', 'quantity', 'product', 'result', 'callDate', 'callLength', 'teleoperateurId', 'productId', 'clientId', 'teamid'
+            $calls = Call::where('teamid', '=', Auth::user()->teamid)->where('teleoperateurId', '=', Auth::user()->id)->orderBy('callId', 'DESC')->get([
+                'id', 'callId', 'quantity', 'result', 'callDate', 'callLength', 'teleoperateurId', 'productId', 'clientId', 'teamid'
             ]);
+            foreach ($calls as $call) {
+                $call->teleoperateur = User::where('id', '=', $call->teleoperateurId)->first()->name;
+                $call->client = Client::where('id', '=', $call->clientId)->first()->name;
+                if (Product::where('id', '=', $call->productId)->first() != null) {
+                    $call->product = Product::where('id', '=', $call->productId)->first()->name;
+                } else {
+                    $call->product = "̶ ̶ ̶ ̶ ̶ ̶ ̶ ̶ ̶ ̶";
+                }
+            }
             $callCount = count($calls);
             return view('Views-manager/manager-historique', compact('callCount', 'calls'));
-        }
-        return redirect('404');
+        } else return redirect('404');
+    }
+    public function dashboard(Request $request)
+    {
+        if (Auth::user()->type === "manager") {
+            // $date = Carbon::now()->subDays(7)->format('Y-m-d');
+
+            $salesLastWeek = Call::where('teamid', '=', Auth::user()->teamid)->whereBetween(
+                'callDate',
+                [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()]
+            )->get();
+            if ($salesLastWeek) {
+                $salesLastWeek = Call::where('teamid', '=', Auth::user()->teamid)->whereBetween(
+                    'callDate',
+                    [Carbon::now()->subDays(14)->startOfWeek(), Carbon::now()->endOfWeek()]
+                )->get();
+            }
+            // $sales = Sale::where('teamid', '=', Auth::user()->teamid)->orderBy('callCount', 'ASC')->get(['id', 'teleoperateurId', 'callCount', 'earnings', 'saleCount', 'productCount', 'teamid']);
+            $sales = Sale::where('teamid', '=', Auth::user()->teamid)->get(['id', 'teleoperateurId', 'callCount', 'earnings', 'saleCount', 'productCount', 'teamid']);
+            // dd($sales);
+            $names = [];
+            $b = 0;
+            foreach ($sales as $sale) {
+                $sale->teleoperateur = User::where('id', '=', $sale->teleoperateurId)->first()->name;
+                //THE STUFF BELOW IS TO MAKE NAMES WRAP (WORD WRAP) IN THE CHARTS, DONT REMOVE IT
+                if (strpos($sale->teleoperateur, " ")) {
+                    $name = explode(" ", $sale->teleoperateur);
+                    $sale->teleoperateur = "[";
+                    for ($i = 0; $i < count($name); $i++) {
+                        $sale->teleoperateur .= "'";
+                        // dd($name[$i]);
+                        $sale->teleoperateur .= $name[$i] . "'";
+                        if ($i != count($name) - 1) {
+                            $sale->teleoperateur .= ",";
+                        }
+                    }
+                    $sale->teleoperateur .= "],";
+                }
+                $names[$b] = $sale->teleoperateur;
+                $b++;
+                // dd($sale->teleoperateur);
+            }
+            // dd($sales);
+            // $earnings = json_encode($earnings);
+            $names = "[" . join($names) . "]";
+            // dd(Carbon::now()->subWeek()->startOfWeek());
+
+            $date = Carbon::now()->subDays(7)->format('Y-m-d');
+            $LastWeekCalls = Call::where('teamid', '=', Auth::user()->teamid)->whereBetween(
+                'callDate',
+                [Carbon::now()->subWeek()->startOfWeek(), Carbon::now()->subWeek()->endOfWeek()]
+            )->get();
+            $ThisWeekCalls = Call::where('teamid', '=', Auth::user()->teamid)->whereDate('callDate', '>=', $date)->get();
+
+            // dd($LastWeekCalls);
+            $lastWeek = new LastWeek;
+            foreach ($LastWeekCalls as $call) {
+                // dd($call->productId);
+                $lastWeek->count++;
+                if ($call->result === "Vente réussie") {
+                    $lastWeek->sales++;
+                    $productPrice = Product::where('id', '=', $call->productId)->first()->price;
+                    // dd($productPrice);
+                    $lastWeek->earnings += $productPrice * $call->quantity;
+                }
+            }
+
+            $lastWeek->fails = $lastWeek->count - $lastWeek->sales;
+            $lastWeek->ratio = round($lastWeek->sales * 100 / $lastWeek->count, 2);
+
+            $thisWeek = new ThisWeek;
+            // dd($ThisWeekCalls);
+            foreach ($ThisWeekCalls as $call) {
+                // dd($call->productId);
+                $thisWeek->count++;
+                if ($call->result === "Vente réussie") {
+                    $thisWeek->sales++;
+                    $productPrice = Product::where('id', '=', $call->productId)->first()->price;
+                    // dd($productPrice);
+                    $thisWeek->earnings += $productPrice * $call->quantity;
+                }
+            }
+
+            $thisWeek->fails = $thisWeek->count - $thisWeek->sales;
+            $thisWeek->ratio = round($thisWeek->sales * 100 / $thisWeek->count, 0);
+
+
+            // dd(strtotime($salesLastWeek[0]->callLength));
+            // if ($salesLastWeek) $salesLastWeek[1] = 1;
+            // dd($salesLastWeek);
+            return view('Views-manager/test2', compact('sales', 'names', 'lastWeek', 'salesLastWeek', 'thisWeek'));
+        } else return redirect('404');
     }
 }

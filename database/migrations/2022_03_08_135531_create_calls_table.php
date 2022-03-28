@@ -16,10 +16,7 @@ return new class extends Migration
         Schema::create('calls', function (Blueprint $table) {
             $table->id();
             $table->string('callId');
-            $table->string('teleoperateur');
-            $table->text('client');
             $table->text('quantity')->nullable();
-            $table->text('product')->nullable();
             $table->text('result');
             $table->text('script');
             $table->text('callDate');

@@ -23,6 +23,7 @@ class Client extends Authenticatable
         'company',
         'position',
         'phone',
+        'teleoperateur',
         'email',
         'gender',
         'country',

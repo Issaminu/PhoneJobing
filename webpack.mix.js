@@ -18,6 +18,7 @@ mix.js('resources/js/app.js', 'public/js')
         require('tailwindcss'),
         require('autoprefixer'),
     ]);
+// mix.ts('resources/js/ApexCharts.ts', 'public/js');
 // mix.css('resources/css/volt.css', 'public/css/volt.css');
 mix.js('resources/js/searchAndFilterTeamTable.js', 'public/js/searchAndFilterTeamTable.js');
 mix.js('resources/js/searchProductsTable.js', 'public/js/searchProductsTable.js');

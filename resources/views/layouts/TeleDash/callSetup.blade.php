@@ -6,18 +6,20 @@
             <form action="dashboard/appel" method="post">
                 <div style="display: flex; flex-direction:row;">
                     <div class="" style="display: flex; flex-direction:column;">
-                        <x-label for="prodSelection" :value="__('Client:')" style="margin-left: 0.3rem;" />
-                        <select class="form-select fmxw-200" style="margin-top:-0.5rem; width:15rem;" id="client"
-                            name="client">
+                        <x-label class=" drop-shadow" for="prodSelection" :value="__('Client:')"
+                            style="margin-left: 0.3rem;" />
+                        <select class="form-select fmxw-200 drop-shadow" style="margin-top:-0.5rem; width:15rem;"
+                            id="client" name="client">
                             @foreach ($clients as $client)
                                 <option value="{{ $client->name }}">{{ $client->name }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div style="display: flex; flex-direction:column; margin-left:3rem;">
-                        <x-label for="prodSelection" :value="__('Script:')" style="margin-left: 0.3rem;" />
-                        <select class="form-select fmxw-200" style="margin-top:-0.5rem; width:15rem;" id="script"
-                            name="script">
+                        <x-label class=" drop-shadow" for="prodSelection" :value="__('Script:')"
+                            style="margin-left: 0.3rem;" />
+                        <select class="form-select fmxw-200 drop-shadow" style="margin-top:-0.5rem; width:15rem;"
+                            id="script" name="script">
                             @foreach ($scripts as $script)
                                 <option value="{{ $script->name }}">{{ $script->name }}</option>
                             @endforeach
@@ -25,9 +27,11 @@
                     </div>
                 </div>
                 <div style="display:flex; justify-content: center;">
-                    <input class="form-control w-32 mt-5"
+                    <button class="form-control w-32 mt-5 drop-shadow"
                         style="cursor: pointer; background-color:#2f3e53; border-radius:0.6rem; height:3rem; color:white; margin-top:2rem; margin-bottom:0.6rem; font-weight:600;"
-                        type="submit" value="Démarrer">
+                        type="submit">
+                        <h1 class="drop-shadows" style="color: white; font-size:1.1rem;">Démarrer</h1>
+                    </button>
                 </div>
 
             </form>

@@ -18,9 +18,14 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/32.0.0/classic/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/32.0.0/classic/translations/fr.js"></script>
     <style>
         .ck-editor__editable_inline {
             min-height: 40px;
+        }
+
+        div.ck.ck-editor__editable_inline * {
+            all: revert;
         }
 
     </style>

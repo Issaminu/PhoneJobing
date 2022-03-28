@@ -25,7 +25,8 @@ class DashboardController extends Controller
     public function dashboardRouting(Request $request)
     {
         if (Auth::user()->type === 'manager') {
-            return view('Views-manager/manager-dashboard');
+            $ManagerController = new ManagerController;
+            return $ManagerController->dashboard($request);
         } elseif (Auth::user()->type === 'teleoperateur') {
             $TeleoperateurController = new TeleoperateurController;
             return $TeleoperateurController->callSetup($request);

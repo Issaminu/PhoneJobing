@@ -1,8 +1,8 @@
-<div id="mainBody" style="margin-top:-1.7rem; margin-left:15rem;">
+<div id="mainBody" style="margin-top:0rem; margin-left:10rem;">
 
     <div id="searchAndAccountType" style="display: flex; justify-content: flex-end;">
 
-        <div class="input-group" style="max-width: 14rem;">
+        <div class="input-group" style="max-width: 18rem;">
             <input style="--tw-ring-color: rgb(75, 85, 99);" id="productSearch" type="text" class="form-control"
                 placeholder="Chercher">
             {{-- <span class="input-group-text border-l-0"> </span> --}}
@@ -10,7 +10,7 @@
 
 
     </div>
-    <div class="card card-body shadow border-0 table-wrapper table-responsive" style="width:60rem; margin-top:4rem;">
+    <div class="card card-body shadow border-0 table-wrapper table-responsive" style="width:75rem; margin-top:2rem;">
         {{-- <div class="d-flex mb-3"><select class="form-select fmxw-200" aria-label="Message select example">
             <option selected="selected">Bulk Action</option>
             <option value="1">Send Email</option>

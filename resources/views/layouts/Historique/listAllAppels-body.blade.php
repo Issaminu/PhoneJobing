@@ -1,4 +1,4 @@
-<div style="margin-left:10rem; margin-right:7rem;">
+<div style="margin-left:10rem; margin-right:10rem;">
 
     <div id="searchAndAccountType" style="display: flex; justify-content: flex-end;">
         <div class="input-group fmxw-300" style="margin-top: 0rem;">
@@ -9,7 +9,7 @@
     </div>
     <br style="user-select: none;">
     <div class="card card-body shadow border-0 table-wrapper table-responsive"
-        style="width:77.88rem; padding: 1.1rem 1rem;">
+        style="width:75rem; padding: 1.1rem 1rem;">
         <table class="table user-table table-hover align-items-center" id="callTable" style="table-layout: auto;">
             <thead>
                 <tr style="text-align: center;">
@@ -97,7 +97,7 @@
                             </span>
                         </td>
                         <td><span class="fw-normal d-flex justify-content-center">
-                                {{ $call->callDate }}
+                                {{ $call->callDate->format('d/m/Y') }}
                             </span>
                         </td>
                     </tr>

@@ -42,7 +42,7 @@
         </p>
     </div>
     @if (Auth::user()->type === 'teleoperateur')
-        <div class="btn-toolbar mt-2"><a href="/dashboard"
+        <div class="btn-toolbar mt-2" style="margin-right: 2.9rem;"><a href="/dashboard"
                 class="btn btn-sm btn-gray-800 d-inline-flex align-items-center"><svg xmlns="http://www.w3.org/2000/svg"
                     x="0px" y="0px" width="17" height="17" viewBox="0 0 172 172"
                     style=" fill:#000000; margin-right:0.15rem;">
