@@ -1,9 +1,18 @@
 <x-guest-layout>
+
     <x-auth-card>
+
         <x-slot name="logo">
             <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                <x-application-logo class="ml-80 mb-14 w-20 h-20 fill-current text-gray-500" />
             </a>
+            <div class="card shadow pb-6 mb-6"
+                style="background-color: rgba(247, 247, 247, 0.911); width: 46rem; max-height:29rem; padding:1.5rem;">
+                <h1 style="font-size:1.4rem; margin-bottom:1rem;">Veuillez utiliser les comptes démo suivants pour la
+                    visualisation :</h1>
+                <p><b class="mr-14">Manager: </b> manager@gmail.com | qwerqwer123</p>
+                <p><b class="mr-4">Téléoperateur: </b> teleoperateur@gmail.com | qwerqwer123</p>
+            </div>
         </x-slot>
 
         <!-- Session Status -->
@@ -11,7 +20,6 @@
 
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
-
         <form method="POST" action="{{ route('login') }}">
             @csrf
 

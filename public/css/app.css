@@ -30716,6 +30716,20 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-right: 2.5rem;
 }.ml-10{
   margin-left: 2.5rem;
+}.mr-4{
+  margin-right: 1rem;
+}.mr-14{
+  margin-right: 3.5rem;
+}.ml-14{
+  margin-left: 3.5rem;
+}.ml-60{
+  margin-left: 15rem;
+}.ml-80{
+  margin-left: 20rem;
+}.mb-20{
+  margin-bottom: 5rem;
+}.mb-14{
+  margin-bottom: 3.5rem;
 }.block{
   display: block;
 }.flex{

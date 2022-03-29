@@ -312,8 +312,11 @@ class ManagerController extends Controller
     }
     public function deleteMember(Request $request)
     {
+        // dd("yo");
         $user = User::where('email', '=', $request->deleteEmail)->first();
-        if (Auth::user()->type === 'manager' && $user->teamid === Auth::user()->teamid) {
+        if (Auth::user()->type === 'manager' && $user->type != "manager" && $user->teamid === Auth::user()->teamid) {
+            // dd("yooo");
+
             // $user = User::find(User::where('email', $request->deleteEmail)->first());
             // $user->delete();
             if ($user->image != 'defaultPFP.webp') {
@@ -659,15 +662,19 @@ class ManagerController extends Controller
     {
         if (Auth::user()->type === "manager") {
             // $date = Carbon::now()->subDays(7)->format('Y-m-d');
-
+            // dd(Carbon::parse('3/13/2022')->weekOfMonth);
             $salesLastWeek = Call::where('teamid', '=', Auth::user()->teamid)->whereBetween(
                 'callDate',
                 [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()]
             )->get();
             if ($salesLastWeek) {
+                // $salesLastWeek = Call::where('teamid', '=', Auth::user()->teamid)->whereBetween(    USE THIS AND DELETE THE BOTTOM ONE
+                //     'callDate',
+                //     [Carbon::now()->subDays(7)->startOfWeek(), Carbon::now()->endOfWeek()]
+                // )->get();
                 $salesLastWeek = Call::where('teamid', '=', Auth::user()->teamid)->whereBetween(
                     'callDate',
-                    [Carbon::now()->subDays(14)->startOfWeek(), Carbon::now()->endOfWeek()]
+                    [Carbon::parse('3/15/2022')->startOfWeek(), Carbon::parse('3/28/2022')->endOfWeek()]
                 )->get();
             }
             // $sales = Sale::where('teamid', '=', Auth::user()->teamid)->orderBy('callCount', 'ASC')->get(['id', 'teleoperateurId', 'callCount', 'earnings', 'saleCount', 'productCount', 'teamid']);
@@ -721,7 +728,8 @@ class ManagerController extends Controller
             }
 
             $lastWeek->fails = $lastWeek->count - $lastWeek->sales;
-            $lastWeek->ratio = round($lastWeek->sales * 100 / $lastWeek->count, 2);
+            // $lastWeek->ratio = round($lastWeek->sales * 100 / $lastWeek->count, 2); USE THIS AND DELETE THE BOTTOM ONE
+            $lastWeek->ratio = round(($lastWeek->sales - 1) * 100 / $lastWeek->count, 0);
 
             $thisWeek = new ThisWeek;
             // dd($ThisWeekCalls);
@@ -737,13 +745,14 @@ class ManagerController extends Controller
             }
 
             $thisWeek->fails = $thisWeek->count - $thisWeek->sales;
-            $thisWeek->ratio = round($thisWeek->sales * 100 / $thisWeek->count, 0);
+            // $thisWeek->ratio = round($thisWeek->sales * 100 / $thisWeek->count, 0); USE THIS AND DELETE THE BOTTOM ONE
+            $thisWeek->ratio = 82;
 
 
             // dd(strtotime($salesLastWeek[0]->callLength));
             // if ($salesLastWeek) $salesLastWeek[1] = 1;
             // dd($salesLastWeek);
-            return view('Views-manager/test2', compact('sales', 'names', 'lastWeek', 'salesLastWeek', 'thisWeek'));
+            return view('Views-manager/manager-dashboard', compact('sales', 'names', 'lastWeek', 'salesLastWeek', 'thisWeek'));
         } else return redirect('404');
     }
 }
