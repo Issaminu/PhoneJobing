@@ -66,7 +66,7 @@
                         <div style="display: flex;">
                             <div class="card shadow mt-8 mb-6 ml-8 pb-6"
                                 style="width: 21rem !important; height:8rem; padding-bottom:1.5rem;">
-                                <div class="h4 mt-4 d-flex drop-shadow" style="justify-content: center;">Bénéfice
+                                <div class="h4 mt-4 d-flex drop-shadow" style="justify-content: center;">Revenue
                                 </div>
                                 <div class="h1 d-flex drop-shadow"
                                     style="justify-content: center; text-size:9.7rem; font-weight: bold; color:#44cc8c">

@@ -13,7 +13,14 @@
         <tbody>
             @foreach ($products as $product)
                 <tr>
-                    <td><a class="fw-bold drop-shadow" style="cursor: default;">{{ ucwords($product->name) }}
+                    <td><a class="fw-bold drop-shadow" style="cursor: default;">
+                            <?php
+                            if (strlen($product->name) > 16) {
+                                echo substr(ucwords($product->name), 0, 13) . '...';
+                            } else {
+                                echo ucwords($product->name);
+                            }
+                            ?>
 
                     </td>
                     <td><span class="fw-normal d-flex drop-shadow">

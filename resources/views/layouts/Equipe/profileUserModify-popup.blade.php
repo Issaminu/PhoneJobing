@@ -144,7 +144,7 @@
                     @endif
                     <div class="mt-4">
 
-                        <x-label for="membreType" :value="__('Rôle')" />
+                        <x-label for="membreType" :value="__('Poste')" />
                         <?php
                         if ($user->type === 'teleoperateur') {
                             $accType = 'Téléoperateur';

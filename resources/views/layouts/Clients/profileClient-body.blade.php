@@ -68,6 +68,22 @@
                 </div>
             </div>
             <div class="row mt-4 mb-3 align-items-center">
+                <div style=" width: 10rem;"><small class="text-muted text-sm">Nombre d'achats:</small>
+                </div>
+                <div style="width: fit-content;">
+                    <p class="text-dark mb-0 font-normale" style="font-weight: 500;">{{ $client->quantity }}
+                    </p>
+                </div>
+            </div>
+            <div class="row mt-4 mb-3 align-items-center">
+                <div style=" width: 10rem;"><small class="text-muted text-sm">Revenue total:</small>
+                </div>
+                <div style="width: fit-content;">
+                    <p class="text-dark mb-0 font-normale" style="font-weight: 500;">{{ $client->earnings }} MAD
+                    </p>
+                </div>
+            </div>
+            <div class="row mt-4 mb-3 align-items-center">
                 <div style=" width: 10rem;"><small class="text-muted text-sm">Pays:</small>
                 </div>
                 <div style="width: fit-content;">

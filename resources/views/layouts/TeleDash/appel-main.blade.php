@@ -2,18 +2,18 @@
 
     <div style="max-width: 28rem;flex-wrap: nowrap;">
         <div class="card card-body mb-6  drop-shadow" style=" flex-wrap:nowrap; flex-direction:row;">
-            <button class="form-control h2 mt-2 mr-10"
+            <button class="form-control h2 mt-2 mr-7"
                 style="width:7rem;font-weight:bold; text-shadow: 1px 1px 7px #b8b8b8;" id="startWatch"
                 onclick="startTimer()">Démarrer
             </button>
-            <button class="form-control h1 mt-2 mr-10"
+            <button class="form-control h1 mt-2 mr-7"
                 style="display:none; width:7rem; font-weight:bold; text-shadow: 1px 1px 7px #b8b8b8;" id="pauseWatch"
                 onclick="pauseTimer()">Arrêter
             </button>
-            <button class="form-control h1 mt-2 mr-10"
+            {{-- <button class="form-control h1 mt-2 mr-7"
                 style="display:none; width:7rem;font-weight:bold; text-shadow: 1px 1px 7px #b8b8b8;" id="continueWatch"
                 onclick="continueTimer()">Continuer
-            </button>
+            </button> --}}
             <div class="h1 mt-2" style="justify-content:center; color: #5e88d1; text-shadow: 1px 1px 2px #2a5fb4;"
                 id="stopwatch">00:00
             </div>
@@ -26,7 +26,7 @@
 
     <div>
         <div id="script-body" class="card card-body shadow mb-6 ml-8 mr-8"
-            style="padding:0rem; width: 55rem; max-height:38.67rem; padding-bottom:0.3rem;">
+            style="padding:0rem; width: 55rem; max-height:41.67rem; padding-bottom:0.3rem;">
             <div class="h3 mt-3 d-flex drop-shadow" style="justify-content: center;">{{ $script->name }}</div>
             <hr class="mt-3" style="border: 2px solid #ced0d4;">
             <div style="width: fit-content;overflow-y:auto; padding-right:0rem;padding-left:0.7rem;">
@@ -66,7 +66,14 @@
                         <select class="form-select fmxw-200 drop-shadow" style="margin-top:-0.5rem;" id="prodSelection"
                             name="prodSelection" onchange="selectingProduct(this)">
                             @foreach ($products as $product)
-                                <option id="{{ $product->id }}" value="{{ $product->name }}">{{ $product->name }}
+                                <option id="{{ $product->id }}" value="{{ $product->name }}">
+                                    <?php
+                                    if (strlen($product->name) > 15) {
+                                        echo substr(ucwords($product->name), 0, 14) . '...';
+                                    } else {
+                                        echo ucwords($product->name);
+                                    }
+                                    ?>
                                 </option>
                             @endforeach
                         </select>
@@ -85,8 +92,7 @@
                             <option value="Problème technique">Problème technique</option>
                         </select>
                     </div>
-                    <button class="form-control w-32 mt-5 shadow" id="saveCall"
-                        style="width:8rem;height:2.5rem;background-color:#f0bc74; color:white; border: .0rem solid #d1d5db;"
+                    <button class="form-control w-32 mt-5 shadow" id="saveCall" style="{{-- THE CSS IS THE APP.CSS FILE --}}"
                         type="submit">
                         <h1 class="drop-shadow" style="color:white; font-weight:500;">Sauvegarder</h1>
                     </button>
@@ -138,7 +144,7 @@
         let check = 0;
         let startButton = document.getElementById("startWatch");
         let pauseButton = document.getElementById("pauseWatch");
-        let continueButton = document.getElementById("continueWatch");
+        // let continueButton = document.getElementById("continueWatch");
 
         function startTimer() {
             timeStart(1000);
@@ -148,19 +154,19 @@
 
         function pauseTimer() {
             if (startButton.style.display != "none") startButton.style.display = "none";
-            if (pauseButton.style.display != "none") pauseButton.style.display = "none";
-            continueButton.style.display = "";
+            if (pauseButton.style.visibility != "hidden") pauseButton.style.visibility = "hidden";
+            // continueButton.style.display = "";
             // check = 1;
             timeStart(0);
         }
 
-        function continueTimer() {
-            if (continueButton.style.display != "none") continueButton.style.display = "none";
-            pauseButton.style.display = "";
-            // check = 0;
-            timeStart(1000);
+        // function continueTimer() {
+        //     if (continueButton.style.display != "none") continueButton.style.display = "none";
+        //     pauseButton.style.display = "";
+        //     // check = 0;
+        //     timeStart(1000);
 
-        }
+        // }
 
         function timeStart(val) {
             // watch.style.color = "#0f62fe";
@@ -217,14 +223,19 @@
         function selectingProduct(s) {
             allowSave(document.getElementById("result"));
 
+            document.getElementById('prodQuantity').value = 0;
+
             let prod = s[document.getElementById("prodSelection").selectedIndex].id;
             // alert(document.getElementById(prod.concat("Quantity")).value);
 
             document.getElementById('productId').value = prod; //This is for productId attribute in the form request
             selectedProductQuantity = document.getElementById(prod.concat("Quantity")).value;
-            if (parseInt(document.getElementById('prodQuantity').value) > parseInt(selectedProductQuantity)) {
-                document.getElementById('prodQuantity').value = selectedProductQuantity;
-            }
+            document.getElementById('prodQuantity').value = "";
+            // if (parseInt(document.getElementById('prodQuantity').value) > parseInt(selectedProductQuantity)) {
+            //     document.getElementById('prodQuantity').value = selectedProductQuantity;
+            // }
+
+
             // alert(prod);
         }
     </script>

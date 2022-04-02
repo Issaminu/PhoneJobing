@@ -37,7 +37,7 @@
                 </div>
             </div>
             <div class="row mt-4 mb-3 align-items-center">
-                <div style=" width: 10rem;"><small class="text-muted text-sm">Rôle:</small>
+                <div style=" width: 10rem;"><small class="text-muted text-sm">Poste:</small>
                 </div>
                 <div style="width: fit-content;">
                     <p class="text-dark mb-0 font-normale" style="font-weight: 500;">

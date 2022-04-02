@@ -24,7 +24,7 @@ $fails = json_encode($fail);
         }, ],
         chart: {
             type: 'bar',
-            stacked: true,
+            stacked: false,
 
         },
         plotOptions: {
@@ -90,7 +90,7 @@ $fails = json_encode($fail);
                 fontFamily: 'Inter',
                 fontWeight: 400,
             }
-        }
+        },
     };
     var chart = new ApexCharts(document.querySelector("#chart1"), options);
     chart.render();

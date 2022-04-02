@@ -13,8 +13,8 @@
                                 id="userCheck55"> <label class="form-check-label" for="userCheck55"></label></div>
                     </th> --}}
                     <th class="border-bottom">Nom</th>
-                    <th class="border-bottom">Poste</th>
-                    <th class="border-bottom">Entreprise</th>
+                    {{-- <th class="border-bottom">Poste</th> --}}
+                    <th class="border-bottom">Revenue</th>
                     {{-- <th class="border-bottom"> Status</th> --}}
                     <th class="border-bottom">Location</th>
                     <th class="border-bottom">Numero</th>
@@ -44,10 +44,10 @@
                                     </div> --}}
                                 </div>
                             </a></td>
-                        <td><span class="fw-normal">{{ $client->position }}</span>
+                        {{-- <td><span class="fw-normal">{{ $client->quantity }}</span> --}}
                         </td>
                         <td><span class="fw-normal">
-                                {{ $client->company }}
+                                {{ $client->earnings }} MAD
                             </span>
                         </td>
                         {{-- <td><span class="fw-normal text-success">Active</span></td> --}}

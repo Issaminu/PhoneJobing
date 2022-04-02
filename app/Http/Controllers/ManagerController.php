@@ -258,7 +258,7 @@ class ManagerController extends Controller
                 // dd($request);
                 $clients = [];
                 $i = 0;
-                if (Auth::user()->type === "manager") {
+                if (Auth::user()->type === "manager" && $user->type != "manager") {
                     foreach (json_decode($request->clients) as $client) {
                         $clients[$i] = $client->value;
                         $i++;
@@ -386,8 +386,19 @@ class ManagerController extends Controller
     {
         if (Auth::user()->type === "manager" || Auth::user()->type === "teleoperateur") {
             // $clients = Client::where('teamid', '=', Auth::user()->teamid)->get(['id', 'name', 'company', 'position', 'phone', 'email', 'gender', 'country', 'city', 'address', 'zip']);
-            $clients = Client::where('teamid', '=', Auth::user()->teamid)->orderBy('name')->get(['id', 'name', 'phone', 'company', 'position', 'email', 'city', 'country']);
+            $clients = Client::where('teamid', '=', Auth::user()->teamid)->orderBy('name')->get(['id', 'name', 'phone', 'email', 'city', 'country']);
             $clientCount = count($clients);
+            foreach ($clients as $client) {
+                $hisCalls = Call::where('clientId', '=', $client->id)->where('quantity', '>', 0)->get(['quantity', 'productId']);
+                if ($hisCalls) {
+                    foreach ($hisCalls as $call) {
+                        $product = Product::where('id', '=', $call->productId)->first();
+                        $productPrice = $product->price;
+                        $client->quantity = $call->quantity;
+                        $client->earnings += $productPrice * $call->quantity;
+                    }
+                }
+            }
             // dd($clientCount);
             // dd($vars);
             return view('Views-manager/manager-clients', compact('clientCount', 'clients'));
@@ -402,6 +413,17 @@ class ManagerController extends Controller
             // dd($clientFind);
             $client = Client::where('id', '=', $clientFind[1])->get(['id', 'gender', 'name', 'email', 'company', 'position', 'phone', 'country', 'city', 'address', 'zip', 'teamid'])->first();
             // dd($client);
+            $hisCalls = Call::where('clientId', '=', $client->id)->where('quantity', '>', 0)->get(['quantity', 'productId']);
+            $client->quantity = count($hisCalls);
+
+            if ($hisCalls) {
+
+                foreach ($hisCalls as $call) {
+                    $product = Product::where('id', '=', $call->productId)->first();
+                    $productPrice = $product->price;
+                    $client->earnings += $productPrice * $call->quantity;
+                }
+            }
             if ($client && intval(Auth::user()->teamid) === intval($client->teamid)) {
                 //ADD CLIENT SPECIFIC STATISTICS HERE TO DISPLAY THEM TO THEIR PROFILE
                 return view('Views-manager/profileClient', compact('client'));
@@ -485,6 +507,10 @@ class ManagerController extends Controller
             // $products = Product::where('teamid', '=', 0)->get(['id', 'name', 'price', 'quantity']);
             $products = Product::where('teamid', '=', Auth::user()->teamid)->orderBy('name')->get(['id', 'name', 'price', 'quantity']);
             $prodCount = count($products);
+            foreach ($products as $product) {
+                $hisCalls = Call::where('teamid', '=', Auth::user()->teamid)->where('productId', '=', $product->id)->get(['quantity', 'productId']);
+                $product->quantitySold = count($hisCalls);
+            }
             // dd($vars);
             return view('Views-manager/manager-produits', compact('products', 'prodCount'));
         } else return redirect('404');
@@ -677,8 +703,8 @@ class ManagerController extends Controller
                     [Carbon::parse('3/15/2022')->startOfWeek(), Carbon::parse('3/28/2022')->endOfWeek()]
                 )->get();
             }
-            // $sales = Sale::where('teamid', '=', Auth::user()->teamid)->orderBy('callCount', 'ASC')->get(['id', 'teleoperateurId', 'callCount', 'earnings', 'saleCount', 'productCount', 'teamid']);
-            $sales = Sale::where('teamid', '=', Auth::user()->teamid)->get(['id', 'teleoperateurId', 'callCount', 'earnings', 'saleCount', 'productCount', 'teamid']);
+            $sales = Sale::where('teamid', '=', Auth::user()->teamid)->orderBy('callCount', 'DESC')->get(['id', 'teleoperateurId', 'callCount', 'earnings', 'saleCount', 'productCount', 'teamid']);
+            // $sales = Sale::where('teamid', '=', Auth::user()->teamid)->get(['id', 'teleoperateurId', 'callCount', 'earnings', 'saleCount', 'productCount', 'teamid']);
             // dd($sales);
             $names = [];
             $b = 0;
@@ -707,14 +733,14 @@ class ManagerController extends Controller
             $names = "[" . join($names) . "]";
             // dd(Carbon::now()->subWeek()->startOfWeek());
 
-            $date = Carbon::now()->subDays(7)->format('Y-m-d');
+            $date = Carbon::now()->subDays(15)->format('Y-m-d');
             $LastWeekCalls = Call::where('teamid', '=', Auth::user()->teamid)->whereBetween(
                 'callDate',
                 [Carbon::now()->subWeek()->startOfWeek(), Carbon::now()->subWeek()->endOfWeek()]
             )->get();
             $ThisWeekCalls = Call::where('teamid', '=', Auth::user()->teamid)->whereDate('callDate', '>=', $date)->get();
 
-            // dd($LastWeekCalls);
+            // dd($ThisWeekCalls);
             $lastWeek = new LastWeek;
             foreach ($LastWeekCalls as $call) {
                 // dd($call->productId);
@@ -747,7 +773,7 @@ class ManagerController extends Controller
             $thisWeek->fails = $thisWeek->count - $thisWeek->sales;
             // $thisWeek->ratio = round($thisWeek->sales * 100 / $thisWeek->count, 0); USE THIS AND DELETE THE BOTTOM ONE
             $thisWeek->ratio = 82;
-
+            // dd($thisWeek);
 
             // dd(strtotime($salesLastWeek[0]->callLength));
             // if ($salesLastWeek) $salesLastWeek[1] = 1;

@@ -61,8 +61,17 @@ class TeleoperateurController extends Controller
             ]);
             $client = Client::where('name', '=', $request->client)->get(['id', 'name', 'gender', 'email', 'phone', 'position', 'company', 'country', 'city', 'address', 'zip', 'teamid'])->first();
             $script = Script::where('name', '=', $request->script)->get(['id', 'name', 'content', 'teamid'])->first();
-            $products = Product::where('teamid', '=', Auth::user()->teamid)->where('quantity', '>', '0')->orderBy('name')->get(['id', 'name', 'price', 'quantity', 'teamid']);
-            // dd($products);
+            $products = Product::where('teamid', '=', Auth::user()->teamid)->where('quantity', '>=', '0')->orderBy('name')->get(['id', 'name', 'price', 'quantity', 'teamid']);;
+            $hisCalls = Call::where('clientId', '=', $client->id)->where('quantity', '>', 0)->get(['quantity', 'productId']);
+            $client->quantity = count($hisCalls);
+            if ($hisCalls) {
+
+                foreach ($hisCalls as $call) {
+                    $product = Product::where('id', '=', $call->productId)->first();
+                    $productPrice = $product->price;
+                    $client->earnings += $productPrice * $call->quantity;
+                }
+            }
             if ($client->teamid === Auth::user()->teamid && $script->teamid === Auth::user()->teamid) {
                 // return response()->view('Views-teleoperateur/teleoperateur-equipe', compact('client', 'script'));
                 // dd($script);

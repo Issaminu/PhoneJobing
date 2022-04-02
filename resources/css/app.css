@@ -166,6 +166,21 @@ ClientBox {
     z-index: 20;
 }
 
+#saveCall {
+    width: 8rem;
+    height: 2.5rem;
+    background-color: #f0bc74;
+    color: white;
+    border: .0rem solid #d1d5db;
+}
+
+#saveCall:disabled,
+#saveCall[disabled=disabled] {
+    /* border: 1px solid #999999; */
+    background-color: #cccccc;
+    color: #666666;
+}
+
 #modifyProductPopup:after {
     position: fixed;
     content: "";

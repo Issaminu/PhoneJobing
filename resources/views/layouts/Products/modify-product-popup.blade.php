@@ -36,7 +36,7 @@
                         <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="prodQuantity"
                             class="block mt-1 w-full" type="text" name="prodQuantity" required />
                     </div>
-                    <div class="modal-footer" style="justify-content: center;">
+                    <div class="mt-4 d-flex p-2" style="justify-content: center;">
                         <button type="submit" class="btn btn-info"
                             style="color: #ffff; background-color:#1f2937 ">Sauvegarder</button>
                     </div>

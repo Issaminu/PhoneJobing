@@ -24,8 +24,8 @@
                         <div class="form-check dashboard-check"><input class="form-check-input" type="checkbox" value=""
                                 id="userCheck55"> <label class="form-check-label" for="userCheck55"></label></div>
                     </th> --}}
-                    <th class="border-bottom">Produit ID</th>
                     <th class="border-bottom">Produit</th>
+                    <th class="border-bottom">Ventes</th>
                     <th class="border-bottom">Prix</th>
                     <th class="border-bottom">Stock</th>
                     <th class="border-bottom">Action</th>
@@ -41,10 +41,7 @@
                                     value="" id="userCheck1"> <label class="form-check-label" for="userCheck1"></label>
                             </div>
                         </td> --}}
-                        <td><span class="fw-normal d-flex justify-content-center">
-                                {{ $product->id }}
-                            </span>
-                        </td>
+
                         <td><a href="users.html#" class="justify-content-center">
                                 {{-- <img src="../assets/img/team/profile-picture-1.jpg" class="avatar rounded-circle me-3"
                         alt="Avatar"> --}}
@@ -52,6 +49,10 @@
                                         class="fw-bold">{{ ucwords($product->name) }}</span>
                                 </div>
                             </a></td>
+                        </td>
+                        <td><span class="fw-normal d-flex justify-content-center">
+                                {{ $product->quantitySold }}
+                            </span>
                         </td>
                         <td><span class="fw-normal d-flex justify-content-center">
                                 {{ $product->price }} DH
