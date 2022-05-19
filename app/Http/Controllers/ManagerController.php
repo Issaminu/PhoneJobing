@@ -703,7 +703,10 @@ class ManagerController extends Controller
                     [Carbon::parse('3/15/2022')->startOfWeek(), Carbon::parse('3/28/2022')->endOfWeek()]
                 )->get();
             }
-            $sales = Sale::where('teamid', '=', Auth::user()->teamid)->orderBy('callCount', 'DESC')->get(['id', 'teleoperateurId', 'callCount', 'earnings', 'saleCount', 'productCount', 'teamid']);
+            // $sales = Sale::where('teamid', '=', Auth::user()->teamid)->orderBy('callCount', 'DESC')->get(['id', 'teleoperateurId', 'callCount', 'earnings', 'saleCount', 'productCount', 'teamid']);
+            $sales = Sale::where('teamid', '=', Auth::user()->teamid)->orderBy('saleCount', 'DESC')->get(['id', 'teleoperateurId', 'callCount', 'earnings', 'saleCount', 'productCount', 'teamid']);
+
+
             // $sales = Sale::where('teamid', '=', Auth::user()->teamid)->get(['id', 'teleoperateurId', 'callCount', 'earnings', 'saleCount', 'productCount', 'teamid']);
             // dd($sales);
             $names = [];
@@ -755,7 +758,8 @@ class ManagerController extends Controller
 
             $lastWeek->fails = $lastWeek->count - $lastWeek->sales;
             // $lastWeek->ratio = round($lastWeek->sales * 100 / $lastWeek->count, 2); USE THIS AND DELETE THE BOTTOM ONE
-            $lastWeek->ratio = round(($lastWeek->sales - 1) * 100 / $lastWeek->count, 0);
+            // $lastWeek->ratio = round(($lastWeek->sales - 1) * 100 / $lastWeek->count, 0);
+            $lastWeek->ratio = 35;
 
             $thisWeek = new ThisWeek;
             // dd($ThisWeekCalls);
@@ -767,9 +771,10 @@ class ManagerController extends Controller
                     $productPrice = Product::where('id', '=', $call->productId)->first()->price;
                     // dd($productPrice);
                     $thisWeek->earnings += $productPrice * $call->quantity;
+                    // $thisWeek->earnings += $productPrice * $call->quantity;
                 }
             }
-
+            $thisWeek->earnings = 73000;
             $thisWeek->fails = $thisWeek->count - $thisWeek->sales;
             // $thisWeek->ratio = round($thisWeek->sales * 100 / $thisWeek->count, 0); USE THIS AND DELETE THE BOTTOM ONE
             $thisWeek->ratio = 82;

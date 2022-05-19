@@ -24,7 +24,7 @@ $fails = json_encode($fail);
         }, ],
         chart: {
             type: 'bar',
-            stacked: false,
+            stacked: true,
 
         },
         plotOptions: {

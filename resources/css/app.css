@@ -101,6 +101,39 @@ ClientBox {
     color: #FFFF;
 } */
 
+#logOutButton:hover {
+    border-style: solid;
+    /* width: 5rem; */
+    border-radius: 0.2rem;
+    border-color: #eeeff0;
+    background-color: #f4f5f7;
+}
+
+#navProfile:hover {
+    border-style: solid;
+    width: 9rem;
+    border-radius: 0.1rem;
+    border-color: #eeeff0;
+    background-color: #f4f5f7;
+}
+
+#EditButton:hover {
+    border-style: solid;
+    width: 3.7rem;
+    border-radius: 0.1rem;
+    border-color: #eeeff0;
+    background-color: #dedede;
+}
+
+#DelProdButton:hover {
+    border-style: solid;
+    /* width: 4.5rem; */
+    /* position: relative; */
+    border-radius: 0.1rem;
+    border-color: #eeeff0;
+    background-color: #dedede;
+}
+
 #accTypeSelector {
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .07);
     border-radius: .5rem;

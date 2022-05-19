@@ -79,11 +79,14 @@
                         <button
                             class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
                             <a href="/equipe/{{ str_replace(' ', '', Auth::user()->name) }}">
-                                <div class="flex" style="align-items: center">
-                                    <div class="client-picture-rounded"
-                                        style="border-style:solid; border-color:#6b7280; border-width:0.03rem; margin-bottom:0.7rem; margin-right:0.7rem; cursor: pointer;
+                                <div>
+                                    <div class="flex" id="navProfile"
+                                        style="align-items: center; height:2.25rem;">
+                                        <div class="client-picture-rounded"
+                                            style="border-style:solid; border-color:#6b7280; border-width:0.03rem; margin-bottom:0.7rem; margin-right:0.7rem; cursor: pointer;
                                 width: 2rem; height: 2rem; background-image: url({{ asset('images/' . Auth::user()->image) }})">
-                                    </div>{{ ucwords(Auth::user()->name) }}
+                                        </div>{{ ucwords(Auth::user()->name) }}
+                                    </div>
                                 </div>
                             </a>
 
@@ -92,11 +95,12 @@
                             </div>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-
-                                <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
+                                <div id="logOutButton">
+                                    <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
                                                     this.closest('form').submit();">
-                                    {{ __('Log out') }}
-                                </x-dropdown-link>
+                                        {{ __('Log out') }}
+                                    </x-dropdown-link>
+                                </div>
                             </form>
                         </button>
 
@@ -124,11 +128,10 @@
                 <button @click="open = ! open"
                     class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex"
-                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden"
-                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             </div>

@@ -42,13 +42,15 @@
                             </div>
                         </td> --}}
 
-                        <td><a href="users.html#" class="justify-content-center">
-                                {{-- <img src="../assets/img/team/profile-picture-1.jpg" class="avatar rounded-circle me-3"
+                        <td>
+                            {{-- <a href="users.html#" class="justify-content-center"> --}}
+                            {{-- <img src="../assets/img/team/profile-picture-1.jpg" class="avatar rounded-circle me-3"
                         alt="Avatar"> --}}
-                                <div class="d-block"><span
-                                        class="fw-bold">{{ ucwords($product->name) }}</span>
-                                </div>
-                            </a></td>
+                            <div class="d-block"><span
+                                    class="fw-bold">{{ ucwords($product->name) }}</span>
+                            </div>
+                            {{-- </a> --}}
+                        </td>
                         </td>
                         <td><span class="fw-normal d-flex justify-content-center">
                                 {{ $product->quantitySold }}
@@ -66,20 +68,20 @@
 
                         <td>
                             {{-- <form action="/equipe/supprimer-membre" method="POST"> --}}
-                            <span class="fw-normal text-wrap"><button data-bs-toggle="modal"
+                            <span class="fw-normal text-wrap"><button id="EditButton" data-bs-toggle="modal"
                                     data-bs-target="#exampleModal" prodName="{{ $product->name }}"
                                     prodPrice="{{ $product->price }}" prodQuantity="{{ $product->quantity }}"
                                     prodId="{{ $product->id }}" id="ModButton"
                                     style=" font-weight: 500; color: #10b981">
                                     Modifier
                                 </button>
-                                <form method="POST" action="/produits/supprimer-produit">
+                                <form style="" method="POST" action="/produits/supprimer-produit">
                                     @csrf
                                     <input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;"
                                         id="deleteProdId" class="block mt-1 w-full" type="hidden" name="deleteProdId"
                                         value="{{ $product->id }}" required>
 
-                                    <button id="DelButton" style=" font-weight: 500; color: #e11d48">
+                                    <button id="DelProdButton" style=" font-weight: 500; color: #e11d48">
                                         Supprimer
                                     </button>
                                 </form>
