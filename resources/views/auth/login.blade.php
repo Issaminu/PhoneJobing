@@ -33,7 +33,7 @@
 
             <!-- Password -->
             <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
+                <x-label for="password" :value="__('Mot de passe')" />
 
                 <x-input id="password" class="block mt-1 w-full" type="password" name="password" required
                     autocomplete="current-password" />
@@ -45,7 +45,7 @@
                     <input id="remember_me" type="checkbox"
                         class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                         name="remember">
-                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+                    <span class="ml-2 text-sm text-gray-600">{{ __('Se souvenir de moi ') }}</span>
                 </label>
             </div>
 
@@ -59,13 +59,13 @@
                 @if (Route::has('password.request'))
                     <a class="underline text-sm text-gray-600 hover:text-gray-900"
                         href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
+                        {{ __('Mot de passe oublié?') }}
                     </a>
                 @endif
             </div>
             <div class="flex items-center justify-center mt-4" style="flex-direction: column;">
-                <x-button style="width: 8rem; padding-left:2.5rem;">
-                    Log in
+                <x-button style="width: 8rem; padding-left:1.5rem;">
+                    Connexion
                 </x-button>
             </div>
 

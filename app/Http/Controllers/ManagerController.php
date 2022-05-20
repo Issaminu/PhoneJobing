@@ -438,7 +438,7 @@ class ManagerController extends Controller
             $attributes = $request->validate([
                 'clientId' => ['required', 'string', 'max:200'],
                 'clientName' => ['required', 'regex:/^[a-zA-Z0-9\s]+$/', 'string', 'max:17'],
-                'clientEmail' => ['required', 'string', 'max:17'],
+                'clientEmail' => ['required', 'string', 'max:35'],
                 'clientCompany' => ['required', 'string', 'max:22'],
                 'clientPhone' => ['required', 'string', 'max:22'],
                 'clientPosition' => ['required', 'string', 'max:22'],
