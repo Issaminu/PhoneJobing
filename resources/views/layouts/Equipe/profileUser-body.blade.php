@@ -141,7 +141,8 @@
                             </form>
                         @endif
                         @if (Auth::user()->type === 'manager' && $user->type === 'manager')
-                            <form method="POST" action="/equipe/supprimer-membre">
+                            {{-- <form method="POST" action="/equipe/supprimer-equipe"> --}}
+                            <form method="POST" action="/equipe">
                                 @csrf
                                 <input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="deleteEmail"
                                     class="block mt-1 w-full" type="hidden" name="deleteEmail"
