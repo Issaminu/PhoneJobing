@@ -27,8 +27,8 @@
             <div>
                 <x-label for="email" :value="__('Email')" />
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required
-                    autofocus />
+                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
+                    required autofocus />
             </div>
 
             <!-- Password -->
@@ -49,11 +49,11 @@
                 </label>
             </div>
 
-            {{-- <div class="flex items-center justify-center mt-3">
+            <div class="flex items-center justify-center mt-3">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('register') }}">
-                    {{ __('Register now') }}
+                    {{ __('Créer votre compte') }}
                 </a>
-            </div> --}}
+            </div>
 
             <div class="flex items-center justify-center mt-3">
                 @if (Route::has('password.request'))
