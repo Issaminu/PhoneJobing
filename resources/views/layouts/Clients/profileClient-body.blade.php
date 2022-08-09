@@ -83,7 +83,12 @@
                         <div style=" width: 18rem;"><small class="text-muted text-xl">Revenue total:</small>
                         </div>
                         <div style="width: fit-content;">
-                            <p class="text-dark mb-0 font-xl" style="font-weight: 500;">{{ $client->earnings }}
+                            <p class="text-dark mb-0 font-xl" style="font-weight: 500;">
+                                @if ($client->earnings)
+                                    {{ $client->earnings }}
+                                @else
+                                    0
+                                @endif MAD
                                 MAD
                             </p>
                         </div>
