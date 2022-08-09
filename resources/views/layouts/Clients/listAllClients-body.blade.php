@@ -50,7 +50,11 @@
                                 {{-- <td><span class="fw-normal">{{ $client->quantity }}</span> --}}
                                 </td>
                                 <td><span class="fw-normal">
-                                        {{ $client->earnings }} MAD
+                                        @if ($client->earnings)
+                                            {{ $client->earnings }}
+                                        @else
+                                            0
+                                        @endif MAD
                                     </span>
                                 </td>
                                 {{-- <td><span class="fw-normal text-success">Active</span></td> --}}
