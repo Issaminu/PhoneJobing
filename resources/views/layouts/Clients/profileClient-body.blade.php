@@ -88,7 +88,7 @@
                                     {{ $client->earnings }}
                                 @else
                                     0
-                                @endif MAD
+                                @endif
                                 MAD
                             </p>
                         </div>
