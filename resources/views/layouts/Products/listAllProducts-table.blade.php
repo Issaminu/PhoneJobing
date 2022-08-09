@@ -1,16 +1,16 @@
-<div id="mainBody" style="margin-top:0rem; margin-left:10rem;">
+<div id="mainBody" style="margin-top:0rem; width:auto">
 
     <div id="searchAndAccountType" style="display: flex; justify-content: flex-end;">
 
         <div class="input-group" style="max-width: 18rem;">
             <input style="--tw-ring-color: rgb(75, 85, 99);" id="productSearch" type="text" class="form-control"
-                placeholder="Chercher">
+                onkeyup="searchProductsTable()" placeholder="Chercher">
             {{-- <span class="input-group-text border-l-0"> </span> --}}
         </div>
 
 
     </div>
-    <div class="card card-body shadow border-0 table-wrapper table-responsive" style="width:75rem; margin-top:2rem;">
+    <div class="card card-body shadow border-0 table-wrapper table-responsive" style="width:auto; margin-top:2rem;">
         {{-- <div class="d-flex mb-3"><select class="form-select fmxw-200" aria-label="Message select example">
             <option selected="selected">Bulk Action</option>
             <option value="1">Send Email</option>
@@ -46,8 +46,7 @@
                             {{-- <a href="users.html#" class="justify-content-center"> --}}
                             {{-- <img src="../assets/img/team/profile-picture-1.jpg" class="avatar rounded-circle me-3"
                         alt="Avatar"> --}}
-                            <div class="d-block"><span
-                                    class="fw-bold">{{ ucwords($product->name) }}</span>
+                            <div class="d-block"><span class="fw-bold">{{ ucwords($product->name) }}</span>
                             </div>
                             {{-- </a> --}}
                         </td>

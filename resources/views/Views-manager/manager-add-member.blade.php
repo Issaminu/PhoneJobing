@@ -16,12 +16,14 @@
     <script src="https://unpkg.com/@yaireo/tagify"></script>
     <script src="https://unpkg.com/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
     <link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     {{-- <link rel="stylesheet" href="{{ asset('css/tags.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/AccountTypeSelection.js') }}"></script>
+    {{-- <script src="{{ asset('js/AccountTypeSelection.js') }}"></script> --}}
     {{-- <link rel="stylesheet" href="croppie.css" />
     <script src="croppie.js"></script> --}}
 
@@ -85,7 +87,8 @@
                     <x-label for="password" :value="__('Mot de passe *')" />
 
                     <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="password"
-                        class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
+                        class="block mt-1 w-full" type="password" name="password" required
+                        autocomplete="new-password" />
                 </div>
 
                 <!-- Confirm Password -->
@@ -104,12 +107,45 @@
                 </div>
 
                 {{-- Image Upload --}}
-                <div>
+                {{-- <div>
                     <x-label for="memberImage" :value="__('Photo')" class="mt-4" />
                     <input name="memberImage" id="memberImage" type="file"
                         accept="image/png, image/jpeg, image/jpg, image/svg, image/webp">
-                </div>
+                </div> --}}
 
+
+                <x-label for="memberImage" :value="__('Photo')" style="margin-top:1rem;" />
+
+                <x-input type="file" style="display:none;" name="memberImage" class="file"
+                    accept="image/png, image/jpeg, image/jpg, image/svg, image/webp" />
+                <div class="input-group my-3">
+                    <x-input id='memberImage' type="text" class="form-control"
+                        style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px; border-color:#e5e7eb; border-top-left-radius:0.5rem; border-bottom-left-radius:0.5rem;"
+                        disabled placeholder="Choisissez une image ..." id="file" />
+                    <div class="input-group-append">
+                        <button type="button" class="browse btn btn-primary"
+                            style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px; color: #fff; background-color: #1f2937;
+                                border-color: #1f2937; border-top-left-radius:0rem; border-bottom-left-radius:0rem; height:3rem;">Uploader</button>
+                    </div>
+                </div>
+                <script>
+                    $(document).on("click", ".browse", function() {
+                        var file = $(this).parents().find(".file");
+                        file.trigger("click");
+                    });
+                    $('input[type="file"]').change(function(e) {
+                        var fileName = e.target.files[0].name;
+                        $("#file").val(fileName);
+
+                        var reader = new FileReader();
+                        reader.onload = function(e) {
+                            // get loaded data and render thumbnail.
+                            document.getElementById("preview").src = e.target.result;
+                        };
+                        // read the image file as a data URL.
+                        reader.readAsDataURL(this.files[0]);
+                    });
+                </script>
                 <!-- Country -->
                 <div class="mt-5">
                     <x-label for="country" :value="__('Pays')" />

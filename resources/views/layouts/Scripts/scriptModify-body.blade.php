@@ -1,6 +1,4 @@
-<div style="margin-left: 15%; margin-right:15%;">
-
-
+<div id="mainBody">
     <form method="POST" action="{{ route('/scripts/enregistrer-script') }}">
         @csrf
         <div class="">
@@ -24,8 +22,8 @@
             </textarea>
         </div>
         <div type="submit" class="mt-3">
-            <div id="ajoutClient" class="lbtn-toolbar mt-2" style="margin-left: 29rem;"><button
-                    class="btn btn-m btn-gray-800 d-inline-flex align-items-center">
+            <div id="ajoutClient" class="lbtn-toolbar mt-2" style="display:flex; justify-content:center"><button
+                    class="btn btn-lg btn-gray-800 d-inline-flex align-items-center">
                     Modifier Script</button>
             </div>
         </div>

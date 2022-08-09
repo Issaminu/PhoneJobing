@@ -20,7 +20,7 @@
 
 <body>
     @include('layouts.navigation')
-    <div style="display: flex; flex-direction: column;">
+    <div style="display: flex;justify-content:center; margin-right:4rem">
         <div>
             <div style="display: flex;">
                 <div>
@@ -36,15 +36,14 @@
                     <div>
                         <div class="card shadow mt-6 ml-8 pb-8 "
                             style="width: 43.5rem !important; max-height:29rem; padding-bottom:1.5rem;">
-                            <div class="h3 mt-1 d-flex drop-shadow" style="justify-content: center;">Résultats des appels
+                            <div class="h3 mt-1 d-flex drop-shadow" style="justify-content: center;">Résultats des
+                                appels
                                 (7 jours)
                             </div>
-                            <div class="ml-4"
-                                style="margin-top:-0.5rem; max-width:40rem; height:4rem; color:#5d8fd4" id="chart3">
+                            <div class="ml-4" style="margin-top:-0.5rem; max-width:40rem; height:4rem; color:#5d8fd4"
+                                id="chart3">
                             </div>
-                            @include(
-                                'layouts.ManagerDash.dashboardChart3Script'
-                            )
+                            @include('layouts.ManagerDash.dashboardChart3Script')
 
                         </div>
                     </div>
@@ -87,7 +86,7 @@
                                         $timestamp = strtotime($sale->callLength);
                                         $totaltime += $timestamp;
                                     }
-                                    
+
                                     $average_time = $totaltime / count($salesLastWeek);
                                     echo date('m:s', $average_time);
                                     ?>

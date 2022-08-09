@@ -16,11 +16,11 @@ $fails = json_encode($fail);
         colors: ['#f0bc74', '#315b96', '#5d8fd4'],
         series: [{
             name: 'Ventes réussies',
-            data: [6, 15, 11, 7, 7, 16],
+            data: [6, 15, 11, 7, 7, 16, 15],
 
         }, {
             name: 'Ventes échouées',
-            data: [7, 12, 15, 8, 11, 14],
+            data: [7, 12, 15, 8, 11, 14, 11],
         }, ],
         chart: {
             type: 'bar',

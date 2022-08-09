@@ -17,13 +17,32 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> --}}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/searchProductsTable.js') }}"></script>
-
+    {{-- <script src="{{ asset('js/searchProductsTable.js') }}"></script> --}}
+    <script>
+        function searchProductsTable() {
+            // Declare letiables
+            let input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("productSearch");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("productTable");
+            tr = table.getElementsByTagName("tr");
+            // Loop through all list items, and hide those who don't match the search query
+            for (i = 1; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        };
+    </script>
 
 </head>
 

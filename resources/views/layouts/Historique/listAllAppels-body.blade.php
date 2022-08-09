@@ -1,6 +1,6 @@
 <div style="margin-left:10rem; margin-right:10rem;">
 
-    <div id="searchAndAccountType" style="display: flex; justify-content: flex-end;">
+    <div id="searchAndAccountType" style="display: flex; justify-content:flex-end">
         <div class="input-group fmxw-300" style="margin-top: 0rem;">
             <input style="width:14rem; --tw-ring-color: rgb(75, 85, 99);" id="productSearch" onkeyup="callSearch()"
                 type="text" class="form-control" value="#APPEL">
@@ -9,7 +9,7 @@
     </div>
     <br style="user-select: none;">
     <div class="card card-body shadow border-0 table-wrapper table-responsive"
-        style="width:75rem; padding: 1.1rem 1rem;">
+        style="width:auto; padding: 1.1rem 1rem;">
         <table class="table user-table table-hover align-items-center" id="callTable" style="table-layout: auto;">
             <thead>
                 <tr style="text-align: center;">
@@ -35,15 +35,13 @@
                         </td>
                         <td><a href="/equipe/{{ str_replace(' ', '', $call->teleoperateur) }}"
                                 class="d-flex justify-content-center">
-                                <div class="d-block"><span
-                                        class="fw-bold">{{ ucwords($call->teleoperateur) }}</span>
+                                <div class="d-block"><span class="fw-bold">{{ ucwords($call->teleoperateur) }}</span>
                                 </div>
                             </a></td>
                         </td>
                         <td><a href="/clients/{{ str_replace(' ', '', $call->client) }}-{{ $call->clientId }}"
                                 class="d-flex justify-content-center">
-                                <div class="d-block"><span
-                                        class="fw-bold">{{ ucwords($call->client) }}</span>
+                                <div class="d-block"><span class="fw-bold">{{ ucwords($call->client) }}</span>
                                 </div>
                             </a></td>
                         </td>

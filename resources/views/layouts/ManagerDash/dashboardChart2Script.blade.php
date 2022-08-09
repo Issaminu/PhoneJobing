@@ -2,11 +2,11 @@
     var options = {
         series: [{
                 name: "Cette semaine",
-                data: [6, 15, 11, 7, 7, 16]
+                data: [6, 15, 11, 7, 7, 16, 14]
             },
             {
                 name: "Semaine dernière",
-                data: [7, 12, 15, 8, 11, 14]
+                data: [7, 12, 15, 8, 11, 14, 11]
             }
         ],
         chart: {

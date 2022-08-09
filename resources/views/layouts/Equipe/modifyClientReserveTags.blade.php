@@ -11,7 +11,7 @@
         ${this.getAttributes(tagData)}>
     <x title='' class='tagify__tag__removeBtn' role='button' aria-label='remove tag'></x>
     <div>
-       
+
         <span class='tagify__tag-text'>${tagData.name}</span>
     </div>
 </tag>
@@ -24,7 +24,7 @@
     class='tagify__dropdown__item ${tagData.class ? tagData.class : ""}'
     tabindex="0"
     role="option">
-    
+
     <strong>${tagData.name}</strong>
     <span>${tagData.email}</span>
 </div>

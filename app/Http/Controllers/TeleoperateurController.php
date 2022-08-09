@@ -87,7 +87,6 @@ class TeleoperateurController extends Controller
         if (Auth::user()->type === 'teleoperateur') {
             // dd(Client::where('id', '=', $request->callClient)->first()->name);
             $attributes = $request->validate([
-                'callLength' => ['required', 'string', 'max:200'],
                 'callScript' => ['required', 'string', 'max:200'],
                 'callClient' => ['required', 'string', 'max:200'],
                 'callResult' => ['required', 'string', 'max:200'],
@@ -96,6 +95,7 @@ class TeleoperateurController extends Controller
             $call->script = Script::where('id', '=', $request->callScript)->first()->name;
             $call->callDate = Carbon::now()->format('Y-m-d');
             $call->callLength = $request->callLength;
+            if (!$call->callLength) $call->callLength = "00:00";
             $call->teleoperateurId = Auth::user()->id;
             $call->clientId = $request->callClient;
             $lastCallId = DB::table('calls')->latest()->first()->callId;

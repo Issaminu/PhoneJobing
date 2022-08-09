@@ -74,12 +74,13 @@ class ManagerController extends Controller
             ]);
             $clients = [];
             $i = 0;
-            foreach (json_decode($request->clients) as $client) {
-                $clients[$i] = $client->value;
-                $i++;
+            if ($request->clients) {
+                foreach (json_decode($request->clients) as $client) {
+                    $clients[$i] = $client->value;
+                    $i++;
+                }
             }
             $clients = json_encode($clients);
-
             $newMember = User::create([
                 'name' => ucwords(strtolower($request->name)),
                 'email' => $request->email,
@@ -96,13 +97,15 @@ class ManagerController extends Controller
                 'teamid' => Auth::user()->teamid, //THIS IS TO GET "TEAMID" OF THE NEW MEMBRE OF THE TEAM TO BE EQUIVALENT WITH THE "TEAMID" OF THE MANAGER
             ]);
             // event(new Registered($newMember));
-            foreach (json_decode($request->clients) as $client) {
-                $thisClient = Client::where('id', '=', $client->value)->first();
-                if (!$thisClient || $thisClient->teleoperateur != null) {
-                    return redirect('404');
+            if ($request->clients) {
+                foreach (json_decode($request->clients) as $client) {
+                    $thisClient = Client::where('id', '=', $client->value)->first();
+                    if (!$thisClient || $thisClient->teleoperateur != null) {
+                        return redirect('404');
+                    }
+                    $thisClient->teleoperateur = $newMember->id;
+                    $thisClient->update();
                 }
-                $thisClient->teleoperateur = $newMember->id;
-                $thisClient->update();
             }
             $Sale = new Sale;
             $Sale->TeleoperateurId = $newMember->id;

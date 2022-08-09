@@ -130,8 +130,8 @@
                             <div class="mt-4">
                                 <x-label for="clients" :value="__('Clients')" style="margin-top:1rem;" />
                                 <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;"
-                                    id="membreClients" class="form-control block mt-1 w-full" type="text" name="clients"
-                                    value="{{ $names }}" disabled />
+                                    id="membreClients" class="form-control block mt-1 w-full" type="text"
+                                    name="clients" value="{{ $names }}" disabled />
 
                             </div>
                         @endif
@@ -173,7 +173,8 @@
                         <x-label for="membreCity" :value="__('Ville')" />
 
                         <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="membreCity"
-                            class="block mt-1 w-full" type="text" name="membreCity" value="{{ $user->city }}" />
+                            class="block mt-1 w-full" type="text" name="membreCity"
+                            value="{{ $user->city }}" />
                     </div>
                     <div class="mt-4">
                         <x-label for="membreAddress" :value="__('Addresse')" />
@@ -186,7 +187,8 @@
                         <x-label for="membreZip" :value="__('Zip code')" />
 
                         <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="membreZip"
-                            class="block mt-1 w-full" type="text" name="membreZip" value="{{ $user->zip }}" />
+                            class="block mt-1 w-full" type="text" name="membreZip"
+                            value="{{ $user->zip }}" />
                     </div>
 
                     <div class="modal-footer" style="justify-content: center; padding-bottom: 0rem;">

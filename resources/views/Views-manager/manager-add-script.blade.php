@@ -28,7 +28,6 @@
         div.ck.ck-editor__editable_inline * {
             all: revert;
         }
-
     </style>
 
 </head>
@@ -36,9 +35,7 @@
 <body>
     @include('layouts.navigation')
     @include('layouts.Scripts.add-script-header')
-    <div style="margin-left: 15%; margin-right:15%;">
-
-
+    <div id="mainBody">
         <form method="POST" action="{{ route('scripts/ajout-script') }}">
             @csrf
             <div class="">
