@@ -27,7 +27,7 @@ Follow these steps to run this app locally:
 2. CD to the repo and run `composer install` and `npm install`.
 3. Run `cp .env.example .env`.
 4. Provide your Amazon S3 connection variables (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_DEFAULT_REGION`, `AWS_BUCKET`, `AWS_USE_PATH_STYLE_ENDPOINT`) in your `.env` file.
-5. Provide your database's connection variables (`DB_CONNECTION`, `DB_HOST`, `DB_PORT`, `DB_DATABSE`, `DB_USERNAME`, `DB_PASSWORD`) in your `.env` file.
+5. Provide your database's connection variables (`DB_CONNECTION`, `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`) in your `.env` file.
 6. Run `php artisan key:generate`.
 7. Run `php artisan storage:link`.
 8. Run `php artisan migrate:fresh --seed`.
