@@ -168,7 +168,7 @@ class ManagerController extends Controller
                 } else {
                     $i->image =  Storage::disk('s3')->temporaryUrl(
                         'images/' . $i->image,
-                        Carbon::now()->addMinutes(20)
+                        Carbon::now()->addSeconds(40)
                     );
                 }
                 array_push($Teleoperateurs, $i);
@@ -183,7 +183,7 @@ class ManagerController extends Controller
                 } else {
                     $i->image =  Storage::disk('s3')->temporaryUrl(
                         'images/' . $i->image,
-                        Carbon::now()->addMinutes(20)
+                        Carbon::now()->addSeconds(40)
                     );
                 }
                 array_push($Commerciaux, $i);

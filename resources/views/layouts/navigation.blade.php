@@ -76,9 +76,20 @@
                                     <a href="/equipe/{{ str_replace(' ', '', Auth::user()->name) }}">
                                         <div>
                                             <div class="flex" id="navProfile" style="align-items: center; width:auto">
+                                                <?php
+                                                if (!Auth::user()->image) {
+                                                    Auth::user()->image = 'defaultPFP.webp';
+                                                    Auth::user()->update();
+                                                }
+                                                if (file_exists(public_path('images/' . Auth::user()->image))) {
+                                                    Auth::user()->image = asset('images/' . Auth::user()->image);
+                                                } else {
+                                                    Auth::user()->image = Storage::disk('s3')->temporaryUrl('images/' . Auth::user()->image, \Carbon\Carbon::now()->addSeconds(40));
+                                                }
+                                                ?>
                                                 <div class="client-picture-rounded"
                                                     style="border-style:solid; border-color:#6b7280; border-width:0.03rem;  margin-bottom:0.7rem; margin-right:0.7rem; cursor: pointer;
-                                        width: 2rem; height: 2rem; background-image: url({{ asset('images/' . Auth::user()->image) }})">
+                                        width: 2rem; height: 2rem; background-image: url({{ Auth::user()->image }})">
                                                 </div>{{ ucwords(Auth::user()->name) }}
                                             </div>
                                         </div>
