@@ -12,23 +12,15 @@
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.4.0",
-        "alpinejs": "^3.9.0",
         "autoprefixer": "^10.4.2",
         "axios": "^0.26",
-        "laravel-mix": "^6.0.43",
+        "laravel-mix": "^6.0.49",
         "lodash": "^4.17.21",
-        "postcss": "^8.4.6",
         "postcss-import": "^14.0.2",
         "resolve-url-loader": "^5.0.0",
         "sass": "^1.49.8",
         "sass-loader": "^12.6.0",
-        "tailwindcss": "^3.0.23",
-        "ts-loader": "^9.2.8",
-        "typescript": "^4.6.2"
-    },
-    "dependencies": {
-        "@yaireo/tagify": "^4.9.8",
-        "jquery": "^3.6.0"
+        "tailwindcss": "^3.0.23"
     },
     "name": "phonejobing",
     "description": "Projet PFE: Développement d'une Application Extranet pour la gestion de la relation commerciale",
