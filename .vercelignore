@@ -25,3 +25,4 @@
 !*.jpg
 /resources/css/*
 /resources/js/*
+/resources/scss/*
