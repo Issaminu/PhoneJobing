@@ -1,5 +1,5 @@
 @import 'tailwindcss/base';
-@import 'tailwindcss/components';
+/* @import 'tailwindcss/components'; */
 @import 'tailwindcss/utilities';
 @import './team.css';
 @import './tags.css';
@@ -17,7 +17,7 @@ html {
 
 #mainBody {
     margin-left: 10rem;
-margin-right: 10rem;
+    margin-right: 10rem;
 }
 
 html,
