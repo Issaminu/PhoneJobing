@@ -19,4 +19,4 @@
 /tests
 /stubs
 /database
-
+/composer.lock
