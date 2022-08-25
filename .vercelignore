@@ -1,2 +1,12 @@
 /vendor
 /node-modules
+/public
+/assets
+/components
+/pages
+/_next
+/.next
+/package-lock.json
+/README.md
+/Rapport PFE Gestion Application Commerciale.docx
+/Rapport PFE Gestion Application Commerciale.pdf
