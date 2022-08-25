@@ -1,5 +1,5 @@
 /vendor
-/node-modules
+/node_modules
 /public
 /assets
 /components
@@ -15,3 +15,8 @@
 /phonejobing.code-workspace
 !*.html
 !*.css
+!*.js
+/tests
+/stubs
+/database
+
