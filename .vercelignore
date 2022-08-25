@@ -23,3 +23,5 @@
 /database
 !*.webp
 !*.jpg
+/resources/css/*
+/resources/js/*
