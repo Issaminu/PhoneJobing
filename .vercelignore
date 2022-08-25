@@ -13,7 +13,6 @@
 /Procfile
 /EntireDB-phonejobing.sql
 /phonejobing.code-workspace
-/composer.lock
 !*.html
 !*.css
 !*.scss
@@ -26,3 +25,4 @@
 /resources/css/*
 /resources/js/*
 /resources/sass/*
+.editorconfig
