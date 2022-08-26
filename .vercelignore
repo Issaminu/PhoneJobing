@@ -14,15 +14,10 @@
 /EntireDB-phonejobing.sql
 /phonejobing.code-workspace
 !*.html
-!*.css
-!*.scss
-!*.js
 /tests
 /stubs
 /database
 !*.webp
 !*.jpg
-/resources/css/*
-/resources/js/*
-/resources/sass/*
 .editorconfig
+.styleci.yml
