@@ -21,3 +21,5 @@
 !*.jpg
 .editorconfig
 .styleci.yml
+/public/css/*
+/public/js/*
