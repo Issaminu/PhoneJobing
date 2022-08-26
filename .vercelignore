@@ -7,6 +7,7 @@
 /_next
 /.next
 /package-lock.json
+/composer.lock
 /README.md
 /Rapport PFE Gestion Application Commerciale.docx
 /Rapport PFE Gestion Application Commerciale.pdf
@@ -28,4 +29,5 @@
 /_ide_helper.php
 /.htaccess
 /phpunit.xml
-/lang
+/lang/*
+/storage/logs/*
