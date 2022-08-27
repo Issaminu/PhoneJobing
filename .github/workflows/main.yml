@@ -23,10 +23,13 @@ jobs:
       - name: Install Railway
         run: npm i -g @railway/cli
 
-      - name: Link
+      - name: Login to Railway
+        run: railway login
+        
+      - name: Link Railway
         run: railway link
         
-      - name: Deploy
+      - name: Deploy Railway
         run: railway up
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
