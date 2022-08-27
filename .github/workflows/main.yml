@@ -23,6 +23,9 @@ jobs:
       - name: Install Railway
         run: npm i -g @railway/cli
 
+      - name: Link
+        run: railway link
+        
       - name: Deploy
         run: railway up
         env:
