@@ -28,7 +28,7 @@ jobs:
         run: railway login --browserless
         
       - name: Link Railway
-        run: railway link phone-jobing
+        run: railway link b41397b8-e0d4-4782-98fe-c44735b5ac4b
         
       - name: Deploy Railway
         run: railway up
