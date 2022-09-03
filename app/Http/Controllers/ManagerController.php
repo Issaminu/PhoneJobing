@@ -59,6 +59,9 @@ class ManagerController extends Controller
 
     public function storeNewMember(Request $request)
     {
+        if (Auth::user()->email == "manager@gmail.com" || Auth::user()->email == "teleoperateur@gmail.com") {
+            return redirect('/dashboard');
+        }
         // dd($request);
         if (Auth::user()->type === 'manager') {
             // dd(json_decode($request->clients));
@@ -122,6 +125,9 @@ class ManagerController extends Controller
     }
     public function imageUpload($Image, $id)
     {
+        if (Auth::user()->email == "manager@gmail.com" || Auth::user()->email == "teleoperateur@gmail.com") {
+            return redirect('/dashboard');
+        }
         if ($Image) {
             $name = preg_replace('/[\W]/', '', base64_encode(random_bytes(18)));
             $imageName =  $name . "." . $Image->extension();
@@ -148,7 +154,7 @@ class ManagerController extends Controller
         } else {
             $manager->image =  Storage::disk('s3')->temporaryUrl(
                 'images/' . $manager->image,
-                Carbon::now()->addMinutes(20)
+                Carbon::now()->addSeconds(40)
             );
         }
         // dd($users);
@@ -228,7 +234,7 @@ class ManagerController extends Controller
             } else {
                 $user->image =  Storage::disk('s3')->temporaryUrl(
                     'images/' . $user->image,
-                    Carbon::now()->addMinutes(20)
+                    Carbon::now()->addSeconds(40)
                 );
             }
             // dd($user->image);
@@ -240,6 +246,9 @@ class ManagerController extends Controller
     }
     public function modifyMember(Request $request)
     {
+        if (Auth::user()->email == "manager@gmail.com" || Auth::user()->email == "teleoperateur@gmail.com") {
+            return redirect('/dashboard');
+        }
         // dd($request->memberImage);
         if (Auth::user()->type === 'manager' || intval(Auth::user()->id) === intval($request->membreId)) {
             $attributes = $request->validate([
@@ -315,6 +324,9 @@ class ManagerController extends Controller
     }
     public function deleteMember(Request $request)
     {
+        if (Auth::user()->email == "manager@gmail.com" || Auth::user()->email == "teleoperateur@gmail.com") {
+            return redirect('/dashboard');
+        }
         // dd("yo");
         $user = User::where('email', '=', $request->deleteEmail)->first();
         if (Auth::user()->type === 'manager' && $user->type != "manager" && $user->teamid === Auth::user()->teamid) {
@@ -356,6 +368,9 @@ class ManagerController extends Controller
 
     public function storeNewClient(Request $request)
     {
+        if (Auth::user()->email == "manager@gmail.com" || Auth::user()->email == "teleoperateur@gmail.com") {
+            return redirect('/dashboard');
+        }
         if (Auth::user()->type === 'manager') {
             $attributes = $request->validate([
                 'clientName' => ['required', 'regex:/^[a-zA-Z0-9\s]+$/', 'string', 'max:22'],
@@ -436,6 +451,9 @@ class ManagerController extends Controller
     }
     public function modifyClient(Request $request)
     {
+        if (Auth::user()->email == "manager@gmail.com" || Auth::user()->email == "teleoperateur@gmail.com") {
+            return redirect('/dashboard');
+        }
         // dd($request);
         if (Auth::user()->type === 'manager') {
             $attributes = $request->validate([
@@ -477,6 +495,9 @@ class ManagerController extends Controller
 
     public function deleteClient(Request $request)
     {
+        if (Auth::user()->email == "manager@gmail.com" || Auth::user()->email == "teleoperateur@gmail.com") {
+            return redirect('/dashboard');
+        }
         $client = Client::where('email', '=', $request->deleteEmail)->first();
         if (Auth::user()->type === 'manager' && intval(Auth::user()->teamid) == intval($client->teamid)) {
             $client->delete();
@@ -487,6 +508,9 @@ class ManagerController extends Controller
 
     public function storeNewProduct(Request $request)
     {
+        if (Auth::user()->email == "manager@gmail.com" || Auth::user()->email == "teleoperateur@gmail.com") {
+            return redirect('/dashboard');
+        }
         if (Auth::user()->type === 'manager') {
             $attributes = $request->validate([
                 'prodName' => ['required', 'string', 'max:200'],
@@ -514,6 +538,7 @@ class ManagerController extends Controller
                 $hisCalls = Call::where('teamid', '=', Auth::user()->teamid)->where('productId', '=', $product->id)->get(['quantity', 'productId']);
                 $product->quantitySold = count($hisCalls);
             }
+            // dd($products);
             // dd($vars);
             return view('Views-manager/manager-produits', compact('products', 'prodCount'));
         } else return redirect('404');
@@ -521,10 +546,9 @@ class ManagerController extends Controller
 
     public function modifyProduct(Request $request)
     {
-        // $test =  intval(Product::where('id', '=', $request->prodId)->first()->value('teamid'));
-        // dd($request);
-        // dd(intval(Auth::user()->id));
-
+        // if (Auth::user()->email == "manager@gmail.com" || Auth::user()->email == "teleoperateur@gmail.com") {
+        //     return redirect('/dashboard');
+        // }
         if (Auth::user()->type === 'manager' && intval(Product::where('id', '=', $request->prodId)->first()->value('teamid')) == intval(Auth::user()->id)) {
             $attributes = $request->validate([
                 'prodName' => ['required', 'string', 'max:200'],
@@ -541,6 +565,9 @@ class ManagerController extends Controller
     }
     public function deleteProduct(Request $request)
     {
+        if (Auth::user()->email == "manager@gmail.com" || Auth::user()->email == "teleoperateur@gmail.com") {
+            return redirect('/dashboard');
+        }
         $product = Product::where('id', '=', $request->deleteProdId)->first();
         // if (Auth::user()->type === 'manager' && intval(Auth::user()->teamid) == intval($product->teamid)) {
         if (Auth::user()->type === 'manager') {
@@ -552,6 +579,9 @@ class ManagerController extends Controller
 
     public function storeNewScript(Request $request)
     {
+        if (Auth::user()->email == "manager@gmail.com" || Auth::user()->email == "teleoperateur@gmail.com") {
+            return redirect('/dashboard');
+        }
         if (Auth::user()->type === 'manager') {
             $attributes = $request->validate([
                 'scriptName' => ['required', 'regex:/^[a-zA-Z0-9\s]+$/', 'string', 'max:21'],
@@ -605,7 +635,6 @@ class ManagerController extends Controller
 
     public function changeScript(Request $request)
     {
-        // dd($request);
         if (Auth::user()->type === 'manager') {
             $script = Script::where('id', '=', $request->scriptId)->get(['id', 'name', 'content', 'teamid'])->first();
             // dd($script);
@@ -616,6 +645,9 @@ class ManagerController extends Controller
     }
     public function modifyScript(Request $request)
     {
+        if (Auth::user()->email == "manager@gmail.com" || Auth::user()->email == "teleoperateur@gmail.com") {
+            return redirect('/dashboard');
+        }
         if (Auth::user()->type === 'manager') {
             $attributes = $request->validate([
                 'scriptName' => ['required', 'regex:/^[a-zA-Z0-9\s]+$/', 'string', 'max:21'],
@@ -645,6 +677,9 @@ class ManagerController extends Controller
 
     public function deleteScript(Request $request)
     {
+        if (Auth::user()->email == "manager@gmail.com" || Auth::user()->email == "teleoperateur@gmail.com") {
+            return redirect('/dashboard');
+        }
         $script = Script::where('id', '=', $request->deleteId)->first();
         if (Auth::user()->type === 'manager' && intval(Auth::user()->teamid) == intval($script->teamid)) {
             $script->delete();

@@ -31,7 +31,8 @@
         "apexcharts": "^3.33.2",
         "croppie": "^2.6.5",
         "echarts": "^5.3.1",
-        "jquery": "^3.6.0"
+        "jquery": "^3.6.0",
+        "tagify": "^0.1.1"
     },
     "name": "phonejobing",
     "description": "Projet PFE: Développement d'une Application Extranet pour la gestion de la relation commerciale",
