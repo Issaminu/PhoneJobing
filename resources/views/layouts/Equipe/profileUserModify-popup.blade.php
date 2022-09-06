@@ -46,7 +46,7 @@
                         <div class="mt-4">
                             <x-label for="clients" :value="__('Clients *')" style="margin-top:1rem;" />
                             <input name='clients' value='{{ $reservedClients }}'
-                                @if (Auth::user()->type != 'manager') disabled @endif required>
+                                @if (Auth::user()->type != 'manager') disabled @endif>
                             <input type="hidden" name='oldClients' value='{{ $user->clients }}' required>
                             @include('layouts.Equipe.modifyClientReserveTags')
                         </div>

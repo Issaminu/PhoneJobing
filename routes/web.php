@@ -112,15 +112,10 @@ Route::get('/scripts/ajout-script', function () {
     } else return redirect('404');
 })->middleware(['auth'])->name('scripts/ajout-script');
 
-Route::get('/scripts/modifier-script/{slug}', function () {
-    if (Auth::user()->type === 'manager') {
-        return response()->view('Views-manager/modify-script');
-    } else return redirect('404');
-})->middleware(['auth'])->name('scripts/modifier-script/{slug}');
-
 Route::get('/equipe/{slug}', [ManagerController::class, 'profileMember'])->middleware(['auth'])->name('equipe/{slug}');
 Route::get('/clients/{slug}', [ManagerController::class, 'profileClient'])->middleware(['auth'])->name('clients/{slug}');
 Route::get('/scripts/{slug}', [ManagerController::class, 'profileScript'])->middleware(['auth'])->name('scripts/{slug}');
+Route::get('/scripts/modifier-script/{slug}', [ManagerController::class, 'changeScript'])->middleware(['auth'])->name('scripts/modifier-script/{slug}');
 
 Route::post('/equipe/ajout-membre', [ManagerController::class, 'storeNewMember'])->middleware(['auth'])->name('/equipe/ajout-membre');
 Route::post('/equipe/modifier-membre', [ManagerController::class, 'modifyMember'])->middleware(['auth'])->name('/equipe/modifier-membre');
@@ -132,7 +127,7 @@ Route::post('/clients/ajout-client', [ManagerController::class, 'storeNewClient'
 Route::post('/clients/modifier-client', [ManagerController::class, 'modifyClient'])->middleware(['auth'])->name('/clients/modifier-client');
 Route::post('/clients/supprimer-client', [ManagerController::class, 'deleteClient'])->middleware(['auth'])->name('/clients/supprimer-client');
 Route::post('/scripts/ajout-script', [ManagerController::class, 'storeNewScript'])->middleware(['auth'])->name('/scripts/ajout-script');
-Route::post('/scripts/modifier-script', [ManagerController::class, 'changeScript'])->middleware(['auth'])->name('/scripts/modifier-script');
+// Route::post('/scripts/modifier-script', [ManagerController::class, 'changeScript'])->middleware(['auth'])->name('/scripts/modifier-script');
 Route::post('/scripts/enregistrer-script', [ManagerController::class, 'modifyScript'])->middleware(['auth'])->name('/scripts/enregistrer-script');
 Route::post('/scripts/supprimer-script', [ManagerController::class, 'deleteScript'])->middleware(['auth'])->name('/scripts/supprimer-script');
 

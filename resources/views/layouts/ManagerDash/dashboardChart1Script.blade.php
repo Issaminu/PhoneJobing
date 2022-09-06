@@ -2,13 +2,20 @@
 $success = [];
 $fail = [];
 $i = 0;
-foreach ($sales as $sale) {
-    $success[$i] = intval($sale->saleCount);
-    $fail[$i] = $sale->callCount - $sale->saleCount;
-
-    $i++;
+if ($calls) {
+    foreach ($calls as $call) {
+        if ($call->callCount) {
+            $success[$i] = intval($call->saleCount);
+            $fail[$i] = $call->callCount - $call->saleCount;
+        } else {
+            $success[$i] = 0;
+            $fail[$i] = 0;
+        }
+        $i++;
+    }
+} else {
 }
-$successs = json_encode($success);
+$allSuccess = json_encode($success);
 $fails = json_encode($fail);
 ?>
 <script>
@@ -16,7 +23,7 @@ $fails = json_encode($fail);
         colors: ['#f0bc74', '#315b96', '#5d8fd4'],
         series: [{
             name: 'Ventes réussies',
-            data: {!! $successs !!},
+            data: {!! $allSuccess !!},
 
         }, {
             name: 'Ventes échouées',
@@ -30,7 +37,7 @@ $fails = json_encode($fail);
         plotOptions: {
             bar: {
                 horizontal: false,
-                columnWidth: '55%',
+                columnWidth: Math.round((10 / (150 / {{ count(json_decode($allSuccess)) }})) * 100) + '%',
                 borderRadius: 5
             },
         },

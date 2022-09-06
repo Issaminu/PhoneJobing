@@ -12,6 +12,7 @@ use App\Models\Sale;
 use App\Models\Script;
 use App\Models\ThisWeek;
 use App\Providers\RouteServiceProvider;
+use Barryvdh\Reflection\DocBlock\Type\Collection;
 use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Filesystem\AwsS3V3Adapter;
@@ -271,25 +272,27 @@ class ManagerController extends Controller
                 $clients = [];
                 $i = 0;
                 if (Auth::user()->type === "manager" && $user->type != "manager") {
-                    foreach (json_decode($request->clients) as $client) {
-                        $clients[$i] = $client->value;
-                        $i++;
-                        $thisClient = Client::where('id', '=', $client->value)->first();
-                        if (!$thisClient || ($thisClient->teleoperateur != null && $thisClient->teleoperateur != $user->id)) {
-                            return redirect('404');
+                    if ($request->clients) {
+                        foreach (json_decode($request->clients) as $client) {
+                            $clients[$i] = $client->value;
+                            $i++;
+                            $thisClient = Client::where('id', '=', $client->value)->first();
+                            if (!$thisClient || ($thisClient->teleoperateur != null && $thisClient->teleoperateur != $user->id)) {
+                                return redirect('404');
+                            }
+                            $thisClient->teleoperateur = $user->id;
+                            $thisClient->update();
                         }
-                        $thisClient->teleoperateur = $user->id;
-                        $thisClient->update();
-                    }
-                    $clients = json_encode($clients);
-                    $user->clients = $clients; //THIS IS TO SAVE THE RESERVED CLIENTS ONTO THE TELEOP'S ROW IN THE USERS TABLE
+                        $clients = json_encode($clients);
+                        $user->clients = $clients; //THIS IS TO SAVE THE RESERVED CLIENTS ONTO THE TELEOP'S ROW IN THE USERS TABLE
 
-                    if ($request->oldClients) {
-                        $unreservedClients = array_diff(json_decode($request->oldClients), json_decode($clients)); //THIS IS TO REMOVE THE TELEOP ID FROM THE CLIENT WHICH IS NO LONGER RESERVED FOR THIS TELEOP
-                        foreach ($unreservedClients as $unreservedClient) {
-                            $deletedClient = Client::where('id', '=', $unreservedClient)->first();
-                            $deletedClient->teleoperateur = null;
-                            $deletedClient->update();
+                        if ($request->oldClients) {
+                            $unreservedClients = array_diff(json_decode($request->oldClients), json_decode($clients)); //THIS IS TO REMOVE THE TELEOP ID FROM THE CLIENT WHICH IS NO LONGER RESERVED FOR THIS TELEOP
+                            foreach ($unreservedClients as $unreservedClient) {
+                                $deletedClient = Client::where('id', '=', $unreservedClient)->first();
+                                $deletedClient->teleoperateur = null;
+                                $deletedClient->update();
+                            }
                         }
                     }
                 }
@@ -373,16 +376,16 @@ class ManagerController extends Controller
         }
         if (Auth::user()->type === 'manager') {
             $attributes = $request->validate([
-                'clientName' => ['required', 'regex:/^[a-zA-Z0-9\s]+$/', 'string', 'max:22'],
+                'clientName' => ['required', 'regex:/^[a-zA-Z0-9\s]+$/', 'string', 'max:55'],
                 'clientGender' => ['required'],
-                'clientEmail' => ['required', 'string', 'email', 'max:18'],
-                'clientCompany' => ['required', 'string', 'max:22'],
-                'clientNumber' => ['required', 'string', 'max:22'],
-                'clientPosition' => ['required', 'string', 'max:22'],
-                'clientCountry' => ['required', 'string', 'max:22'],
-                'clientCity' => ['required', 'string', 'max:22'],
-                'clientAddress' => ['required', 'string', 'max:22'],
-                'clientZip' => ['required', 'string', 'max:22'],
+                'clientEmail' => ['required', 'string', 'email', 'max:55'],
+                'clientCompany' => ['required', 'string', 'max:55'],
+                'clientNumber' => ['required', 'string', 'max:55'],
+                'clientPosition' => ['required', 'string', 'max:55'],
+                'clientCountry' => ['required', 'string', 'max:55'],
+                'clientCity' => ['required', 'string', 'max:55'],
+                'clientAddress' => ['required', 'string', 'max:55'],
+                'clientZip' => ['required', 'string', 'max:55'],
             ]);
             $client = new Client;
             $client->name = ucwords(strtolower($request->clientName));
@@ -411,9 +414,11 @@ class ManagerController extends Controller
                 if ($hisCalls) {
                     foreach ($hisCalls as $call) {
                         $product = Product::where('id', '=', $call->productId)->first();
-                        $productPrice = $product->price;
-                        $client->quantity = $call->quantity;
-                        $client->earnings += $productPrice * $call->quantity;
+                        if ($product) {
+                            $productPrice = $product->price;
+                            $client->quantity = $call->quantity;
+                            $client->earnings += $productPrice * $call->quantity;
+                        }
                     }
                 }
             }
@@ -438,8 +443,10 @@ class ManagerController extends Controller
 
                 foreach ($hisCalls as $call) {
                     $product = Product::where('id', '=', $call->productId)->first();
-                    $productPrice = $product->price;
-                    $client->earnings += $productPrice * $call->quantity;
+                    if ($product) {
+                        $productPrice = $product->price;
+                        $client->earnings += $productPrice * $call->quantity;
+                    }
                 }
             }
             if ($client && intval(Auth::user()->teamid) === intval($client->teamid)) {
@@ -458,15 +465,15 @@ class ManagerController extends Controller
         if (Auth::user()->type === 'manager') {
             $attributes = $request->validate([
                 'clientId' => ['required', 'string', 'max:200'],
-                'clientName' => ['required', 'regex:/^[a-zA-Z0-9\s]+$/', 'string', 'max:17'],
-                'clientEmail' => ['required', 'string', 'max:35'],
-                'clientCompany' => ['required', 'string', 'max:22'],
-                'clientPhone' => ['required', 'string', 'max:22'],
-                'clientPosition' => ['required', 'string', 'max:22'],
-                'clientCountry' => ['required', 'string', 'max:22'],
-                'clientCity' => ['required', 'string', 'max:22'],
-                'clientAddress' => ['required', 'string', 'max:22'],
-                'clientZip' => ['required', 'string', 'max:22'],
+                'clientName' => ['required', 'regex:/^[a-zA-Z0-9\s]+$/', 'string', 'max:55'],
+                'clientEmail' => ['required', 'string', 'max:55'],
+                'clientCompany' => ['required', 'string', 'max:55'],
+                'clientPhone' => ['required', 'string', 'max:55'],
+                'clientPosition' => ['required', 'string', 'max:55'],
+                'clientCountry' => ['required', 'string', 'max:55'],
+                'clientCity' => ['required', 'string', 'max:55'],
+                'clientAddress' => ['required', 'string', 'max:55'],
+                'clientZip' => ['required', 'string', 'max:55'],
             ]);
             $client = Client::where('id', '=', $request->clientId)->first();
             if ($client) {
@@ -546,9 +553,9 @@ class ManagerController extends Controller
 
     public function modifyProduct(Request $request)
     {
-        // if (Auth::user()->email == "manager@gmail.com" || Auth::user()->email == "teleoperateur@gmail.com") {
-        //     return redirect('/dashboard');
-        // }
+        if (Auth::user()->email == "manager@gmail.com" || Auth::user()->email == "teleoperateur@gmail.com") {
+            return redirect('/dashboard');
+        }
         if (Auth::user()->type === 'manager' && intval(Product::where('id', '=', $request->prodId)->first()->value('teamid')) == intval(Auth::user()->id)) {
             $attributes = $request->validate([
                 'prodName' => ['required', 'string', 'max:200'],
@@ -584,7 +591,7 @@ class ManagerController extends Controller
         }
         if (Auth::user()->type === 'manager') {
             $attributes = $request->validate([
-                'scriptName' => ['required', 'regex:/^[a-zA-Z0-9\s]+$/', 'string', 'max:21'],
+                'scriptName' => ['required', 'regex:/^[a-zA-Z0-9\s]+$/', 'string', 'max:55'],
                 'content' => ['required', 'max:16000'],
             ]);
             $script = new Script;
@@ -636,8 +643,8 @@ class ManagerController extends Controller
     public function changeScript(Request $request)
     {
         if (Auth::user()->type === 'manager') {
-            $script = Script::where('id', '=', $request->scriptId)->get(['id', 'name', 'content', 'teamid'])->first();
-            // dd($script);
+            $scriptId = ucwords(strtolower(trim(preg_replace('/(?<!\ )[A-Z]/', ' $0', $request->slug))));
+            $script = Script::where('id', '=', $scriptId)->get(['id', 'name', 'content', 'teamid'])->first();
             if ($script) {
                 return view('Views-manager/modify-script', compact('script'));
             } else return redirect('404');
@@ -726,46 +733,80 @@ class ManagerController extends Controller
     {
         if (Auth::user()->type === "manager") {
             // $date = Carbon::now()->subDays(7)->format('Y-m-d');
-            // dd(Carbon::parse('3/13/2022')->weekOfMonth);
             $salesLastWeek = Call::where('teamid', '=', Auth::user()->teamid)->whereBetween(
                 'callDate',
                 [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()]
             )->get();
             if ($salesLastWeek) {
-                // $salesLastWeek = Call::where('teamid', '=', Auth::user()->teamid)->whereBetween(    USE THIS AND DELETE THE BOTTOM ONE
-                //     'callDate',
-                //     [Carbon::now()->subDays(7)->startOfWeek(), Carbon::now()->endOfWeek()]
-                // )->get();
-                $salesLastWeek = Call::where('teamid', '=', Auth::user()->teamid)->whereBetween(
-                    'callDate',
-                    [Carbon::parse('3/15/2022')->startOfWeek(), Carbon::parse('3/28/2022')->endOfWeek()]
-                )->get();
+                if (Auth::user()->email == "manager@gmail.com") { //DEMO ACCOUNT'S SALES
+                    $salesLastWeek = Call::where('teamid', '=', Auth::user()->teamid)->whereBetween(
+                        'callDate',
+                        [Carbon::parse('3/15/2022')->startOfWeek(), Carbon::parse('3/28/2022')->endOfWeek()]
+                    )->get();
+                } else {
+                    $salesLastWeek = Call::where('teamid', '=', Auth::user()->teamid)->whereBetween(
+                        'callDate',
+                        [Carbon::now()->subDays(8)->startOfWeek(), Carbon::now()->endOfWeek()]
+                    )->get();
+                }
             }
             // $sales = Sale::where('teamid', '=', Auth::user()->teamid)->orderBy('callCount', 'DESC')->get(['id', 'teleoperateurId', 'callCount', 'earnings', 'saleCount', 'productCount', 'teamid']);
             $sales = Sale::where('teamid', '=', Auth::user()->teamid)->orderBy('saleCount', 'DESC')->get(['id', 'teleoperateurId', 'callCount', 'earnings', 'saleCount', 'productCount', 'teamid']);
-
-
-            // $sales = Sale::where('teamid', '=', Auth::user()->teamid)->get(['id', 'teleoperateurId', 'callCount', 'earnings', 'saleCount', 'productCount', 'teamid']);
-            // dd($sales);
+            if (Auth::user()->email == "manager@gmail.com") {
+                $calls = $sales;
+            } else {
+                $callsByTeleops = [];
+                $teleoperateurs = User::where('teamid', '=', Auth::user()->teamid)->where('type', '=', 'teleoperateur')->get(['name', 'id']);
+                $j = 0;
+                foreach ($teleoperateurs as $teleop) {
+                    $callsByTeleops[$j] = (object)NULL;
+                    $weeklyCallsByTeleop = Call::where('teleoperateurId', '=', $teleop->id)->whereBetween(
+                        'created_at',
+                        [Carbon::now()->startOfWeek(), Carbon::parse('now')->endOfWeek()]
+                    )->get(['id', 'quantity', 'result', 'callLength']);
+                    $tempCallSuccessCount = 0;
+                    $tempCallFailCount = 0;
+                    if ($weeklyCallsByTeleop) {
+                        foreach ($weeklyCallsByTeleop as $call) {
+                            if ($call->result == "Vente réussie") $tempCallSuccessCount++;
+                            if ($call->result == "Vente non réalisée") $tempCallFailCount++;
+                        }
+                        $callsByTeleops[$j]->teleoperateur = $teleop->name;
+                        $callsByTeleops[$j]->callCount = count($weeklyCallsByTeleop);
+                        $callsByTeleops[$j]->saleCount = $tempCallSuccessCount;
+                        $callsByTeleops[$j]->failCount = $tempCallFailCount;
+                    }
+                    $j++;
+                }
+                $calls = $callsByTeleops;
+                // dd($callsByTeleops);
+            }
+            // dd($calls);
+            // foreach ($calls as $call) {
+            //     if ($call) {
+            //         $callsByTeleop[$j]->teleopId = $call->teleopateurId;
+            //     }
+            // }
+            // ->get(['id', 'teleoperateurId', 'callCount', 'earnings', 'saleCount', 'productCount', 'teamid']);
+            // dd($calls);
             $names = [];
             $b = 0;
-            foreach ($sales as $sale) {
-                $sale->teleoperateur = User::where('id', '=', $sale->teleoperateurId)->first()->name;
+            foreach ($calls as $call) {
+                if (!$call->teleoperateur) $call->teleoperateur = User::where('id', '=', $call->teleoperateurId)->first()->name;
                 //THE STUFF BELOW IS TO MAKE NAMES WRAP (WORD WRAP) IN THE CHARTS, DONT REMOVE IT
-                if (strpos($sale->teleoperateur, " ")) {
-                    $name = explode(" ", $sale->teleoperateur);
-                    $sale->teleoperateur = "[";
+                if (strpos($call->teleoperateur, " ")) {
+                    $name = explode(" ", $call->teleoperateur);
+                    $call->teleoperateur = "[";
                     for ($i = 0; $i < count($name); $i++) {
-                        $sale->teleoperateur .= "'";
-                        // dd($name[$i]);
-                        $sale->teleoperateur .= $name[$i] . "'";
+                        $call->teleoperateur .= "'";
+                        $call->teleoperateur .= $name[$i] . "'";
                         if ($i != count($name) - 1) {
-                            $sale->teleoperateur .= ",";
+                            $call->teleoperateur .= ",";
                         }
                     }
-                    $sale->teleoperateur .= "],";
+                    $call->teleoperateur .= "],";
                 }
-                $names[$b] = $sale->teleoperateur;
+                $names[$b] = $call->teleoperateur;
                 $b++;
                 // dd($sale->teleoperateur);
             }
@@ -773,55 +814,90 @@ class ManagerController extends Controller
             // $earnings = json_encode($earnings);
             $names = "[" . join($names) . "]";
             // dd(Carbon::now()->subWeek()->startOfWeek());
-
-            $date = Carbon::now()->subDays(15)->format('Y-m-d');
-            $LastWeekCalls = Call::where('teamid', '=', Auth::user()->teamid)->whereBetween(
-                'callDate',
-                [Carbon::now()->subWeek()->startOfWeek(), Carbon::now()->subWeek()->endOfWeek()]
-            )->get();
-            $ThisWeekCalls = Call::where('teamid', '=', Auth::user()->teamid)->whereDate('callDate', '>=', $date)->get();
-
+            if (Auth::user()->email != "manager@gmail.com") {
+                $date = Carbon::now()->subDays(7)->format('Y-m-d');
+                $LastWeekCalls = Call::where('teamid', '=', Auth::user()->teamid)->whereBetween(
+                    'callDate',
+                    [Carbon::now()->subWeek()->startOfWeek(), Carbon::now()->subWeek()->endOfWeek()]
+                )->orderBy('callDate', 'ASC')->get();
+                $ThisWeekCalls = Call::where('teamid', '=', Auth::user()->teamid)->whereDate('callDate', '>=', $date)->orderBy('callDate', 'ASC')->get();
+            } else {
+                // $date = Carbon::parse('3/28/2022')->week()->format('Y-m-d');
+                // dd($date);
+                $LastWeekCalls = Call::where('teamid', '=', Auth::user()->teamid)->whereBetween(
+                    'callDate',
+                    [Carbon::parse('3/15/2022')->startOfWeek(), Carbon::parse('3/15/2022')->endOfWeek()]
+                )->orderBy('callDate', 'ASC')->get();
+                $ThisWeekCalls = Call::where('teamid', '=', Auth::user()->teamid)->whereBetween(
+                    'callDate',
+                    [Carbon::parse('3/23/2022')->startOfWeek(), Carbon::parse('3/23/2022')->endOfWeek()]
+                )->orderBy('callDate', 'ASC')->get();
+            }
             // dd($ThisWeekCalls);
             $lastWeek = new LastWeek;
+
             foreach ($LastWeekCalls as $call) {
                 // dd($call->productId);
                 $lastWeek->count++;
                 if ($call->result === "Vente réussie") {
                     $lastWeek->sales++;
-                    $productPrice = Product::where('id', '=', $call->productId)->first()->price;
-                    // dd($productPrice);
-                    $lastWeek->earnings += $productPrice * $call->quantity;
+                    $product = Product::where('id', '=', $call->productId)->first();
+                    if ($product) {
+                        $lastWeek->earnings += $product->price * $call->quantity;
+                    }
                 }
             }
-
-            $lastWeek->fails = $lastWeek->count - $lastWeek->sales;
-            // $lastWeek->ratio = round($lastWeek->sales * 100 / $lastWeek->count, 2); USE THIS AND DELETE THE BOTTOM ONE
+            if ($lastWeek->count > 0) {
+                $lastWeek->fails = $lastWeek->count - $lastWeek->sales;
+                $lastWeek->ratio = round($lastWeek->sales * 100 / $lastWeek->count, 2);
+            } else {
+                $lastWeek->ratio = 0;
+                $lastWeek->fails = 0;
+            }
             // $lastWeek->ratio = round(($lastWeek->sales - 1) * 100 / $lastWeek->count, 0);
-            $lastWeek->ratio = 35;
+            // $lastWeek->ratio = 35;
 
             $thisWeek = new ThisWeek;
             // dd($ThisWeekCalls);
-            foreach ($ThisWeekCalls as $call) {
-                // dd($call->productId);
-                $thisWeek->count++;
-                if ($call->result === "Vente réussie") {
-                    $thisWeek->sales++;
-                    $productPrice = Product::where('id', '=', $call->productId)->first()->price;
-                    // dd($productPrice);
-                    $thisWeek->earnings += $productPrice * $call->quantity;
-                    // $thisWeek->earnings += $productPrice * $call->quantity;
+            if (Auth::user()->email != "manager@gmail.com") {
+                $thisWeek->count = count($ThisWeekCalls);
+                $thisWeek->earnings = 0;
+                $thisWeek->sales = 0;
+                foreach ($ThisWeekCalls as $call) {
+                    if ($call->result === "Vente réussie") {
+                        $thisWeek->sales++;
+                        $product = Product::where('id', '=', $call->productId)->first();
+                        if ($product) {
+                            $thisWeek->earnings += $product->price * $call->quantity;
+                        }
+                        // $thisWeek->earnings += $productPrice * $call->quantity;
+                    }
+                }
+
+                // dd($thisWeek);
+                if ($thisWeek->count > 0) {
+                    $thisWeek->fails = $thisWeek->count - $thisWeek->sales;
+                    $thisWeek->ratio = round($thisWeek->sales * 100 / $thisWeek->count, 0);
+                } else {
+                    $thisWeek->fails = 0;
+                    $thisWeek->ratio = 0;
+                }
+            } else {
+                $thisWeek->count = 67;
+                $thisWeek->earnings = 53420;
+                $thisWeek->sales = 41;
+
+
+                // dd($thisWeek);
+                if ($thisWeek->count > 0) {
+                    $thisWeek->fails = $thisWeek->count - $thisWeek->sales;
+                    $thisWeek->ratio = 72;
+                } else {
+                    $thisWeek->fails = 0;
+                    $thisWeek->ratio = 0;
                 }
             }
-            $thisWeek->earnings = 73000;
-            $thisWeek->fails = $thisWeek->count - $thisWeek->sales;
-            // $thisWeek->ratio = round($thisWeek->sales * 100 / $thisWeek->count, 0); USE THIS AND DELETE THE BOTTOM ONE
-            $thisWeek->ratio = 82;
-            // dd($thisWeek);
-
-            // dd(strtotime($salesLastWeek[0]->callLength));
-            // if ($salesLastWeek) $salesLastWeek[1] = 1;
-            // dd($salesLastWeek);
-            return view('Views-manager/manager-dashboard', compact('sales', 'names', 'lastWeek', 'salesLastWeek', 'thisWeek'));
+            return view('Views-manager/manager-dashboard', compact('calls', 'ThisWeekCalls', 'LastWeekCalls', 'names', 'lastWeek', 'salesLastWeek', 'thisWeek'));
         } else return redirect('404');
     }
 }

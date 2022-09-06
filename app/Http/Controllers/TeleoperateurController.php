@@ -68,8 +68,10 @@ class TeleoperateurController extends Controller
 
                 foreach ($hisCalls as $call) {
                     $product = Product::where('id', '=', $call->productId)->first();
-                    $productPrice = $product->price;
-                    $client->earnings += $productPrice * $call->quantity;
+                    if ($product) {
+                        $productPrice = $product->price;
+                        $client->earnings += $productPrice * $call->quantity;
+                    }
                 }
             }
             if ($client->teamid === Auth::user()->teamid && $script->teamid === Auth::user()->teamid) {
@@ -82,6 +84,9 @@ class TeleoperateurController extends Controller
 
     public function callSave(Request $request)
     {
+        if (Auth::user()->email == "manager@gmail.com" || Auth::user()->email == "teleoperateur@gmail.com") {
+            return redirect('/dashboard');
+        }
         // dd($request);
         // dd(Product::where('name', '=', $request->prodSelection)->first());
         if (Auth::user()->type === 'teleoperateur') {

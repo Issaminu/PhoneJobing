@@ -52,6 +52,6 @@
     @include('layouts.Products.listAllProducts-table')
     <br style="user-select: none;">
     <br style="user-select: none;">
-    @include('layouts.Products.modify-product-popup')
+    {{-- @include('layouts.Products.modify-product-popup') --}}
 
 </html>

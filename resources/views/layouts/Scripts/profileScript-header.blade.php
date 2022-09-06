@@ -21,13 +21,11 @@
 
     </div>
     @if (Auth::user()->type === 'manager')
-        <form action="/scripts/modifier-script" method="post">
-
-            <x-input id="scriptId" class="block mt-1 w-full" type="hidden" name="scriptId" value="{{ $script->id }}"
-                required />
-
-            <div id="ajoutClient" class="btn-toolbar mt-2"><button
-                    class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
+        {{-- <x-input id="scriptId" class="block mt-1 w-full" type="hidden" name="scriptId" value="{{ $script->id }}"
+            required /> --}}
+        <div id="ajoutClient" class="btn-toolbar mt-2">
+            <a href="/scripts/modifier-script/{{ $script->id }}">
+                <button class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
                     <svg class="icon icon-xs mr-1" fill="currentColor" viewBox="0 0 23 22"
                         xmlns="http://www.w3.org/2000/svg">
                         <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z">
@@ -35,8 +33,9 @@
                         <path fill-rule="evenodd"
                             d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
                             clip-rule="evenodd"></path>
-                    </svg>Modifier</button>
-            </div>
-        </form>
+                    </svg>Modifier
+                </button>
+            </a>
+        </div>
     @endif
 </div>
