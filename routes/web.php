@@ -10,51 +10,9 @@ use App\Http\Controllers\TeleoperateurController;
 use Illuminate\Http\Request;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-// Route::get('/manager-dashboard', function () {
-//     return view('manager-dashboard');
-// });
-// Route::get('/manager-equipe', function () {
-//     return view('manager-equipe');
-// });
-// Route::get('/manager-clients', function () {
-//     return view('manager-clients');
-// });
-// Route::get('/manager-scripts', function () {
-//     return view('manager-scripts');
-// });
-// Route::get('/login-verification', function () {
-
-
-//     //return view('manager-scripts');
-// });
-// Route::get('/login', [RegisterController::class, 'login'])->middleware('guest');
-// Route::get('/register', [RegisterController::class, 'create'])->middleware('guest');
-// Route::post('/register', [RegisterController::class, 'store'])->middleware('guest');
-
-// Route::post('/logout', [SessionsController::class, 'destroy']);
-
 require __DIR__ . '/auth.php';
 
-
-
 Route::get('/', function () {
-    // return view('welcome');
     return redirect('/dashboard');
 });
 Route::get('/react', function () {
@@ -65,7 +23,7 @@ Route::get('/react', function () {
 Route::get('/dashboard', [DashboardController::class, 'dashboardRouting'])->middleware(['auth'])->name('dashboard');
 
 
-Route::get('/my-dashboard', function () { //THIS ROUTE IS FORMALLY REPLACED BY "/dashboard", NOW IT JUST REDIRECTS TO "/dashboard" BUT IT NEEDS TO REMAIN AS A ROUTE FOR BACKWARDS COMPATIBILITY OF SOME VIEWS
+Route::get('/my-dashboard', function () { //THIS ROUTE IS FORMALLY REPLACED BY "/dashboard", NOW IT JUST REDIRECTS TO "/dashboard" BUT IT NEEDS TO REMAIN AS A ROUTE FOR COMPATIBILITY OF SOME VIEWS
     return redirect('/dashboard');
 })->name('my-dashboard');
 
@@ -87,12 +45,6 @@ Route::get('/rendezvous', function () {
         return response()->view('Views-commercial/commercial-rendezvous');
     } else return redirect('404');
 })->middleware(['auth'])->name('rendezvous');
-
-// Route::get('/equipe/ajout-membre', function () {
-//     if (Auth::user()->type === 'manager') {
-//         return response()->view('Views-manager/manager-add-member');
-//     } else return redirect('404');
-// })->middleware(['auth'])->name('equipe/ajout-membre');
 
 Route::get('/produits/ajout-produit', function () {
     if (Auth::user()->type === 'manager') {
@@ -127,20 +79,8 @@ Route::post('/clients/ajout-client', [ManagerController::class, 'storeNewClient'
 Route::post('/clients/modifier-client', [ManagerController::class, 'modifyClient'])->middleware(['auth'])->name('/clients/modifier-client');
 Route::post('/clients/supprimer-client', [ManagerController::class, 'deleteClient'])->middleware(['auth'])->name('/clients/supprimer-client');
 Route::post('/scripts/ajout-script', [ManagerController::class, 'storeNewScript'])->middleware(['auth'])->name('/scripts/ajout-script');
-// Route::post('/scripts/modifier-script', [ManagerController::class, 'changeScript'])->middleware(['auth'])->name('/scripts/modifier-script');
 Route::post('/scripts/enregistrer-script', [ManagerController::class, 'modifyScript'])->middleware(['auth'])->name('/scripts/enregistrer-script');
 Route::post('/scripts/supprimer-script', [ManagerController::class, 'deleteScript'])->middleware(['auth'])->name('/scripts/supprimer-script');
-
 // The function callSetup is defined in DashboardController. for more info, check the route "/dashboard" in this current file.
 Route::post('/dashboard/appel', [TeleoperateurController::class, 'callStart'])->middleware(['auth'])->name('/dashboard/appel');
 Route::post('/dashboard/sauvegarder-appel', [TeleoperateurController::class, 'callSave'])->middleware(['auth'])->name('/dashboard/sauvegarder-appel');
-
-
-
-// Route::post('/test/test', [ManagerController::class, 'test'])->middleware(['auth']);
-// Route::get('/test', function () {
-//     return response()->view('Views-manager/justTest');
-// })->middleware(['auth']);
-
-// Route::post('/tagsPost', function () {
-// })->middleware(['auth']);

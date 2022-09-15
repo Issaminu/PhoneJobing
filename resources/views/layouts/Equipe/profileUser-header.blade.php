@@ -27,13 +27,10 @@
 </div>
 <div class="d-flex" style="justify-content: center">
     <div class="nameAndPic" style="display: flex; align-items: center; ">
-        {{-- <div class="client-picture-rounded" style="
-                    width: 10rem; height: 10rem; background-image: url({{ asset('images/' . $user->image) }})"> --}}
         <div class="client-picture-rounded"
             style="
                     width: 10rem; height: 10rem; background-image: url({{ $user->image }})">
         </div>
-        {{-- <img src="{{ $user->image }}" alt=""> --}}
         <h2 class="h1" style="margin-left:2rem; font-weight:600;">
             {{ $user->name }}
         </h2>

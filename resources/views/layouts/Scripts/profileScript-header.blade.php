@@ -21,8 +21,6 @@
 
     </div>
     @if (Auth::user()->type === 'manager')
-        {{-- <x-input id="scriptId" class="block mt-1 w-full" type="hidden" name="scriptId" value="{{ $script->id }}"
-            required /> --}}
         <div id="ajoutClient" class="btn-toolbar mt-2">
             <a href="/scripts/modifier-script/{{ $script->id }}">
                 <button class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">

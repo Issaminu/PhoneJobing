@@ -3,6 +3,9 @@ let TeleState = 0,
     CommState = 0;
 
 window.onload = function () {
+
+    //OLD STUFF (that I'm not gonna delete bellow) BELLOW ⬇️
+
     // window.FilterByTeleButton = document.getElementById('FilterByTeleButton').onclick = function () {
     //     if (TeleState == 0) {
     //         document.getElementById("FilterByTeleButton").style.backgroundColor = "#1f2937";

@@ -12,14 +12,8 @@
                 <table class="table user-table table-hover align-items-center" id="teamTable">
                     <thead style="text-align: center;">
                         <tr>
-                            {{-- <th class="border-bottom">
-                                <div class="form-check dashboard-check"><input class="form-check-input" type="checkbox" value=""
-                                        id="userCheck55"> <label class="form-check-label" for="userCheck55"></label></div>
-                            </th> --}}
                             <th class="border-bottom">Nom</th>
-                            {{-- <th class="border-bottom">Poste</th> --}}
                             <th class="border-bottom">Revenue</th>
-                            {{-- <th class="border-bottom"> Status</th> --}}
                             <th class="border-bottom">Location</th>
                             <th class="border-bottom">Numero</th>
                             @if (Auth::user()->type === 'manager')
@@ -32,22 +26,11 @@
                         @foreach ($clients as $client)
                             <?php $i++; ?>
                             <tr style="text-align: center;">
-                                {{-- <td>
-                                    <div class="form-check dashboard-check"><input class="form-check-input" type="checkbox"
-                                            value="" id="userCheck1"> <label class="form-check-label" for="userCheck1"></label>
-                                    </div>
-                                </td> --}}
                                 <td><a href="/clients/{{ str_replace(' ', '', $client->name) }}-{{ $client->id }}"
                                         class="d-flexr">
-                                        {{-- <img src="../assets/img/team/profile-picture-1.jpg" class="avatar rounded-circle me-3"
-                                alt="Avatar"> --}}
                                         <div class="d-block"><span class="fw-bold">{{ ucwords($client->name) }}</span>
-                                            {{-- <div class="small text-gray"><span class="__cf_email__"
-                                                    data-cfemail="dbb2b5bdb49bbea3bab6abb7bef5b8b4b6"></span>
-                                            </div> --}}
                                         </div>
                                     </a></td>
-                                {{-- <td><span class="fw-normal">{{ $client->quantity }}</span> --}}
                                 </td>
                                 <td><span class="fw-normal">
                                         @if ($client->earnings)
@@ -57,7 +40,6 @@
                                         @endif MAD
                                     </span>
                                 </td>
-                                {{-- <td><span class="fw-normal text-success">Active</span></td> --}}
                                 <td>
                                     <span class="fw-normal">
                                         {{ $client->city }}, {{ $client->country }}

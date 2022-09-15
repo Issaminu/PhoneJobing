@@ -2,8 +2,6 @@
     <div class="card card-body mb-6" style="width: fit-content;">
         <div
             style="display: flex; justify-content: space-between; align-items: baseline; flex-direction: row-reverse; margin-top:-0.3rem; margin-right:-0.8rem;">
-            {{-- <h2 class="h5 mb-4">Informations Générales</h2> --}}
-
         </div>
         <div style="">
             <div id='script-body' style="width: auto;">

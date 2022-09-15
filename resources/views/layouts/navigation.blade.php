@@ -1,5 +1,3 @@
-    {{-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> --}}
-
     <nav x-data="{ open: false }" id="navigation" class="bg-white border-b border-gray-100" style="">
         <!-- Primary Navigation Menu -->
         <div id="mainBody">
@@ -12,7 +10,6 @@
                                 <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
                             </a>
                         </div>
-                        {{-- {!!$user = auth()->user();!!} --}}
                         <!-- Navigation Links -->
                         @if (Auth::user()->type === 'manager')
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
@@ -109,16 +106,6 @@
                                 </button>
                             </x-slot>
                             <x-slot name="content">
-                                <!-- Authentication -->
-                                {{-- <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <x-dropdown-link :href="route('logout')"
-                                            onclick="event.preventDefault();
-                                                        this.closest('form').submit();">
-                                        {{ __('Log Out') }}
-                                    </x-dropdown-link>
-                                </form>
-                            </x-slot> --}}
                         </x-dropdown>
                     </div>
                     <!-- Hamburger -->
@@ -137,7 +124,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Responsive Navigation Menu -->
+            <!-- Responsive Navigation Menu, This shit doesn't work -->
             <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
                 <div class="pt-2 pb-3 space-y-1">
                     <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">

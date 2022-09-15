@@ -1,11 +1,9 @@
 <div class="d-flex" style="justify-content: center;">
     <div class="d-flex" style="justify-content: center;width: fit-content">
         <div class="card card-body mb-6" style=" display:flex;align-items: center">
-            {{-- <div style="justify-centent:"> --}}
             <div>
                 <div
                     style="display: flex; justify-content: space-between; align-items: baseline; flex-direction: row-reverse; margin-top:-0.3rem; margin-right:-0.8rem;">
-                    {{-- <h2 class="h5 mb-4">Informations Générales</h2> --}}
                     @if (Auth::user()->type === 'manager' || Auth::user()->id === $user->id)
                         <div id="ajoutEmploye" class="btn-toolbar"><button data-bs-toggle="modal"
                                 data-bs-target="#exampleModal" id="ModButton"><a
@@ -141,7 +139,6 @@
                             </form>
                         @endif
                         @if (Auth::user()->type === 'manager' && $user->type === 'manager')
-                            {{-- <form method="POST" action="/equipe/supprimer-equipe"> --}}
                             <form method="POST" action="/equipe">
                                 @csrf
                                 <input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="deleteEmail"
@@ -157,8 +154,6 @@
                         @endif
                     </div>
                 </div>
-                {{-- <div class="mt-3"><button class="btn btn-gray-800 mt-2 animate-up-2" type="submit">Save all</button>
-                    </div> --}}
             </div>
         </div>
     </div>

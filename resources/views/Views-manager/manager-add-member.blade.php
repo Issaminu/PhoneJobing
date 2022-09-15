@@ -7,26 +7,17 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-    {{-- <script rel="stylesheet" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
-    {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> --}}
-
     <!-- Styles -->
     <script src="https://unpkg.com/@yaireo/tagify"></script>
     <script src="https://unpkg.com/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
     <link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    {{-- <link rel="stylesheet" href="{{ asset('css/tags.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-    {{-- <script src="{{ asset('js/AccountTypeSelection.js') }}"></script> --}}
-    {{-- <link rel="stylesheet" href="croppie.css" />
-    <script src="croppie.js"></script> --}}
-
 </head>
 
 <body>
@@ -39,23 +30,6 @@
 
             <form method="POST" action="{{ route('/equipe/ajout-membre') }}" enctype="multipart/form-data">
                 @csrf
-
-                <!-- Type de Compte de nouveau membre -->
-                {{-- <x-label for="accountTypeChoice" :value="__('Role de membre *')" />
-                <div id="AccTypeRadio">
-                    <input id="TeleRadio" name=accountTypeChoice type=radio value="teleoperateur"
-                        @if (old('accountTypeChoice')) checked @endif><label for=TeleRadio>Téléoperateur</label>
-                    <input id="CommRadio" name=accountTypeChoice type=radio value="commercial"
-                        @if (old(!'accountTypeChoice')) checked @endif><label for=CommRadio>Commercial</label>
-                </div>
-                <div class="btn-toolbar mb-4 md-0 mt-2 ">
-                    <div id="accTypeSelector" class="btn-group ms-2 ms-lg-3 ">
-                        <button id="AccTypeTeleButton" type="button" class="btn btn-sm btn-outline-gray-600"
-                            style="width: 17.62rem;">Téléoperateur</button>
-                        <button id="AccTypeCommButton" type="button" class="btn btn-sm btn-outline-gray-600"
-                            style="width: 17.62rem;">Commercial</button>
-                    </div>
-                </div> --}}
 
                 <!-- Name -->
                 <div class="mt-2">
@@ -106,14 +80,8 @@
                     @include('layouts.Equipe.clientReserveTags')
                 </div>
 
-                {{-- Image Upload --}}
-                {{-- <div>
-                    <x-label for="memberImage" :value="__('Photo')" class="mt-4" />
-                    <input name="memberImage" id="memberImage" type="file"
-                        accept="image/png, image/jpeg, image/jpg, image/svg, image/webp">
-                </div> --}}
 
-
+                <!-- Member Profile Photo -->
                 <x-label for="memberImage" :value="__('Photo')" style="margin-top:1rem;" />
 
                 <x-input type="file" style="display:none;" name="memberImage" class="file"

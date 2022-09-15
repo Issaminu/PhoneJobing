@@ -21,29 +21,6 @@
                     téléoperateur
                 @else
                     Vous avez {{ $TeleCount }} téléoperateurs.
-                    {{-- @endif et @if ($CommCount == 0)
-                        aucun commercial.
-                    @elseif($CommCount == 1)
-                        un seul
-                        commercial.
-                    @else
-                        {{ $CommCount }} commerciaux.
-                    @endif
-                @else
-                    @if ($TeleCount == 0)
-                        Votre équipe contient aucun téléoperateur
-                    @elseif($TeleCount == 1)
-                        Votre équipe
-                        contient un seul téléoperateur
-                    @else
-                        Votre équipe contient {{ $TeleCount }} téléoperateurs
-                        @endif et @if ($CommCount == 0)
-                            aucun commercial.
-                        @elseif($CommCount == 1)
-                            un seul
-                            commercial.
-                        @else
-                            {{ $CommCount }} commerciaux. --}}
                 @endif
             @endif
         </p>

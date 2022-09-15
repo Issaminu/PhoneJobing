@@ -4,13 +4,9 @@
 @import './team.css';
 @import './tags.css';
 
-/* @import './clients.css'; */
-/* @import url("https://fonts.googleapis.com/css?family=Nunito:600"); */
 /* @import './volt.css';  DONT UNCOMMENT THIS, VOLT IS IMPORTED USING Sass */
 
 html {
-    /* margin-left: 1rem;
-    margin-right: 1rem; */
     overflow-y: scroll;
 
 }
@@ -44,7 +40,6 @@ ClientBox {
 #navigation {
     font-family: "Nunito", "sans-serif";
     font-size: large;
-    /* font-weight: 200; */
 }
 
 #AccTypeTeleButton {
@@ -95,19 +90,8 @@ ClientBox {
     border-color: #d1d5db;
 }
 
-/* #AccTypeTeleButton:hover {
-    background-color: #374151;
-    color: #FFFF;
-}
-
-#AccTypeCommButton:hover {
-    background-color: #374151;
-    color: #FFFF;
-} */
-
 #logOutButton:hover {
     border-style: solid;
-    /* width: 5rem; */
     border-radius: 0.2rem;
     border-color: #eeeff0;
     background-color: #f4f5f7;
@@ -131,8 +115,6 @@ ClientBox {
 
 #DelProdButton:hover {
     border-style: solid;
-    /* width: 4.5rem; */
-    /* position: relative; */
     border-radius: 0.1rem;
     border-color: #eeeff0;
     background-color: #dedede;
@@ -166,18 +148,8 @@ ClientBox {
 #productSearch {
     border-color: #d1d5db;
     border-radius: .5rem;
-    /* border-bottom-right-radius: 0rem; */
-    /* border-top-right-radius: 0rem; */
-    /* border-right: 0rem; */
-
-    /* padding-top: 10px; */
     height: 100%;
 }
-
-/* #teamSearch:focus {
-    border-color: rgb(75, 85, 99);
-    /* box-shadow: inset 0 1px 0 rgba(255, 255, 255, .15), 0 1px 1px rgba(17, 24, 39, .075), 0 0 0 .18rem rgba(65, 73, 85, .5);
-} */
 
 #AccTypeRadio {
     visibility: hidden !important;
@@ -214,7 +186,6 @@ ClientBox {
 
 #saveCall:disabled,
 #saveCall[disabled=disabled] {
-    /* border: 1px solid #999999; */
     background-color: #cccccc;
     color: #666666;
 }
@@ -254,8 +225,6 @@ ClientBox {
     -moz-background-clip: padding;
     border-radius: 50%;
     background-clip: padding-box;
-    /* margin: 7px 0 0 5px; */
-    /* float: left; */
     background-size: cover;
     background-position: center center;
 }

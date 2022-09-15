@@ -35,5 +35,4 @@
             @endforeach
         </tbody>
     </table>
-    {{-- <br style="user-select: none;"> --}}
 </div>

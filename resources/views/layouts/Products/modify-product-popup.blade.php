@@ -13,7 +13,6 @@
 
                 <form method="POST" action="{{ route('/produits/modifier-produit') }}">
                     @csrf
-                    <!-- Name -->
                     <div>
                         <x-input id="prodId" class="block mt-1 w-full" type="hidden" name="prodId" required />
                     </div>

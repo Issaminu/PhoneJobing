@@ -11,10 +11,6 @@
                     style="display:none; width:7rem; font-weight:bold; text-shadow: 1px 1px 7px #b8b8b8;"
                     id="pauseWatch" onclick="pauseTimer()">Arrêter
                 </button>
-                {{-- <button class="form-control h1 mt-2 mr-7"
-                    style="display:none; width:7rem;font-weight:bold; text-shadow: 1px 1px 7px #b8b8b8;" id="continueWatch"
-                    onclick="continueTimer()">Continuer
-                </button> --}}
                 <div class="h1 mt-2" style="justify-content:center; color: #5e88d1; text-shadow: 1px 1px 2px #2a5fb4;"
                     id="stopwatch">00:00
                 </div>
@@ -100,7 +96,6 @@
 
                     </div>
                     <div class="d-flex" style="">
-                        {{-- <input class="form-control w-32" type="submit" value="Sauvegarder"> --}}
                     </div>
                     <br>
                 </form>
@@ -113,11 +108,8 @@
     <script>
         $('#prodQuantity').on('paste input', function() {
             let selectedProduct = document.getElementById("prodSelection").value;
-            // alert(options[selectedProduct].id);
-            // alert(selectedProduct.replaceAll(" ", ""));
             let prod = document.getElementById("prodSelection")[document.getElementById("prodSelection")
                 .selectedIndex].id;
-            // alert(prod);
             let maxQuantity = document.getElementById(prod.concat('Quantity')).value;
             if (isNaN(document.getElementById("prodQuantity").value)) {
                 alert("Veuiller entrer seulement un nombre.");
@@ -132,21 +124,18 @@
 </div>
 <div>
     <div class="wrapper">
-
     </div>
     <script>
         const watch = document.querySelector("#stopwatch");
         let millisecound = 0;
         let timer;
         window.onload = function() {
-            // timeStart();
             selectingProduct(document.getElementById("prodSelection"));
             allowSave(document.getElementById("result"));
         }
         let check = 0;
         let startButton = document.getElementById("startWatch");
         let pauseButton = document.getElementById("pauseWatch");
-        // let continueButton = document.getElementById("continueWatch");
 
         function startTimer() {
             timeStart(1000);
@@ -157,21 +146,10 @@
         function pauseTimer() {
             if (startButton.style.display != "none") startButton.style.display = "none";
             if (pauseButton.style.visibility != "hidden") pauseButton.style.visibility = "hidden";
-            // continueButton.style.display = "";
-            // check = 1;
             timeStart(0);
         }
 
-        // function continueTimer() {
-        //     if (continueButton.style.display != "none") continueButton.style.display = "none";
-        //     pauseButton.style.display = "";
-        //     // check = 0;
-        //     timeStart(1000);
-
-        // }
-
         function timeStart(val) {
-            // watch.style.color = "#0f62fe";
             clearInterval(timer);
             timer = setInterval(() => {
                 millisecound += val;
@@ -201,44 +179,23 @@
     <script>
         function allowSave(s) {
             let result = s[document.getElementById("result").selectedIndex].value;
-            // alert(document.getElementById("prodQuantity").value);
-            // document.getElementById("saveCall").setAttribute("disabled", "disabled");
-
             if (result == "Vente réussie" && !(parseInt(document.getElementById("prodQuantity").value) >= 1)) {
                 document.getElementById("saveCall").setAttribute("disabled", "disabled");
                 document.getElementById("prodQuantity").setAttribute("required", "required");
-                // alert("1");
             } else {
                 document.getElementById("saveCall").removeAttribute("disabled");
                 document.getElementById("prodQuantity").removeAttribute("required");
-
-                // alert("2");
-
             }
         }
     </script>
     <script>
-        // document.getElementById('productId').value = document.getElementById("prodSelection")[document.getElementById(
-        //         "prodSelection")
-        //     .selectedIndex].id;
-
         function selectingProduct(s) {
             allowSave(document.getElementById("result"));
-
             document.getElementById('prodQuantity').value = 0;
-
             let prod = s[document.getElementById("prodSelection").selectedIndex].id;
-            // alert(document.getElementById(prod.concat("Quantity")).value);
-
             document.getElementById('productId').value = prod; //This is for productId attribute in the form request
             selectedProductQuantity = document.getElementById(prod.concat("Quantity")).value;
             document.getElementById('prodQuantity').value = "";
-            // if (parseInt(document.getElementById('prodQuantity').value) > parseInt(selectedProductQuantity)) {
-            //     document.getElementById('prodQuantity').value = selectedProductQuantity;
-            // }
-
-
-            // alert(prod);
         }
     </script>
 

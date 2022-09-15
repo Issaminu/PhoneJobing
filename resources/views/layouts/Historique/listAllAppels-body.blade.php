@@ -4,7 +4,6 @@
         <div class="input-group fmxw-300" style="margin-top: 0rem;">
             <input style="width:14rem; --tw-ring-color: rgb(75, 85, 99);" id="productSearch" onkeyup="callSearch()"
                 type="text" class="form-control" value="#APPEL">
-            {{-- <span class="input-group-text border-l-0"> </span> --}}
         </div>
     </div>
     <br style="user-select: none;">
@@ -19,14 +18,12 @@
                     <th class="border-bottom">Résultat</th>
                     <th class="border-bottom">Quantité</th>
                     <th class="border-bottom">Produit</th>
-                    {{-- <th class="border-bottom" style="padding-left:2.8rem;">Script</th> --}}
                     <th class="border-bottom">Durée appel</th>
                     <th class="border-bottom d-flex justify-content-center">Date</th>
 
                 </tr>
             </thead>
             <tbody style="text-align: center;">
-
                 @foreach ($calls as $call)
                     <tr>
                         <td><span class="fw-normal d-flex justify-content-center" style=" font-weight:400;">
@@ -86,10 +83,6 @@
                                 {{ $call->product }}
                             </span>
                         </td>
-                        {{-- <td><span class="fw-normal d-flex justify-content-center">
-                                {{ $call->script }}
-                            </span>
-                        </td> --}}
                         <td><span class="fw-normal d-flex justify-content-center">
                                 {{ $call->callLength }}
                             </span>
@@ -100,10 +93,8 @@
                         </td>
                     </tr>
                 @endforeach
-
             </tbody>
         </table>
-
         <br style="user-select: none;">
     </div>
 </div>

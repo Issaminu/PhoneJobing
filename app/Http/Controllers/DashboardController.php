@@ -9,7 +9,6 @@ use App\Models\Client;
 use App\Models\Script;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
-// use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;

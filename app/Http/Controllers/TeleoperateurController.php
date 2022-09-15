@@ -12,7 +12,6 @@ use App\Models\Script;
 use App\Providers\RouteServiceProvider;
 use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
-// use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -42,11 +41,7 @@ class TeleoperateurController extends Controller
     {
         if (Auth::user()->type === 'teleoperateur') {
             $clients = Client::where('teamid', '=', Auth::user()->teamid)->where('teleoperateur', '=', Auth::user()->id)->orderBy('name')->get(['id', 'name', 'email', 'phone', 'position', 'company']);
-            // dd($clients);
             $scripts = Script::where('teamid', '=', Auth::user()->teamid)->orderBy('name')->get(['id', 'name', 'teamid']);
-            // dd($scripts);
-            // $products = Product::where('teamid', '=', Auth::user()->teamid)->get(['id', 'name', 'price', 'quantity', 'teamid']);
-
             return response()->view('Views-teleoperateur/teleoperateur-dashboard', compact('clients', 'scripts'));
         } else return redirect('404');
     }
@@ -54,7 +49,6 @@ class TeleoperateurController extends Controller
     public function callStart(Request $request)
     {
         if (Auth::user()->type === 'teleoperateur') {
-            // dd($request);
             $attributes = $request->validate([
                 'client' => ['required', 'string', 'max:200'],
                 'script' => ['required', 'string', 'max:200'],
@@ -65,7 +59,6 @@ class TeleoperateurController extends Controller
             $hisCalls = Call::where('clientId', '=', $client->id)->where('quantity', '>', 0)->get(['quantity', 'productId']);
             $client->quantity = count($hisCalls);
             if ($hisCalls) {
-
                 foreach ($hisCalls as $call) {
                     $product = Product::where('id', '=', $call->productId)->first();
                     if ($product) {
@@ -75,8 +68,6 @@ class TeleoperateurController extends Controller
                 }
             }
             if ($client->teamid === Auth::user()->teamid && $script->teamid === Auth::user()->teamid) {
-                // return response()->view('Views-teleoperateur/teleoperateur-equipe', compact('client', 'script'));
-                // dd($script);
                 return response()->view('Views-teleoperateur/appel', compact('client', 'script', 'products'));
             } else return redirect('404');
         } else return redirect('404');
@@ -87,10 +78,7 @@ class TeleoperateurController extends Controller
         if (Auth::user()->email == "manager@gmail.com" || Auth::user()->email == "teleoperateur@gmail.com") {
             return redirect('/dashboard');
         }
-        // dd($request);
-        // dd(Product::where('name', '=', $request->prodSelection)->first());
         if (Auth::user()->type === 'teleoperateur') {
-            // dd(Client::where('id', '=', $request->callClient)->first()->name);
             $attributes = $request->validate([
                 'callScript' => ['required', 'string', 'max:200'],
                 'callClient' => ['required', 'string', 'max:200'],
@@ -105,13 +93,10 @@ class TeleoperateurController extends Controller
             $call->clientId = $request->callClient;
             $lastCallId = DB::table('calls')->latest()->first()->callId;
             $call->callId = "#APPEL" . sprintf("%03d", intval(substr($lastCallId, -3)) + 1);
-            // dd($call->callId);
             $call->result = $request->callResult;
             $call->teamid = Auth::user()->teamid;
-
             $sale = Sale::where('teleoperateurId', '=', Auth::user()->id)->first();
             $sale->callCount++;
-
             if ($request->prodQuantity > 0 && $request->callResult === "Vente réussie") {
                 $call->quantity = $request->prodQuantity;
                 $product = Product::where('id', '=', $request->productId)->first();
@@ -122,12 +107,10 @@ class TeleoperateurController extends Controller
                 $sale->saleCount++;
                 $sale->productCount += $call->quantity;
                 $sale->earnings += ($product->price * $call->quantity);
-                // dd($product->price * $call->quantity);
             } else {
                 $call->quantity = "̶ ̶ ̶ ̶ ̶ ̶ ̶ ̶ ̶ ̶";
                 $call->productId = null;
             }
-            // dd("bruh");
             $call->save();
             $sale->save();
 

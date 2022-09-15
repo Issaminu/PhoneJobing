@@ -13,7 +13,6 @@
 
                 <form method="POST" action="{{ route('/equipe/modifier-membre') }}" enctype="multipart/form-data">
                     @csrf
-                    <!-- Name -->
                     <div>
                         <x-input id="membreId" class="block mt-1 w-full" type="hidden" name="membreId"
                             value="{{ $user->id }}" required />
