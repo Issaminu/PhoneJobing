@@ -57,7 +57,6 @@ RUN useradd -ms /bin/bash --no-user-group -g $WWWGROUP -u 1337 sail
 
 COPY . /var/www/html
 RUN composer update --no-scripts
-RUN php artisan storage:link
 RUN chmod o+w ./storage/ -R
 
 COPY start-container /usr/local/bin/start-container
