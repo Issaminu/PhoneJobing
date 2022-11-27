@@ -55,6 +55,8 @@ RUN alias sail='bash vendor/bin/sail'
 RUN groupadd --force -g $WWWGROUP sail
 RUN useradd -ms /bin/bash --no-user-group -g $WWWGROUP -u 1337 sail
 
+ENV APP_URL=https://www.estfbs.tk
+
 COPY . /var/www/html
 RUN composer update --no-scripts
 RUN chmod o+w ./storage/ -R
