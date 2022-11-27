@@ -59,10 +59,11 @@ ENV APP_URL=https://www.estfbs.tk
 
 COPY . /var/www/html
 RUN composer update --no-scripts
-RUN chmod o+w ./storage/ -R
 # RUN mkdir bootstrap/cache
 # RUN chown -R user bootstrap/cache/
 RUN php artisan cache:clear
+RUN chmod -R 777 storage/
+RUN composer dump-autoload
 COPY start-container /usr/local/bin/start-container
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY php.ini /etc/php/8.2/cli/conf.d/99-sail.ini
