@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Scripts</title>
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
@@ -42,9 +42,7 @@
                 <div>
                     <x-label for="scriptName" :value="__('Nom de script *')" />
 
-                    <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="scriptName"
-                        class="block w-full mb-4" type="text" name="scriptName" :value="old('scriptName')" required
-                        autofocus />
+                    <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="scriptName" class="block w-full mb-4" type="text" name="scriptName" :value="old('scriptName')" required autofocus />
                 </div>
             </div>
             <div>

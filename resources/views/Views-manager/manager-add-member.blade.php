@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Équipe</title>
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
     <!-- Styles -->
@@ -35,42 +35,35 @@
                 <div class="mt-2">
                     <x-label for="name" :value="__('Nom complet de membre *')" />
 
-                    <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="name"
-                        class="block mt-1 w-full" type="text" name="name" :value="old('name')" required />
+                    <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required />
                 </div>
 
                 <!-- Email Address -->
                 <div class="mt-4">
                     <x-label for="email" :value="__('Email *')" />
 
-                    <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="email"
-                        class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+                    <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
                 </div>
 
                 <!-- Phone -->
                 <div class="mt-4">
                     <x-label for="phone" :value="__('Numéro de téléphone *')" style="margin-top:1rem;" />
 
-                    <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="phone"
-                        class="block mt-1 w-full" type="text" name="phone" value="{{ old('phone') ?? '+212' }}"
-                        required />
+                    <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="phone" class="block mt-1 w-full" type="text" name="phone" value="{{ old('phone') ?? '+212' }}" required />
                 </div>
 
                 <!-- Password -->
                 <div class="mt-4">
                     <x-label for="password" :value="__('Mot de passe *')" />
 
-                    <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="password"
-                        class="block mt-1 w-full" type="password" name="password" required
-                        autocomplete="new-password" />
+                    <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
                 </div>
 
                 <!-- Confirm Password -->
                 <div class="mt-4">
                     <x-label for="password_confirmation" :value="__('Confirmer la mot de passe *')" />
 
-                    <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="password_confirmation"
-                        class="block mt-1 mb-5 w-full" type="password" name="password_confirmation" required />
+                    <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="password_confirmation" class="block mt-1 mb-5 w-full" type="password" name="password_confirmation" required />
                 </div>
 
                 <!-- Assigned Clients -->
@@ -84,15 +77,11 @@
                 <!-- Member Profile Photo -->
                 <x-label for="memberImage" :value="__('Photo')" style="margin-top:1rem;" />
 
-                <x-input type="file" style="display:none;" name="memberImage" class="file"
-                    accept="image/png, image/jpeg, image/jpg, image/svg, image/webp" />
+                <x-input type="file" style="display:none;" name="memberImage" class="file" accept="image/png, image/jpeg, image/jpg, image/svg, image/webp" />
                 <div class="input-group my-3">
-                    <x-input id='memberImage' type="text" class="form-control"
-                        style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px; border-color:#e5e7eb; border-top-left-radius:0.5rem; border-bottom-left-radius:0.5rem;"
-                        disabled placeholder="Choisissez une image ..." id="file" />
+                    <x-input id='memberImage' type="text" class="form-control" style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px; border-color:#e5e7eb; border-top-left-radius:0.5rem; border-bottom-left-radius:0.5rem;" disabled placeholder="Choisissez une image ..." id="file" />
                     <div class="input-group-append">
-                        <button type="button" class="browse btn btn-primary"
-                            style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px; color: #fff; background-color: #1f2937;
+                        <button type="button" class="browse btn btn-primary" style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px; color: #fff; background-color: #1f2937;
                                 border-color: #1f2937; border-top-left-radius:0rem; border-bottom-left-radius:0rem; height:3rem;">Uploader</button>
                     </div>
                 </div>
@@ -118,29 +107,25 @@
                 <div class="mt-5">
                     <x-label for="country" :value="__('Pays')" />
 
-                    <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="country"
-                        class="block mt-1 w-full" type="text" name="country" :value="old('country')" />
+                    <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="country" class="block mt-1 w-full" type="text" name="country" :value="old('country')" />
                 </div>
                 <!-- City -->
                 <div class="mt-4">
                     <x-label for="city" :value="__('Ville')" />
 
-                    <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="city"
-                        class="block mt-1 w-full" type="text" name="city" :value="old('city')" />
+                    <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="city" class="block mt-1 w-full" type="text" name="city" :value="old('city')" />
                 </div>
                 <!-- Address -->
                 <div class="mt-4">
                     <x-label for="address" :value="__('Addresse')" />
 
-                    <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="address"
-                        class="block mt-1 w-full" type="text" name="address" :value="old('address')" />
+                    <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="address" class="block mt-1 w-full" type="text" name="address" :value="old('address')" />
                 </div>
                 <!-- Zip -->
                 <div class="mt-4">
                     <x-label for="zip" :value="__('Zip code')" />
 
-                    <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="zip"
-                        class="block mt-1 w-full" type="text" name="zip" :value="old('zip')" />
+                    <x-input style="box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;" id="zip" class="block mt-1 w-full" type="text" name="zip" :value="old('zip')" />
                 </div>
 
                 <div type="submit" class="flex items-center justify-center mt-5 mr-5">

@@ -17,13 +17,14 @@
         "laravel/sanctum": "^2.15.1",
         "laravel/tinker": "^2.7.2",
         "league/flysystem-aws-s3-v3": "^3.3.0",
+        "league/mime-type-detection": "^1.11",
         "tonysm/rich-text-laravel": "^1.6.0"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.12.3",
         "fakerphp/faker": "^1.20.0",
         "laravel/breeze": "^1.13.0",
-        "laravel/sail": "^1.16.0",
+        "laravel/sail": "^1.16",
         "mockery/mockery": "^1.5.1",
         "nunomaduro/collision": "^6.3.0",
         "phpunit/phpunit": "^9.5.24",
