@@ -62,9 +62,9 @@ RUN composer update --no-scripts
 # RUN mkdir bootstrap/cache
 # RUN chown -R user bootstrap/cache/
 RUN php artisan cache:clear
-RUN chmod -R 777 storage/*
+RUN chmod -R 777 storage/
 RUN composer dump-autoload
-# RUN chown root:www-data -R storage/*
+RUN chown root:www-data -R storage/
 COPY start-container /usr/local/bin/start-container
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY php.ini /etc/php/8.2/cli/conf.d/99-sail.ini
