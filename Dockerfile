@@ -58,6 +58,12 @@ RUN useradd -ms /bin/bash --no-user-group -g $WWWGROUP -u 1337 sail
 COPY . /var/www/html
 RUN composer update --no-scripts
 RUN chmod o+w ./storage/ -R
+RUN php artisan cache:clear
+RUN php artisan config:cache
+RUN php artisan route:cache
+RUN php artisan view:cache
+RUN php artisan optimize
+RUN npm run production
 
 COPY start-container /usr/local/bin/start-container
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
