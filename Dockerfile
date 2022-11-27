@@ -57,10 +57,10 @@ RUN useradd -ms /bin/bash --no-user-group -g $WWWGROUP -u 1337 sail
 
 COPY . /var/www/html
 RUN composer update --no-scripts
-RUN php artisan cache:clear
 RUN chmod o+w ./storage/ -R
 # RUN mkdir bootstrap/cache
 # RUN chown -R user bootstrap/cache/
+RUN php artisan cache:clear
 COPY start-container /usr/local/bin/start-container
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY php.ini /etc/php/8.2/cli/conf.d/99-sail.ini
