@@ -74,15 +74,13 @@ RUN chmod +x /usr/local/bin/start-container
 RUN mkdir -p /storage && mkdir -p /storage/cache && mkdir -p /storage/framework && mkdir -p /storage/framework/sessions && mkdir -p /storage/framework/views && mkdir -p /storage/framework/cache && mkdir -p /storage/logs
 RUN php artisan cache:clear
 RUN php artisan config:clear
-RUN php artisan route:clear
-RUN php artisan view:clear
-
-
-# RUN chcon -R -t httpd_sys_rw_content_t storage/
+# RUN php artisan route:clear
+# RUN php artisan view:clear
 RUN php artisan storage:link
-RUN chmod -R 777 storage/
-RUN chmod -R 777 bootstrap/cache
+RUN chmod -R 775 storage/
+RUN chmod -R 775 bootstrap/cache
 RUN composer dump-autoload
+RUN ./vendor/bin/sail up
 
 EXPOSE 8000
 
