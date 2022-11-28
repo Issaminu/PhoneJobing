@@ -75,7 +75,8 @@ RUN chmod +x /usr/local/bin/start-container
 RUN chown -R www-data:www-data .
 # RUN chcon -R -t httpd_sys_rw_content_t storage/
 RUN php artisan storage:link
-
+RUN chmod -R 777 storage/
+RUN chmod -R 777 bootstrap/cache
 
 EXPOSE 8000
 
