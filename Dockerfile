@@ -80,7 +80,7 @@ RUN php artisan storage:link
 RUN chmod -R 775 storage/
 RUN chmod -R 775 bootstrap/cache
 RUN composer dump-autoload
-RUN ./vendor/bin/sail up
+RUN sail up
 
 EXPOSE 8000
 
