@@ -72,7 +72,8 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY php.ini /etc/php/8.2/cli/conf.d/99-sail.ini
 RUN chmod +x /usr/local/bin/start-container
 
-RUN chcon -R -t httpd_sys_rw_content_t storage/
+RUN chown -R www-data:www-data
+# RUN chcon -R -t httpd_sys_rw_content_t storage/
 RUN php artisan storage:link
 
 
