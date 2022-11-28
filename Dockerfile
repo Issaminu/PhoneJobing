@@ -63,14 +63,17 @@ RUN chown -R $USER:www-data storage
 RUN chown -R $USER:www-data bootstrap/cache
 # RUN chown -R user bootstrap/cache/
 RUN php artisan cache:clear
-RUN chmod -R 775 storage/
-RUN chmod -R 775 bootstrap/cache
+RUN chmod -R 777 storage/
+RUN chmod -R 777 bootstrap/cache
 RUN composer dump-autoload
 RUN chown root:www-data -R storage/
 COPY start-container /usr/local/bin/start-container
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY php.ini /etc/php/8.2/cli/conf.d/99-sail.ini
 RUN chmod +x /usr/local/bin/start-container
+
+RUN php artisan storage:link
+
 
 EXPOSE 8000
 
