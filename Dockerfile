@@ -62,7 +62,6 @@ RUN composer update --no-scripts
 # RUN chown -R $USER:www-data storage
 # RUN chown -R $USER:www-data bootstrap/cache
 # RUN chown -R user bootstrap/cache/
-RUN php artisan cache:clear
 # RUN chmod -R 777 storage/
 # RUN chmod -R 777 bootstrap/cache
 # RUN composer dump-autoload
@@ -72,11 +71,17 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY php.ini /etc/php/8.2/cli/conf.d/99-sail.ini
 RUN chmod +x /usr/local/bin/start-container
 
+RUN php artisan cache:clear
+RUN php artisan config:clear
+RUN php artisan route:clear
+RUN php artisan view:clear
+
 RUN chown -R www-data:www-data .
 # RUN chcon -R -t httpd_sys_rw_content_t storage/
 RUN php artisan storage:link
 RUN chmod -R 777 storage/
 RUN chmod -R 777 bootstrap/cache
+RUN composer dump-autoload
 
 EXPOSE 8000
 
