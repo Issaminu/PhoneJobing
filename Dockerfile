@@ -56,7 +56,7 @@ RUN groupadd --force -g $WWWGROUP sail
 RUN useradd -ms /bin/bash --no-user-group -g $WWWGROUP -u 1337 sail
 
 ENV APP_URL=https://www.estfbs.tk
-COPY . /var/www/html
+COPY --chmod=777 . /var/www/html
 RUN composer update --no-scripts
 # RUN mkdir bootstrap/cache
 # RUN chown -R $USER:www-data storage
@@ -77,7 +77,6 @@ RUN php artisan config:clear
 RUN php artisan route:clear
 RUN php artisan view:clear
 
-RUN chown -R $USER:www-data storage
 
 # RUN chcon -R -t httpd_sys_rw_content_t storage/
 RUN php artisan storage:link
