@@ -72,7 +72,7 @@ RUN chmod +x /usr/local/bin/start-container
 RUN mkdir -p /storage && mkdir -p /storage/cache && mkdir -p /storage/framework && mkdir -p /storage/framework/sessions && mkdir -p /storage/framework/views && mkdir -p /storage/framework/cache && mkdir -p /storage/logs
 RUN php artisan cache:clear
 RUN php artisan config:clear
-# RUN php artisan route:clear
+RUN php artisan route:clear
 # RUN php artisan view:clear
 RUN php artisan storage:link
 RUN chmod -R 777 storage/
