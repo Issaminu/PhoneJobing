@@ -75,10 +75,10 @@ RUN php artisan config:clear
 # RUN php artisan route:clear
 # RUN php artisan view:clear
 RUN php artisan storage:link
-RUN chmod -R 775 storage/
-RUN chmod -R 775 bootstrap/cache
+RUN chmod -R 777 storage/
+RUN chmod -R 777 bootstrap/cache
 RUN composer dump-autoload
-RUN php artisan serve
+# RUN php artisan serve
 
 EXPOSE 8000
 
