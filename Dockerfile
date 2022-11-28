@@ -52,8 +52,6 @@ RUN setcap "cap_net_bind_service=+ep" /usr/bin/php8.2
 
 RUN alias sail='bash vendor/bin/sail'
 
-RUN groupadd --force -g $WWWGROUP sail
-RUN useradd -ms /bin/bash --no-user-group -g $WWWGROUP -u 1337 sail
 
 ENV APP_URL=https://www.estfbs.tk
 COPY --chmod=777 . /var/www/html
