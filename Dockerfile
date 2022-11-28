@@ -76,11 +76,11 @@ RUN php artisan config:clear
 RUN php artisan route:clear
 RUN php artisan view:clear
 
-RUN chown -R www-data:www-data .
+RUN sudo chown -R www-data:www-data .
 # RUN chcon -R -t httpd_sys_rw_content_t storage/
 RUN php artisan storage:link
-RUN chmod -R 777 storage/
-RUN chmod -R 777 bootstrap/cache
+RUN sudo chmod -R 777 storage/
+RUN sudo chmod -R 777 bootstrap/cache
 RUN composer dump-autoload
 
 EXPOSE 8000
