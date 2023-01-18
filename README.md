@@ -10,13 +10,17 @@ well as their teleoperators, would be extremely beneficial to all companies, lar
 small. It would make workflows easier and faster, increase productivity and maximize 
 value.
 
-Our solution allows sales team managers to 
+Our solution, hosted on the web at www.estfbs.tk allows sales team managers to 
 manage their teleoperators, track their progress, performance and efficiency, as well 
 as manage the inventory of all company products, and create call scripts to guide 
 teleoperators through the sales process. And as for the teleoperators, it gives them 
 access to an easy-to-use interface to help them make calls and record their results.
 
 To learn more about the application, feel free to check out the application repport: https://bit.ly/3duGsDw (Note: Currently, it's only available in French)
+
+# Application link
+
+Visit www.estfbs.tk to use the application.
 
 # Local deployement
 
@@ -31,4 +35,3 @@ Follow these steps to run this app locally:
 8. Run `php artisan migrate:fresh --seed`.
 9. Run `php artisan serve` and open another terminal and CD to the repo then run `npm run watch`.
 10. Visit http://localhost:8000 to use the application locally.
-
