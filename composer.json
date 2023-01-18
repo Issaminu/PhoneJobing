@@ -9,7 +9,6 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
-        "arielmejiadev/larapex-charts": "^4.1.0",
         "fruitcake/laravel-cors": "^2.2.0",
         "guzzlehttp/guzzle": "^7.5.0",
         "jxlwqq/echarts": "^1.0.2",
@@ -24,10 +23,8 @@
         "barryvdh/laravel-ide-helper": "^2.12.3",
         "fakerphp/faker": "^1.20.0",
         "laravel/breeze": "^1.13.0",
-        "laravel/sail": "^1.16",
         "mockery/mockery": "^1.5.1",
         "nunomaduro/collision": "^6.3.0",
-        "phpunit/phpunit": "^9.5.24",
         "spatie/laravel-ignition": "^1.4.1"
     },
     "autoload": {
