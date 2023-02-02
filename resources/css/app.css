@@ -10,6 +10,14 @@ html {
     overflow-y: scroll;
 
 }
+.logo {
+     display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 15px;
+    height :40px ;
+   color: rgb(107 114 128);
+}
 
 .clientReserve {
     width: 100%;
