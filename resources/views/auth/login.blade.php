@@ -4,7 +4,7 @@
 
         <x-slot name="logo">
             <a href="/">
-                <x-application-logo class="logo" />
+                <x-application-logo class="logo fill-current" />
             </a>
             <div class="card shadow pb-6 mb-6" style="background-color: rgba(247, 247, 247, 0.911); width: 46rem; max-height:29rem; padding:1.5rem;">
                 <h1 style="font-size:1.4rem; margin-bottom:1rem;">Veuillez utiliser les comptes démo suivants pour la
