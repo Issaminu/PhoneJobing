@@ -3,10 +3,10 @@
     <x-auth-card>
 
         <x-slot name="logo">
-            <a href="/">
+            <a href="/" class="logocontainer">
                 <x-application-logo class="logo fill-current" />
             </a>
-            <div class="card shadow pb-6 mb-6" style="background-color: rgba(247, 247, 247, 0.911); width: 46rem; max-height:29rem; padding:1.5rem;">
+            <div class="card shadow pb-6 mb-6" style="background-color: rgba(247, 247, 247, 0.911); max-height:29rem; padding:1.5rem;">
                 <h1 style="font-size:1.4rem; margin-bottom:1rem;">Veuillez utiliser les comptes démo suivants pour la
                     visualisation :</h1>
                 <p><b class="mr-14">Manager: </b> manager@gmail.com | qwerqwer123</p>

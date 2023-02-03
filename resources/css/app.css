@@ -1,24 +1,33 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
-@import './team.css';
-@import './tags.css';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import "./team.css";
+@import "./tags.css";
 
 /* @import './volt.css';  DONT UNCOMMENT THIS, VOLT IS IMPORTED USING Sass */
 
 html {
     overflow-y: scroll;
-
 }
 .logo {
-     display: flex;
+    margin: 15px;
+    height: 80px;
+    color: rgb(107 114 128);
+}
+.logocontainer {
+    display: flex;
     align-items: center;
     justify-content: center;
-    margin: 15px;
-    height :40px ;
-   color: rgb(107 114 128);
 }
 
+.card.shadow {
+    background-color: rgba(247, 247, 247, 0.911);
+    max-height: 29rem;
+    padding: 18px;
+    padding-bottom: 26px;
+    margin: 0;
+    text-align: center;
+}
 .clientReserve {
     width: 100%;
 }
@@ -27,10 +36,12 @@ html {
     margin-left: 10rem;
     margin-right: 10rem;
 }
+.w-full {
+    width: 80%;
+}
 
 html,
 body {
-
     overflow-x: hidden;
 }
 
@@ -53,15 +64,15 @@ ClientBox {
 #AccTypeTeleButton {
     padding-top: 9px;
     padding-bottom: 9px;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .07);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.07);
     width: 12.5rem;
-    border-color: #d1d5db
+    border-color: #d1d5db;
 }
 
 #AccTypeCommButton {
     padding-top: 9px;
     padding-bottom: 9px;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .07);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.07);
     width: 12.5rem;
     border-color: #d1d5db;
 }
@@ -69,15 +80,15 @@ ClientBox {
 #MrButton {
     padding-top: 9px;
     padding-bottom: 9px;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .07);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.07);
     width: 100%;
-    border-color: #d1d5db
+    border-color: #d1d5db;
 }
 
 #MmeButton {
     padding-top: 9px;
     padding-bottom: 9px;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .07);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.07);
     width: 100%;
     border-color: #d1d5db;
 }
@@ -85,15 +96,15 @@ ClientBox {
 #FilterByTeleButton {
     padding-top: 9px;
     padding-bottom: 9px;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .07);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.07);
     width: 12.5rem;
-    border-color: #d1d5db
+    border-color: #d1d5db;
 }
 
 #FilterByCommButton {
     padding-top: 9px;
     padding-bottom: 9px;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .07);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.07);
     width: 12.5rem;
     border-color: #d1d5db;
 }
@@ -129,11 +140,10 @@ ClientBox {
 }
 
 #accTypeSelector {
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .07);
-    border-radius: .5rem;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.07);
+    border-radius: 0.5rem;
     width: 100%;
     box-shadow: rgba(156, 156, 156, 0.2) 0px 2px 8px 0px;
-
 }
 
 .search-bar {
@@ -155,7 +165,7 @@ ClientBox {
 #teamSearch,
 #productSearch {
     border-color: #d1d5db;
-    border-radius: .5rem;
+    border-radius: 0.5rem;
     height: 100%;
 }
 
@@ -180,7 +190,7 @@ ClientBox {
     height: 180px;
     top: 50%;
     margin-top: -100px;
-    background: #FFF;
+    background: #fff;
     z-index: 20;
 }
 
@@ -189,11 +199,11 @@ ClientBox {
     height: 2.5rem;
     background-color: #f0bc74;
     color: white;
-    border: .0rem solid #d1d5db;
+    border: 0rem solid #d1d5db;
 }
 
 #saveCall:disabled,
-#saveCall[disabled=disabled] {
+#saveCall[disabled="disabled"] {
     background-color: #cccccc;
     color: #666666;
 }
@@ -216,7 +226,7 @@ ClientBox {
     left: 0;
     bottom: 0;
     right: 0;
-    background: #FFF;
+    background: #fff;
     z-index: -1;
 }
 
