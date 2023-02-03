@@ -38,6 +38,12 @@ html {
 }
 .w-full {
     width: 80%;
+    padding: 25px 0 15px 70px;
+}
+.rounded-md {
+    border-radius: 0.375rem;
+    /* padding: unset; */
+    padding: 8px !important;
 }
 
 html,
