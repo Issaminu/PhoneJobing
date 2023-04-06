@@ -3,10 +3,10 @@
     <x-auth-card>
 
         <x-slot name="logo">
-            <a href="/" class="logocontainer">
-                <x-application-logo class="logo fill-current" />
-            </a>
-            <div class="card shadow pb-6 mb-6" style="background-color: rgba(247, 247, 247, 0.911); max-height:29rem; padding:1.5rem;">
+                <a href="/" class="logocontainer" style="display:flex; justify-content: center;">
+                    <x-application-logo class="fill-current logo" style="max-width:10rem;" />
+                </a>
+            <div class="pb-6 mb-6 shadow card" style="background-color: rgba(247, 247, 247, 0.911); max-height:29rem; padding:1.5rem;">
                 <h1 style="font-size:1.4rem; margin-bottom:1rem;">Veuillez utiliser les comptes démo suivants pour la
                     visualisation :</h1>
                 <p><b class="mr-14">Manager: </b> manager@gmail.com | qwerqwer123</p>
@@ -26,33 +26,33 @@
             <div>
                 <x-label for="email" :value="__('Email')" />
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
+                <x-input id="email" class="block w-full mt-1" type="email" name="email" :value="old('email')" required autofocus />
             </div>
 
             <!-- Password -->
             <div class="mt-4">
                 <x-label for="password" :value="__('Mot de passe')" />
 
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
+                <x-input id="password" class="block w-full mt-1" type="password" name="password" required autocomplete="current-password" />
             </div>
 
             <!-- Remember Me -->
             <div class="block mt-4">
                 <label for="remember_me" class="inline-flex items-center">
-                    <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="remember">
+                    <input id="remember_me" type="checkbox" class="text-indigo-600 border-gray-300 rounded shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="remember">
                     <span class="ml-2 text-sm text-gray-600">{{ __('Se souvenir de moi ') }}</span>
                 </label>
             </div>
 
             <div class="flex items-center justify-center mt-3">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('register') }}">
+                <a class="text-sm text-gray-600 underline hover:text-gray-900" href="{{ route('register') }}">
                     {{ __('Créer votre compte') }}
                 </a>
             </div>
 
             <div class="flex items-center justify-center mt-3">
                 @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
+                <a class="text-sm text-gray-600 underline hover:text-gray-900" href="{{ route('password.request') }}">
                     {{ __('Mot de passe oublié?') }}
                 </a>
                 @endif

@@ -16,27 +16,27 @@
 
 <body>
     @include('layouts.navigation')
-    <div style="display: flex;justify-content:center; margin-right:4rem">
+    <div style="display: flex; justify-content:center; margin-right:4rem">
         <div>
             <div style="display: flex;">
                 <div>
-                    <div class="card shadow mt-6 ml-16 pb-6" style="width: 41rem; max-height:29rem; padding-bottom:1.5rem;">
-                        <div class="h3 mt-1 d-flex drop-shadow" style="justify-content: center;" title="Résultats des appels par téléoperateur dans les 7 jours précédents">Résultats des
+                    <div class="pb-6 mt-6 ml-16 shadow card" style="width: 41rem; max-height:29rem; padding-bottom:1.5rem;">
+                        <div class="mt-1 h3 d-flex drop-shadow" style="justify-content: center;" title="Résultats des appels par téléoperateur dans les 7 jours précédents">Résultats des
                             appels
                             (par téléoperateur)</div>
-                        <div style="max-width:40rem; height:4rem; color:#5d8fd4" id="chart1"></div>
+                        <div style="margin:2rem; max-width:40rem; height:4rem; color:#5d8fd4" id="chart1"></div>
                     </div>
                 </div>
                 @include('layouts.ManagerDash.dashboardChart1Script')
                 <div>
                     <div>
-                        <div class="card shadow mt-6 ml-8 pb-8 " style="width: 43.5rem !important; max-height:29rem; padding-bottom:1.5rem;">
-                            <div class="h3 mt-1 d-flex drop-shadow" style="justify-content: center;" title="Résultats des appels par jours du semaine dans les 7 jours précédents">Résultats
+                        <div class="pb-8 mt-6 ml-8 shadow card " style="width: 43.5rem !important; max-height:29rem; padding-bottom:1.5rem;">
+                            <div class="mt-1 h3 d-flex drop-shadow" style="justify-content: center;" title="Résultats des appels par jours du semaine dans les 7 jours précédents">Résultats
                                 des
                                 appels
                                 (7 jours)
                             </div>
-                            <div class="ml-4" style="margin-top:-0.5rem; max-width:40rem; height:4rem; color:#5d8fd4" id="chart2">
+                            <div class="ml-4" style="margin:2rem; margin-top:-0.5rem; max-width:40rem; height:4rem; color:#5d8fd4" id="chart2">
                             </div>
                             @include('layouts.ManagerDash.dashboardChart2Script')
 
@@ -48,17 +48,17 @@
             </div>
             <div style="display: flex;">
                 <div>
-                    <div class="card shadow mt-8 mb-6 ml-16 pb-6" style="width: 41rem; max-height:29rem; padding-bottom:1.5rem;">
-                        <div class="h3 mt-1 d-flex" style="justify-content: center;" title="Nombre des appels par jour du semaine dans cette semaine en comparaison avec la semaine dernière">
+                    <div class="pb-6 mt-8 mb-6 ml-16 shadow card" style="width: 41rem; max-height:29rem; padding-bottom:1.5rem;">
+                        <div class="mt-1 h3 d-flex" style="justify-content: center;" title="Nombre des appels par jour du semaine dans cette semaine en comparaison avec la semaine dernière">
                             Nombre d'appels (7 jours)</div>
-                        <div style="max-width:40rem; height:4rem; color:#5d8fd4" id="chart3"></div>
+                        <div style="margin:2rem; max-width:40rem; height:4rem; color:#5d8fd4" id="chart3"></div>
                     </div>
                 </div>
                 @include('layouts.ManagerDash.dashboardChart3Script')
                 <div>
                     <div style="display: flex;">
-                        <div class="card shadow mt-8 mb-6 ml-8 pb-6" style="width: 21rem !important; height:8rem; padding-bottom:1.5rem;">
-                            <div class="h4 mt-4 d-flex drop-shadow" style="justify-content: center;" title="Revenue totale de votre équipe dans la semaine précédente">Revenue
+                        <div class="pb-6 mt-8 mb-6 ml-8 shadow card" style="width: 21rem !important; height:8rem; padding-bottom:1.5rem;">
+                            <div class="mt-4 h4 d-flex drop-shadow" style="justify-content: center;" title="Revenue totale de votre équipe dans la semaine précédente">Revenue
                             </div>
                             @if ($thisWeek->earnings == 0)
                             <div class="h1 d-flex drop-shadow" style="justify-content: center; text-size:9.7rem; font-weight: bold; color:#878787">
@@ -72,8 +72,8 @@
                             </div>
                             @endif
                         </div>
-                        <div class="card shadow mt-8 mb-6 ml-6 pb-6" style="width: 21rem !important; height:8rem; padding-bottom:1.5rem;">
-                            <div class="h4 mt-4  d-flex drop-shadow" style="justify-content: center;" title="Durée moyenne de tout les appels qui ont été éffectués par votre téléoperateurs dans la semaine précédente">
+                        <div class="pb-6 mt-8 mb-6 ml-6 shadow card" style="width: 21rem !important; height:8rem; padding-bottom:1.5rem;">
+                            <div class="mt-4 h4 d-flex drop-shadow" style="justify-content: center;" title="Durée moyenne de tout les appels qui ont été éffectués par votre téléoperateurs dans la semaine précédente">
                                 Durée
                                 moyenne
                                 d'appel
@@ -98,7 +98,7 @@
                         </div>
                     </div>
                     <div style="display: flex;">
-                        <div class="card shadow mb-6 ml-8 pb-6" style="width: 21rem !important; height:8rem; padding-bottom:1.5rem;">
+                        <div class="pb-6 mb-6 ml-8 shadow card" style="width: 21rem !important; height:8rem; padding-bottom:1.5rem;">
                             <div class="mt-4 h4 d-flex drop-shadow" style="justify-content: center;" title="Nombre d'appels qui ont términés avec une vente dans cette semaine">
                                 Nombre
                                 d'appels
@@ -113,8 +113,8 @@
                             </div>
                             @endif
                         </div>
-                        <div class="card shadow mb-6 ml-6 pb-6" style="width: 21rem !important; height:8rem; padding-bottom:1.5rem;">
-                            <div class="h4 mt-4 d-flex drop-shadow" style="justify-content: center;" title="Nombre d'appels qui sont éffectués par votre téléoperateurs dans cette semaine">
+                        <div class="pb-6 mb-6 ml-6 shadow card" style="width: 21rem !important; height:8rem; padding-bottom:1.5rem;">
+                            <div class="mt-4 h4 d-flex drop-shadow" style="justify-content: center;" title="Nombre d'appels qui sont éffectués par votre téléoperateurs dans cette semaine">
                                 Nombre de
                                 ventes
                             </div>
@@ -141,8 +141,8 @@
                     }
                     ?>
                     <div style="display: flex;">
-                        <div class="card shadow  mb-6 ml-8 pb-6" style="width: 21rem !important; height:8.5rem; padding-bottom:1.5rem;">
-                            <div class="h4 mt-4 d-flex drop-shadow" style="justify-content: center;" title="Pourcentage d'appels qui ont términés avec une vente par rapport a nombre total d'appels dans cette semaine">
+                        <div class="pb-6 mb-6 ml-8 shadow card" style="width: 21rem !important; height:8.5rem; padding-bottom:1.5rem;">
+                            <div class="mt-4 h4 d-flex drop-shadow" style="justify-content: center;" title="Pourcentage d'appels qui ont términés avec une vente par rapport a nombre total d'appels dans cette semaine">
                                 Ratio de
                                 vente
                             </div>
@@ -157,8 +157,8 @@
                             </div>
                             @endif
                         </div>
-                        <div class="card shadow mb-6 ml-6 pb-6" style="width: 21rem !important; height:8.5rem; padding-bottom:1.5rem;">
-                            <div class="h4 mt-4 d-flex drop-shadow" style="justify-content: center;" title="Pourcentage d'appels qui ont términées avec une vente par rapport a nombre total d'appels dans la semaine précédente">
+                        <div class="pb-6 mb-6 ml-6 shadow card" style="width: 21rem !important; height:8.5rem; padding-bottom:1.5rem;">
+                            <div class="mt-4 h4 d-flex drop-shadow" style="justify-content: center;" title="Pourcentage d'appels qui ont términées avec une vente par rapport a nombre total d'appels dans la semaine précédente">
                                 Ratio de
                                 vente précédente
                             </div>
