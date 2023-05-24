@@ -11,6 +11,8 @@
                     visualisation :</h1>
                 <p><b class="mr-14">Manager: </b> manager@gmail.com | qwerqwer123</p>
                 <p><b class="mr-4">Téléoperateur: </b> teleoperateur@gmail.com | qwerqwer123</p>
+                <p style="margin-top: 2rem; font-weight: 600; color: #F5A524; text-align: center;">Veulliez noter que c'est impossible d’ajouter ou de modifier les données dans les comptes démo.</p>
+                <p style="text-align: center;"><a href="/register" style="font-weight: 500; color: #F5A524; text-decoration: underline;">Créez un compte pour tester pleinement l’application.</a></p>
             </div>
         </x-slot>
 
