@@ -56,8 +56,7 @@
         "post-install-cmd": [
             "php artisan clear-compiled",
             "composer --no-dev update",
-            "chmod -R 777 public/",
-            "php artisan schedule:work"
+            "chmod -R 777 public/"
         ]
     },
     "extra": {
