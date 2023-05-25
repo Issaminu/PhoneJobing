@@ -59,7 +59,7 @@
                 </a>
                 @endif
             </div>
-            <div class="flex items-center justify-center mt-4" style="flex-direction: column;">
+            <div class="flex items-center justify-center mt-4">
                 <x-button style="width: 8rem;">Connexion</x-button>
             </div>
 
