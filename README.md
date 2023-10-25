@@ -20,7 +20,7 @@ To learn more about the application, feel free to check out the application repp
 
 # Application link
 
-Visit phone-jobing.issaminu.com to use the application.
+Visit [phone-jobing.issaminu.com](https://phone-jobing.issaminu.com) to use the application.
 
 # Local deployement
 
