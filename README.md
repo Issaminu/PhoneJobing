@@ -10,7 +10,7 @@ well as their teleoperators, would be extremely beneficial to all companies, lar
 small. It would make workflows easier and faster, increase productivity and maximize 
 value.
 
-Our solution, hosted on the web at www.estfbs.tk allows sales team managers to 
+Our solution, hosted on the web at phone-jobing.issaminu.com allows sales team managers to 
 manage their teleoperators, track their progress, performance and efficiency, as well 
 as manage the inventory of all company products, and create call scripts to guide 
 teleoperators through the sales process. And as for the teleoperators, it gives them 
@@ -20,7 +20,7 @@ To learn more about the application, feel free to check out the application repp
 
 # Application link
 
-Visit www.estfbs.tk to use the application.
+Visit phone-jobing.issaminu.com to use the application.
 
 # Local deployement
 
