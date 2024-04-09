@@ -9,8 +9,24 @@
             <div class="pb-6 mb-6 shadow card" style="background-color: rgba(247, 247, 247, 0.911); max-height:29rem; padding:1.5rem;">
                 <h1 style="font-size:1.4rem; margin-bottom:1rem;">Veuillez utiliser les comptes démo suivants pour la
                     visualisation :</h1>
-                <p><b class="mr-14">Manager: </b> manager@gmail.com | qwerqwer123</p>
-                <p><b class="mr-4">Téléoperateur: </b> teleoperateur@gmail.com | qwerqwer123</p>
+              	<div class="flex flex-row justify-center gap-4">
+    <form method="POST" action="{{ route('login') }}">
+        @csrf
+            <x-input id="email" class="hidden" type="email" name="email" value="manager@gmail.com" />
+            <x-input id="password" class="hidden" type="password" name="password" value="qwerqwer123"/>
+            <div class="flex items-center justify-center mt-4">
+                <x-button style="background-color: transparent; color: black; width: 200px; border: solid 2px #e5e7eb; display: flex; justify-content: center;">Démo Manager</x-button>
+            </div>
+    </form>
+    <form method="POST" action="{{ route('login') }}">
+        @csrf
+            <x-input id="email" class="hidden" type="email" name="email" value="teleoperateur@gmail.com" />
+            <x-input id="password" class="hidden" type="password" name="password" value="qwerqwer123"/>
+            <div class="flex items-center justify-center mt-4">
+                <x-button style="background-color: transparent; color: black; width: 200px; border: solid 2px #e5e7eb; display: flex; justify-content: center;">Démo Téléoperateur</x-button>
+            </div>
+    </form>
+</div>
                 <p style="margin-top: 2rem; font-weight: 600; color: #F5A524; text-align: center;">Veulliez noter que c'est impossible d’ajouter ou de modifier les données dans les comptes démo.</p>
                 <p style="text-align: center;"><a href="/register" style="font-weight: 500; color: #F5A524; text-decoration: underline;">Créez un compte pour tester pleinement l’application.</a></p>
             </div>
@@ -21,7 +37,7 @@
 
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
-        <form method="POST" action="{{ route('login') }}">
+        <form method="POST" action="{{ route('login') }}":>
             @csrf
 
             <!-- Email Address -->
@@ -60,7 +76,7 @@
                 @endif
             </div>
             <div class="flex items-center justify-center mt-4">
-                <x-button style="width: 8rem;">Connexion</x-button>
+                <x-button>Connexion</x-button>
             </div>
 
         </form>
