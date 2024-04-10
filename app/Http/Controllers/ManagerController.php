@@ -127,10 +127,7 @@ class ManagerController extends Controller
         if (file_exists(public_path(('images/' . $manager->image)))) {
             $manager->image = asset('images/' . $manager->image);
         } else {
-            $manager->image =  Storage::disk('s3')->temporaryUrl(
-                'images/' . $manager->image,
-                Carbon::now()->addSeconds(40)
-            );
+            $manager->image = str_replace('http://', 'https://', Storage::disk('s3')->temporaryUrl('images/' . $manager->image, Carbon::now()->addSeconds(40)));
         }
         $TeleCount = 0;
         $CommCount = 0;
@@ -146,10 +143,7 @@ class ManagerController extends Controller
                 if (file_exists(public_path(('images/' . $i->image)))) {
                     $i->image = asset('images/' . $i->image);
                 } else {
-                    $i->image =  Storage::disk('s3')->temporaryUrl(
-                        'images/' . $i->image,
-                        Carbon::now()->addSeconds(40)
-                    );
+		    $i->image = str_replace('http://', 'https://', Storage::disk('s3')->temporaryUrl('images/' . $i->image, Carbon::now()->addSeconds(40)));
                 }
                 array_push($Teleoperateurs, $i);
             } elseif ($i->type == "commercial") {
@@ -199,10 +193,7 @@ class ManagerController extends Controller
             if (file_exists(public_path(('images/' . $user->image)))) {
                 $user->image = asset('images/' . $user->image);
             } else {
-                $user->image =  Storage::disk('s3')->temporaryUrl(
-                    'images/' . $user->image,
-                    Carbon::now()->addSeconds(40)
-                );
+                $user->image = str_replace('http://', 'https://', Storage::disk('s3')->temporaryUrl('images/' . $user->image, Carbon::now()->addSeconds(40)));
             }
             if ($user) {
                 return view('Views-manager/profileUser', compact('user', 'clients', 'reservedClients'));
